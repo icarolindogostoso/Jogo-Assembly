@@ -63,21 +63,20 @@ esq:
       	j cont
      
 dir:  	
-	
+	jal verificacao
+      	bne $2 $0 arroche
 	sw $20, 0($8)
 	sw $20, 4($8)
       	lw $9, 4096($8)
       	sw $9, 0($8)
       	add $4 $0 $8
-      	jal verificacao
-      	bne $2 $0 arroche
       	addi $8, $8, 4
       	jal timer
       	j cont
       	
 arroche:
-	addi $2 $0 10
-	syscall
+	jal andar_mapa
+	jal timer
 	j cont
      
 baixo:  
@@ -147,9 +146,9 @@ laco_verificacao:
 	beq $9 $8 fim_laco_verificacao
 	mul $12 $9 $11
 	add $12 $12 $10
-	add $20 $20 $12
+	add $21 $20 $12
 	addi $12 $4 4
-	beq $21 $22 colidiu
+	beq $21 $12 colidiu
 	addi $9 $9 1
 	j laco_verificacao
 fim_laco_verificacao:
@@ -199,3 +198,75 @@ colidiu:
 	
 	jr $31
 	
+	
+andar_mapa:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	sw $11, 0($29)
+       	addi $29, $29, -4
+       	sw $12, 0($29)
+       	addi $29, $29, -4
+       	sw $20, 0($29)
+       	addi $29, $29, -4
+       	sw $21, 0($29)
+       	addi $29, $29, -4
+
+	lui $20 0x1001
+	addi $8 $0 16
+	add $9 $0 $0
+laco_andar_mapa_1:
+	beq $8 $9 fim_laco_andar_mapa_1
+	
+	addi $10 $0 32
+	add $11 $0 $0
+	
+laco_andar_mapa_2:
+	beq $10 $11 fim_laco_andar_mapa_2
+	
+	addi $21 $0 31
+	beq $11 $21 pegaproximo
+	
+	lw $12 4($20)
+	sw $12 0($20)
+	
+	addi $20 $20 4
+	j continuacao_desenhar_mapa
+	
+pegaproximo:
+	lw $12 2048($20)
+	sw $12 0($20)
+	addi $20 $20 4
+	j continuacao_desenhar_mapa
+
+continuacao_desenhar_mapa:
+	addi $11 $11 1
+	j laco_andar_mapa_2
+
+fim_laco_andar_mapa_2:
+	
+	addi $9 $9 1
+	j laco_andar_mapa_1
+fim_laco_andar_mapa_1:
+	addi $29, $29, 4                                                    
+       	lw $21, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $20, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $12, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $11, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $10, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $9, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $8, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $31, 0($29)
+	jr $31
