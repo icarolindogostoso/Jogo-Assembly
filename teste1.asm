@@ -63,6 +63,7 @@ esq:
       	j cont
      
 dir:  	
+	add $4 $8 $0
 	jal verificacao
       	bne $2 $0 arroche
 	sw $20, 0($8)
@@ -75,6 +76,7 @@ dir:
       	j cont
       	
 arroche:
+	add $4 $8 $0
 	jal andar_mapa
 	jal timer
 	j cont
@@ -116,7 +118,11 @@ forT:  beq $16, $0, fimT
 fimT:  addi $29, $29, 4                                                    
        lw $16, 0($29)          
        jr $31
-       
+
+# funcao verificacao
+# registradores de entrada: $4
+# registradores usados: $8, $9, $10 $11, $12, $20, $21, $22, $31
+# registradores de saida: $2 
 verificacao:
 	sw $31, 0($29)
        	addi $29, $29, -4
@@ -137,22 +143,22 @@ verificacao:
        	sw $22, 0($29)
        	addi $29, $29, -4
        	
-	lui $20 0x1001
-	addi $8 $0 16
+	lui $20 0x1001 
+	addi $8 $0 16 # comprimento da tela
 	add $9 $0 $0
-	addi $10 $0 64
-	addi $11 $0 128
+	addi $10 $0 64 # centro da tela
+	addi $11 $0 128 # pulo para o debaixo
 laco_verificacao:
-	beq $9 $8 fim_laco_verificacao
-	mul $12 $9 $11
-	add $12 $12 $10
-	add $21 $20 $12
-	addi $12 $4 4
-	beq $21 $12 colidiu
+	beq $9 $8 fim_laco_verificacao # laço para ele fazer isso 16 vezes
+	mul $12 $9 $11 # multiplica o pulo com o i para saber aonde conferir
+	add $12 $12 $10 # adicionar ao meio da tela para saber aonde fica os varios meios da tela
+	add $21 $20 $12 # transforma em um endereço
+	addi $12 $4 4 # pega o endereço que o personagem ta e soma 4 (proxima casa)
+	beq $21 $12 colidiu # se for igual é porque o personagem ta no meio da tela
 	addi $9 $9 1
 	j laco_verificacao
 fim_laco_verificacao:
-	add $2 $0 $0
+	add $2 $0 $0 # se passar por todo o laço e nao encontrar um pixel no meio da tela, retorna 0
 	
 	addi $29, $29, 4                                                    
        	lw $22, 0($29)
@@ -175,7 +181,7 @@ fim_laco_verificacao:
 	
 	jr $31
 colidiu:
-	addi $2 $0 1
+	addi $2 $0 1 # retorna 1
 	
 	addi $29, $29, 4                                                    
        	lw $22, 0($29)
@@ -216,8 +222,11 @@ andar_mapa:
        	addi $29, $29, -4
        	sw $21, 0($29)
        	addi $29, $29, -4
+       	sw $22, 0($29)
+       	addi $29, $29, -4
 
 	lui $20 0x1001
+	addi $22 $0 0xffffff
 	addi $8 $0 16
 	add $9 $0 $0
 laco_andar_mapa_1:
@@ -232,14 +241,17 @@ laco_andar_mapa_2:
 	addi $21 $0 31
 	beq $11 $21 pegaproximo
 	
-	lw $12 4($20)
+	lw $12 4100($20)
 	sw $12 0($20)
+	sw $12 4096($20)
+	sw $22 0($4)
 	
 	addi $20 $20 4
 	j continuacao_desenhar_mapa
 	
 pegaproximo:
 	lw $12 2048($20)
+	sw $12 4096($20)
 	sw $12 0($20)
 	addi $20 $20 4
 	j continuacao_desenhar_mapa
@@ -253,6 +265,8 @@ fim_laco_andar_mapa_2:
 	addi $9 $9 1
 	j laco_andar_mapa_1
 fim_laco_andar_mapa_1:
+	addi $29, $29, 4                                                    
+       	lw $22, 0($29)
 	addi $29, $29, 4                                                    
        	lw $21, 0($29)
        	addi $29, $29, 4                                                    
