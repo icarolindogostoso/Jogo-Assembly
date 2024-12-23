@@ -3,6 +3,7 @@ main:
 	lui $8, 0x1001
        	addi $9, $0, 512
 	addi $10 $0 0xff0000
+	add $19 $0 $0
        
 desenhar_map_1:  
 	beq $9, $0, fim_map_1
@@ -15,6 +16,7 @@ desenhar_map_1:
        	
        	j desenhar_map_1
 fim_map_1:
+	addi $19 $19 1
 	lui $8, 0x1001
        	addi $9, $0, 512
 	addi $10 $0 0x00ff00
@@ -29,6 +31,7 @@ desenhar_map_2:
        	
        	j desenhar_map_2
 fim_map_2:
+	addi $19 $19 1
       	lui $8, 0x1001
       	ori $20, 0xffffff
       	
@@ -64,6 +67,7 @@ esq:
      
 dir:  	
 	add $4 $8 $0
+	add $5 $19 $0
 	jal verificacao
       	bne $2 $0 arroche
 	sw $20, 0($8)
@@ -76,9 +80,18 @@ dir:
       	j cont
       	
 arroche:
+	addi $18 $0 32
+	bne $17 $18 hum1
+	jal desenhar_mapa_3
+hum1:
+	addi $18 $0 63
+	bne $17 $18 hum2
+	addi $19 $19 1
+hum2:
 	add $4 $8 $0
 	jal andar_mapa
 	jal timer
+	addi $17 $17 1
 	j cont
      
 baixo:  
@@ -143,6 +156,8 @@ verificacao:
        	sw $22, 0($29)
        	addi $29, $29, -4
        	
+       	addi $20 $0 3
+       	beq $5 $20 fim_laco_verificacao
 	lui $20 0x1001 
 	addi $8 $0 16 # comprimento da tela
 	add $9 $0 $0
@@ -276,6 +291,40 @@ fim_laco_andar_mapa_1:
        	addi $29, $29, 4                                                    
        	lw $11, 0($29)
        	addi $29, $29, 4                                                    
+       	lw $10, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $9, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $8, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $31, 0($29)
+	jr $31
+
+desenhar_mapa_3:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+
+	lui $8, 0x1001
+       	addi $9, $0, 512
+	addi $10 $0 0x0000ff
+laco_desenhar_map_3:  
+	beq $9, $0, fim_map_3
+
+       	sw $10, 2048($8)
+       	sw $10, 6144($8)
+       
+       	addi $8, $8, 4
+       	addi $9, $9, -1
+       	
+       	j laco_desenhar_map_3
+fim_map_3:
+	addi $29, $29, 4                                                    
        	lw $10, 0($29)
        	addi $29, $29, 4                                                    
        	lw $9, 0($29)
