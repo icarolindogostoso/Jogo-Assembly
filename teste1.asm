@@ -32,6 +32,28 @@ desenhar_map_2:
        	j desenhar_map_2
 fim_map_2:
 	addi $19 $19 1
+	lui $8, 0x1001
+       	addi $9, $0, 6
+	addi $10 $0 0xffff00	
+	addi $8 $8 704
+desenhar_quadrado_loop_1:
+	beq $9 $0 fim_desenhar_quadrado_loop_1
+	addi $16 $0 5
+desenhar_quadrado_loop_2:
+	beq $16 $0 fim_desenhar_quadrado_loop_2
+	
+	sw $10, 2048($8)
+       	sw $10, 6144($8)
+	
+	addi $8 $8 4
+	addi $16 $16 -1
+	j desenhar_quadrado_loop_2
+fim_desenhar_quadrado_loop_2:
+	sub $8 $8 20
+	addi $8 $8 128
+	addi $9 $9 -1
+	j desenhar_quadrado_loop_1
+fim_desenhar_quadrado_loop_1:
       	lui $8, 0x1001
       	ori $20, 0xffffff
       	
@@ -68,6 +90,9 @@ esq:
 dir:  	
 	add $4 $8 $0
 	add $5 $19 $0
+	addi $9 $0 32
+	div $17 $9
+	mfhi $6
 	jal verificacao
       	bne $2 $0 arroche
 	sw $20, 0($8)
@@ -239,6 +264,8 @@ andar_mapa:
        	addi $29, $29, -4
        	sw $22, 0($29)
        	addi $29, $29, -4
+       	sw $23, 0($29)
+       	addi $29, $29, -4
 
 	lui $20 0x1001
 	addi $22 $0 0xffffff
@@ -265,7 +292,14 @@ laco_andar_mapa_2:
 	j continuacao_desenhar_mapa
 	
 pegaproximo:
-	lw $12 2048($20)
+	lui $23 0x1001
+	addi $12 $0 4
+	mul $12 $12 $6
+	add $23 $23 $12
+	addi $12 $0 128
+	mul $12 $12 $9
+	add $23 $23 $12
+	lw $12 2048($23)
 	sw $12 4096($20)
 	sw $12 0($20)
 	addi $20 $20 4
@@ -280,6 +314,8 @@ fim_laco_andar_mapa_2:
 	addi $9 $9 1
 	j laco_andar_mapa_1
 fim_laco_andar_mapa_1:
+	addi $29, $29, 4                                                    
+       	lw $23, 0($29)
 	addi $29, $29, 4                                                    
        	lw $22, 0($29)
 	addi $29, $29, 4                                                    
