@@ -3,10 +3,11 @@ main:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
 	jal desenhar_mapa_1
+	add $23 $2 $0 # vai guardar a posicao inicial do obstaculo
+	addi $19 $0 1 # vai dizer qual obstaculo de qual mapa é
 	addi $20 $20 1
 	
 	jal desenhar_mapa_2
-	add $23 $2 $0 # vai guardar a posicao inicial do obstaculo
 	addi $20 $20 1
 	
 	jal desenhar_personagem
@@ -41,11 +42,13 @@ direita:
 	add $5 $20 $0
 	add $6 $22 $0
 	add $7 $23 $0
+	add $19 $19 $0
 	jal andar_para_direita
 	add $8 $2 $0
 	add $22 $3 $0
 	add $20 $25 $0
 	add $23 $24 $0
+	add $19 $19 $0
 	
 	j continuacao
 	
@@ -80,6 +83,8 @@ desenhar_mapa_1:
        	addi $29 $29 -4
        	sw $10 0($29)
        	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
        	
 	lui $8 0x1001
 	addi $9 $0 512
@@ -96,6 +101,36 @@ laco_desenhar_mapa_1:
 	
 	j laco_desenhar_mapa_1
 fim_laco_desenhar_mapa_1:
+	lui $8 0x1001
+	addi $8 $8 652
+	add $2 $8 $0
+	addi $9 $0 3
+	addi $11 $0 0xffff00
+	
+desenhar_quadrado_mapa_1_loop_1:
+	beq $9 $0 fim_desenhar_quadrado_mapa_1_loop_1
+	addi $10 $0 16
+	
+desenhar_quadrado_mapa_1_loop_2:
+	beq $10 $0 fim_desenhar_quadrado_mapa_1_loop_2
+	
+	sw $11 0($8)
+	sw $11 4096($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	
+	j desenhar_quadrado_mapa_1_loop_2
+fim_desenhar_quadrado_mapa_1_loop_2:
+	
+	addi $8 $8 -64
+	addi $8 $8 128
+	addi $9 $9 -1
+	
+	j desenhar_quadrado_mapa_1_loop_1
+fim_desenhar_quadrado_mapa_1_loop_1:
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
 	addi $29 $29 4                                                    
        	lw $10 0($29)
        	addi $29 $29 4                                                    
@@ -121,8 +156,6 @@ desenhar_mapa_2:
        	addi $29 $29 -4
        	sw $10 0($29)
        	addi $29 $29 -4
-       	sw $11 0($29)
-       	addi $29 $29 -4
        	
 	lui $8 0x1001
 	addi $9 $0 512
@@ -140,42 +173,6 @@ laco_desenhar_mapa_2:
 	j laco_desenhar_mapa_2
 fim_laco_desenhar_mapa_2:
 	
-	lui $8 0x1001
-	addi $8 $8 652
-	addi $9 $0 652
-	addi $9 $9 -12
-	addi $10 $0 128
-	div $9 $10
-	mflo $9
-	add $2 $9 $0
-	addi $10 $0 16
-	sub $9 $10 $9
-	addi $11 $0 0xffff00
-	
-desenhar_quadrado_loop_1:
-	beq $9 $0 fim_desenhar_quadrado_loop_1
-	addi $10 $0 5
-	
-desenhar_quadrado_loop_2:
-	beq $10 $0 fim_desenhar_quadrado_loop_2
-	
-	sw $11 2048($8)
-	sw $11 6144($8)
-	
-	addi $8 $8 4
-	addi $10 $10 -1
-	
-	j desenhar_quadrado_loop_2
-fim_desenhar_quadrado_loop_2:
-	
-	addi $8 $8 -20
-	addi $8 $8 128
-	addi $9 $9 -1
-	
-	j desenhar_quadrado_loop_1
-fim_desenhar_quadrado_loop_1:
-	addi $29 $29 4                                                    
-       	lw $11 0($29)
 	addi $29 $29 4                                                    
        	lw $10 0($29)
        	addi $29 $29 4                                                    
@@ -253,6 +250,80 @@ desenhar_personagem:
        	lw $31 0($29)
        	
       	jr $31
+      	
+#===================================================
+# funcao para desenhar obstaculos novos
+# registradores de entrada:
+# registradores de saida: $2
+
+desenhar_obstaculo_novo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+	
+	lui $8 0x1001
+	addi $8 $8 640
+	addi $9 $0 640
+	addi $10 $0 128
+	div $9 $10
+	mflo $9
+	add $2 $9 $0
+	addi $10 $0 16
+	sub $9 $10 $9
+	addi $11 $0 0xffff00
+	addi $10 $0 32
+	div $6 $10
+	mfhi $12
+	addi $10 $0 4
+	mul $10 $10 $12
+	add $8 $8 $10
+	
+desenhar_obstaculo_loop_1:
+	beq $9 $0 fim_desenhar_obstaculo_loop_1
+	addi $10 $0 5
+	
+desenhar_obstaculo_loop_2:
+	beq $10 $0 fim_desenhar_obstaculo_loop_2
+	
+	sw $11 2048($8)
+	sw $11 6144($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	
+	j desenhar_obstaculo_loop_2
+fim_desenhar_obstaculo_loop_2:
+	
+	addi $8 $8 -20
+	addi $8 $8 128
+	addi $9 $9 -1
+	
+	j desenhar_obstaculo_loop_1
+fim_desenhar_obstaculo_loop_1:
+
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
 	
 #===================================================
 # - funcao para andar para a esquerda
@@ -265,8 +336,39 @@ andar_para_esquerda:
        	sw $8 0($29)
        	addi $29 $29 -4
        	
+       	bne $0 $19 obstaculo_primeiro_mapa_esquerda
+       	
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $5 $0 16
+       	addi $6 $0 5
+       	
+       	j continuacao_andar_esquerda
+       	
+obstaculo_primeiro_mapa_esquerda:
+	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+	addi $5 $0 3
+       	addi $6 $0 16
+       	       	
+       	j continuacao_andar_esquerda
+       	
+       	
+continuacao_andar_esquerda:
        	addi $24 $0 -4
        	jal conferir_colisao
+       	
+       	addi $29 $29 4                                                    
+       	lw $6 0($29)
+	addi $29 $29 4                                                    
+       	lw $5 0($29)
+       	
        	bne $2 $0 nao_anda_esquerda
        	
 	addi $8 $0 0xffffff
@@ -301,7 +403,7 @@ nao_anda_esquerda:
 #===================================================
 # - funcao para andar para a direita
 # - registradores de entrada: $4 (onde o personagem ta), $5 (quantos mapas foram desenhados), $6 (quantas vezes o mapa andou)
-# $7 (a distancia do obstaculo do mapa 2 para o inicio do mapa)
+# $7 (a distancia do obstaculo do mapa 2 para o inicio do mapa), $19 (qual obstaculo de qual mapa)
 # - registradores de saida: $2
 
 andar_para_direita:
@@ -312,8 +414,39 @@ andar_para_direita:
        	sw $9 0($29)
        	addi $29 $29 -4
        	
+       	bne $0 $19 obstaculo_primeiro_mapa_direita
+       	
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $5 $0 16
+       	addi $6 $0 5
+       	
+       	j continuacao_andar_direita
+       	
+obstaculo_primeiro_mapa_direita:
+	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+	addi $5 $0 3
+       	addi $6 $0 16
+       	       	
+       	j continuacao_andar_direita
+       	
+       	
+continuacao_andar_direita:
        	addi $24 $0 4
        	jal conferir_colisao
+       	
+       	addi $29 $29 4                                                    
+       	lw $6 0($29)
+	addi $29 $29 4                                                    
+       	lw $5 0($29)
+       	
        	bne $2 $0 nao_anda_direita
        	
 	jal verificar_metade_mapa
@@ -352,6 +485,8 @@ mexer_mapa:
 	and $9 $8 $7
 	beq $8 $9 obstaculo_identificado
 	
+	bne $19 $0 obstaculo_mapa_1
+	
 	jal conferir_obstaculo
 	
 	add $7 $2 $0
@@ -370,7 +505,30 @@ mexer_mapa:
 	jr $31
 	
 obstaculo_identificado:
+	bne $19 $0 obstaculo_identificado_mapa_1
+	
+	sw $6 0($29)
+       	addi $29 $29 -4
+	
+	addi $6 $0 4
+	j contiuacao_identificacao_obstaculo
+
+obstaculo_identificado_mapa_1:
+
+	sw $6 0($29)
+       	addi $29 $29 -4
+
+	addi $6 $0 16
+	j contiuacao_identificacao_obstaculo
+	
+contiuacao_identificacao_obstaculo:
 	add $7 $7 -4
+	jal conferir_fim_obstaculo
+	
+	addi $29 $29 4                                                    
+       	lw $6 0($29)
+       	
+       	bne $2 $0 obstaculo_terminou
 	
 	add $2 $4 $0
 	add $3 $6 $0
@@ -385,7 +543,54 @@ obstaculo_identificado:
        	lw $31 0($29)
 	jr $31
 	
+obstaculo_terminou:
+	jal desenhar_obstaculo_novo
+	
+	add $24 $2 $0
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $19 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
 nao_anda_direita:
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $7 $0
+	
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+obstaculo_mapa_1:
+	sw $6 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+	
+	addi $6 $0 3
+	addi $5 $0 16
+	jal conferir_obstaculo
+	
+	add $7 $2 $0
+	
+	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $6 0($29)
+	
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
@@ -410,8 +615,39 @@ andar_para_baixo:
        	sw $8 0($29)
        	addi $29 $29 -4
        	
+       	bne $0 $19 obstaculo_primeiro_mapa_baixo
+       	
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $5 $0 16
+       	addi $6 $0 5
+       	
+       	j continuacao_andar_baixo
+       	
+obstaculo_primeiro_mapa_baixo:
+	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+	addi $5 $0 3
+       	addi $6 $0 16
+       	       	
+       	j continuacao_andar_baixo
+       	
+       	
+continuacao_andar_baixo:
        	addi $24 $0 128
-	jal conferir_colisao
+       	jal conferir_colisao
+       	
+       	addi $29 $29 4                                                    
+       	lw $6 0($29)
+	addi $29 $29 4                                                    
+       	lw $5 0($29)
+       	
 	bne $2 $0 nao_anda_baixo
        	
 	addi $8 $0 0xffffff
@@ -454,8 +690,39 @@ andar_para_cima:
        	sw $8 0($29)
        	addi $29 $29 -4
        	
+       	bne $0 $19 obstaculo_primeiro_mapa_cima
+       	
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $5 $0 16
+       	addi $6 $0 5
+       	
+       	j continuacao_andar_cima
+       	
+obstaculo_primeiro_mapa_cima:
+	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $6 0($29)
+       	addi $29 $29 -4
+       	
+	addi $5 $0 3
+       	addi $6 $0 16
+       	       	
+       	j continuacao_andar_cima
+       	
+       	
+continuacao_andar_cima:
        	addi $24 $0 -128
-	jal conferir_colisao
+       	jal conferir_colisao
+       	
+       	addi $29 $29 4                                                    
+       	lw $6 0($29)
+	addi $29 $29 4                                                    
+       	lw $5 0($29)
+       	
 	bne $2 $0 nao_anda_cima
        	
 	addi $8 $0 0xffffff
@@ -797,17 +1064,19 @@ conferir_colisao:
        	addi $29 $29 -4
        	sw $15 0($29)
        	addi $29 $29 -4
+       	sw $16 0($29)
+       	addi $29 $29 -4
        	
 	add $13 $7 $0
 	add $14 $4 $24
 	add $15 $0 $0     	
        
-	addi $8 $0 16
+	add $8 $0 $5
 	add $9 $0 $0
 laco_conferir_colisao_1:
 	beq $8 $9 fim_laco_conferir_colisao_1
 	
-	addi $10 $0 5
+	add $10 $0 $6
 	add $11 $0 $0
 laco_conferir_colisao_2:
 	beq $11 $10 fim_laco_conferir_colisao_2
@@ -819,7 +1088,9 @@ laco_conferir_colisao_2:
 	j laco_conferir_colisao_2
 fim_laco_conferir_colisao_2:
 
-	addi $13 $13 -20
+	addi $16 $0 4
+	mul $16 $16 $6
+	sub $13 $13 $16
 	
 	add $13 $13 128
 	addi $9 $9 1
@@ -827,6 +1098,8 @@ fim_laco_conferir_colisao_2:
 fim_laco_conferir_colisao_1:
 	add $2 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $16 0($29)
 	addi $29 $29 4                                                    
        	lw $15 0($29)
 	addi $29 $29 4                                                    
@@ -852,6 +1125,8 @@ personagem_colidiu_obstaculo:
 	addi $2 $0 1
 	
 	addi $29 $29 4                                                    
+       	lw $16 0($29)
+	addi $29 $29 4                                                    
        	lw $15 0($29)
 	addi $29 $29 4                                                    
        	lw $14 0($29)
@@ -870,6 +1145,65 @@ personagem_colidiu_obstaculo:
        	addi $29 $29 4                                                    
        	lw $31 0($29)
 
+	jr $31
+	
+#=============================================
+# funcao para conferir se o obstaculo acabou
+# registradores de entrada: 
+# registradores de saida: $2
+
+conferir_fim_obstaculo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+	
+	addi $8 $0 0xffff00
+	lw $9 0($7)
+	beq $8 $9 fim_laco_conferir_fim_obstaculo
+	
+	addi $8 $0 4
+	mul $8 $8 $6
+	add $8 $7 $8
+	
+	lui $10 0x1001
+	
+	addi $9 $0 16
+laco_conferir_fim_obstaculo:
+	beq $9 $0 fim_laco_conferir_fim_obstaculo
+	
+	beq $8 $10 chegou_no_limite
+	
+	addi $10 $10 128
+	addi $9 $9 -1
+	j laco_conferir_fim_obstaculo
+fim_laco_conferir_fim_obstaculo:
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	add $2 $0 $0
+	jr $31
+chegou_no_limite:
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	addi $2 $0 1
 	jr $31
 	
 #=============================================
