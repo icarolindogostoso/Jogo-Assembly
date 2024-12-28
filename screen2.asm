@@ -1,7 +1,7 @@
 .text
 ceu_init_m2:  
 	lui $8, 0x1001
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	li $9, 8192
 	li $20, 0x0ec7db
 ceu_m2:
@@ -15,7 +15,7 @@ ceu_m2:
 nuvem_init_m2:
 	lui $8, 0x1001
 	addi $8, $8, 3204
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	li $21, 1
 	li $9, 12
 	li $20, 0xfbfdff
@@ -104,7 +104,7 @@ solo_init_m2:
 	li $20, 0xc89858
 	lui $8, 0x1001
 	addi $8, $8, 26624
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	li $9, 6554
 	
 solo_m2:
@@ -161,7 +161,7 @@ grama_init_m2:
 	li $20, 0x00c800
 	lui $8, 0x1001
 	addi $8, $8, 26624
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	li $9, 128
 	
 grama_m2:
@@ -209,7 +209,7 @@ dg_m2:
 moita_init_m2:
 	lui $8, 0x1001
 	addi $8, $8, 21156
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	li $9, 5
 	li $20, 0x03f906
 	
@@ -311,7 +311,7 @@ moita_m2:
 dm_m2: 
 	lui $8, 0x1001
 	addi $8, $8, 21156
-	addi $8, $8, 32768
+	addi $8, $8, 32768 # converte para proxima tela
 	
 	sw $20, 1624($8)
 	sw $20, 3688($8)
@@ -322,11 +322,154 @@ dm_m2:
 	sw $20, 69224($8)
 	sw $20, 69736($8)
 	sw $20, 69732($8)
-	j fim
+	j topo_cano_init
+	
+topo_cano_init:
+	lui $8, 0x1001
+	addi $8, $8, 19004
+	addi $8, $8, 32768 # converte para proxima tela
+	li $20, 0x00ff50
+	li $9, 16
+	li $10, 4
+	li $11, 1
+	
+topo_cano:
+	beq $9, $0 pltc
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j topo_cano	
 
+pltc:
+	beq $10, $0, borda_tchi
+	addi $8, $8, 448
+	li $9, 16
+	subi $10, $10, 1
+	j topo_cano
+	
+borda_tchi:
+	subi $8, $8, 2628
+	li $20, 0x000000
+	li $9, 18
+borda_tch:
+	beq $9, $0 borda_tcvi
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	sw $20, 3072($8)
+	sw $20, 68608($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j borda_tch
+	
+borda_tcvi:
+	subi $8, $8, 72
+	li $9, 6
+	
+borda_tcv:
+	beq $9, $0 prox_tc
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	sw $20, 68($8)
+	sw $20, 65604($8)
+	
+	addi $8, $8, 512
+	subi $9, $9, 1
+	j borda_tcv
+
+prox_tc:
+	beq $11, $0 cano_init
+	subi $11, $11, 1
+	lui $8, 0x1001
+	addi $8, $8, 17292
+	addi $8, $8, 32768 # converte para proxima tela
+	li $20, 0x00ff50
+	li $9, 16
+	li $10, 4
+	j topo_cano
+	
+# cano
+
+cano_init:
+	lui $8, 0x1001
+	addi $8, $8, 22592
+	addi $8, $8, 32768 # converte para proxima tela
+	li $20, 0x00ff50
+	li $9, 14
+	li $10, 7
+	li $11, 1
+	li $21, 4156
+	li $13, 9
+
+cano:
+	beq $9, $0 plc
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j cano
+plc:
+	beq $10, $0, borda_cano_init
+	addi $8, $8, 456
+	li $9, 14
+	subi $10, $10, 1
+	j cano
+	
+borda_cano_init:
+	sub $8, $8, $21
+	li $20, 0x000000
+	li $9, 16
+borda_ch:
+	beq $9, $0 borda_cvi
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j borda_ch
+	
+borda_cvi:
+	subi $8, $8, 64
+	move $9, $13
+	
+borda_cv:
+	beq $9, $0 prox_cano
+	
+	sw $20, 0($8)
+	sw $20, 65536($8)
+	sw $20, 60($8)
+	sw $20, 65596($8)
+	
+	addi $8, $8, 512
+	subi $9, $9, 1
+	j borda_cv
+	
+prox_cano:
+	beq $11, $0, fim
+	li $11, 0
+	
+	lui $8, 0x1001
+	addi $8, $8, 20880
+	addi $8, $8, 32768 # converte para proxima tela
+	
+	li $20, 0x00ff50
+	
+	li $9, 14
+	li $10, 11
+	li $21, 6204
+	li $13, 13
+	j cano
+	
 fim:
 	li $2, 10
 	syscall
 	
-
        
