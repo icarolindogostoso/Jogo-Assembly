@@ -83,6 +83,8 @@ desenhar_mapa_1:
        	addi $29 $29 -4
        	sw $21 0($29)
        	addi $29 $29 -4
+       	sw $22 0($29)
+       	addi $29 $29 -4
        	
 ceu_init:  
 	lui $8, 0x1001
@@ -289,6 +291,7 @@ dg:
 moita_init:
 	lui $8, 0x1001
 	addi $8, $8, 21076
+	addi $22 $8 65536
 	li $9, 5
 	li $20, 0x03f906
 	
@@ -296,71 +299,112 @@ moita:
 	beq $9, $0, dm
 	#line 1
 	sw $20, 52($8)
+	sw $20, 52($22)
 	
 	#line 2
 	sw $20, 560($8)
+	sw $20, 560($22)
 	sw $20, 568($8)
+	sw $20, 568($22)
 	
 	#line 3
 	sw $20, 1064($8)
+	sw $20, 1064($22)
 	sw $20, 1080($8)
+	sw $20, 1080($22)
 	
 	#line 4
 	sw $20, 1576($8)
+	sw $20, 1576($22)
 	sw $20, 1596($8)
+	sw $20, 1596($22)
 	
 	#line 5
 	sw $20, 2088($8)
+	sw $20, 2088($22)
 	sw $20, 2108($8)
+	sw $20, 2108($22)
 	sw $20, 2120($8)
+	sw $20, 2120($22)
 	
 	#line6
 	sw $20, 2596($8)
+	sw $20, 2596($22)
 	sw $20, 2616($8)
+	sw $20, 2616($22)
 	sw $20, 2632($8)
+	sw $20, 2632($22)
 	
 	#line7
 	sw $20, 3104($8)
+	sw $20, 3104($22)
 	sw $20, 3124($8)
+	sw $20, 3124($22)
 	sw $20, 3144($8)
+	sw $20, 3144($22)
 	
 	#line 8*
 	sw $20, 3604($8)
+	sw $20, 3604($22)
 	sw $20, 3624($8)
+	sw $20, 3624($22)
 	sw $20, 3644($8)
+	sw $20, 3644($22)
 	sw $20, 3660($8)
+	sw $20, 3660($22)
 	
 	#line 9
 	sw $20, 4112($8)
+	sw $20, 4112($22)
 	sw $20, 4132($8)
+	sw $20, 4132($22)
 	sw $20, 4152($8)
+	sw $20, 4152($22)
 	sw $20, 4172($8)
+	sw $20, 4172($22)
 	
 	#line 10
 	sw $20, 4620($8)
+	sw $20, 4620($22)
 	sw $20, 4640($8)
+	sw $20, 4640($22)
 	sw $20, 4660($8)
+	sw $20, 4660($22)
 	sw $20, 4680($8)
+	sw $20, 4680($22)
 	sw $20, 4696($8)
+	sw $20, 4696($22)
 	
 	#line 11
 	sw $20, 5132($8)
+	sw $20, 5132($22)
 	sw $20, 5152($8)
+	sw $20, 5152($22)
 	sw $20, 5172($8)
+	sw $20, 5172($22)
 	sw $20, 5192($8)
+	sw $20, 5192($22)
 	sw $20, 5208($8)
+	sw $20, 5208($22)
 	
 	addi $8, $8, 4
+	addi $22 $22 4
 	addi $9, $9, -1
 	j moita
 dm: 
 	lui $8, 0x1001
-	addi $8, $8, 21076
+	addi $8, $8, 21116
+	addi $22 $8 98304
+	addi $8 $8 32768
 	
 	sw $20, 1624($8)
+	sw $20, 1624($22)
 	sw $20, 3688($8)
+	sw $20, 3688($22)
 	sw $20, 4200($8)
+	sw $20, 4200($22)
 	sw $20, 4196($8)
+	sw $20, 4196($22)
 	j tijolo_init
 	
 tijolo_init:
@@ -535,6 +579,8 @@ interro:
 	
 fim:
 	addi $29 $29 4                                                    
+       	lw $22 0($29)
+	addi $29 $29 4                                                    
        	lw $21 0($29)
 	addi $29 $29 4                                                    
        	lw $20 0($29)
@@ -567,107 +613,352 @@ desenhar_mapa_2:
        	addi $29 $29 -4
        	sw $11 0($29)
        	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	sw $21 0($29)
+       	addi $29 $29 -4
+       	sw $22 0($29)
+       	addi $29 $29 -4
        	
-	lui $8 0x1001
-	addi $9 $0 8192
-	addi $10 $0 0x00ff00
-
-laco_desenhar_mapa_2:
-	beq $9 $0 fim_laco_desenhar_mapa_2
+ceu_init_mapa_2:  
+	lui $8, 0x1001
+	addi $22 $8 98304
+	addi $8 $8 32768
+	li $9, 8192
+	li $20, 0x0ec7db
+ceu_mapa_2:
+	beq $9, $0, nuvem_init_mapa_2
+	sw $20, 0($8)
+	sw $20, 0($22)
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9, -1
+	j ceu_mapa_2
+nuvem_init_mapa_2:
+	lui $8, 0x1001
+	addi $8, $8, 612
+	addi $22 $8 98304
+	addi $8 $8 32768
+	li $21, 1
+	li $9, 12
+	li $20, 0xfbfdff
 	
-	sw $10 32768($8)
-	sw $10 98304($8)
+nuvem_mapa_2:
+	beq $9, $0, proxima_nuvem_mapa_2
+	#linha 1
+	sw $20, 16($8)
+	sw $20, 16($22)
 	
-	addi $8 $8 4
-	addi $9 $9 -1
+	# linha 2 e 3
+	sw $20, 520($8)
+	sw $20, 520($22)
+	sw $20, 532($8)
+	sw $20, 532($22)
 	
-	j laco_desenhar_mapa_2
-fim_laco_desenhar_mapa_2:
-	lui $8 0x1001
-	addi $8 $8 10288
-	add $2 $8 $0
-	addi $9 $0 64
-	addi $11 $0 0xffff00
+	sw $20, 1032($8)
+	sw $20, 1032($22)
+	sw $20, 1068($8)
+	sw $20, 1068($22)
 	
-desenhar_quadrado_1_mapa_2_loop_1:
-	beq $9 $0 fim_desenhar_quadrado_1_mapa_2_loop_1
-	addi $10 $0 20
+	# linha 4
+	sw $20, 1532($8)
+	sw $20, 1532($22)
+	sw $20, 1580($8)
+	sw $20, 1580($22)
+	sw $20, 1588($8)
+	sw $20, 1588($22)
+	# linha 5 a 8
+	sw $20, 2040($8)
+	sw $20, 2040($22)
+	sw $20, 2080($8)
+	sw $20, 2080($22)
+	sw $20, 2104($8)
+	sw $20, 2104($22)
 	
-desenhar_quadrado_1_mapa_2_loop_2:
-	beq $10 $0 fim_desenhar_quadrado_1_mapa_2_loop_2
+	sw $20, 2552($8)
+	sw $20, 2552($22)
+	sw $20, 2568($8)
+	sw $20, 2568($22)
+	sw $20, 2616($8)
+	sw $20, 2616($22)
 	
-	sw $11 32768($8)
-	sw $11 98304($8)
+	sw $20, 3064($8)
+	sw $20, 3064($22)
+	sw $20, 3080($8)
+	sw $20, 3080($22)
+	sw $20, 3128($8)
+	sw $20, 3128($22)
 	
-	addi $8 $8 4
-	addi $10 $10 -1
+	sw $20, 3576($8)
+	sw $20, 3576($22)
+	sw $20, 3592($8)
+	sw $20, 3592($22)
+	sw $20, 3640($8)
+	sw $20, 3640($22)
 	
-	j desenhar_quadrado_1_mapa_2_loop_2
-fim_desenhar_quadrado_1_mapa_2_loop_2:
+	# linha 9
+	sw $20, 4092($8)
+	sw $20, 4092($22)
+	sw $20, 4140($8)
+	sw $20, 4140($22)
+	sw $20, 4148($8)
+	sw $20, 4148($22)
 	
-	addi $8 $8 -80
-	addi $8 $8 512
-	addi $9 $9 -1
+	# linha 10
+	sw $20, 4632($8)
+	sw $20, 4632($22)
 	
-	j desenhar_quadrado_1_mapa_2_loop_1
-fim_desenhar_quadrado_1_mapa_2_loop_1:
-	lui $8 0x1001
-	addi $8 $8 14704
-	add $2 $8 $0
-	addi $9 $0 64
-	addi $11 $0 0xffff00
 	
-desenhar_quadrado_2_mapa_2_loop_1:
-	beq $9 $0 fim_desenhar_quadrado_2_mapa_2_loop_1
-	addi $10 $0 20
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9, -1
+	j nuvem_mapa_2
+proxima_nuvem_mapa_2:
+	beq $21 $0 solo_init_mapa_2
+	addi $21, $21, -1
+	addi $8, $8, 3296
+	li $9, 12
+	j nuvem_mapa_2
 	
-desenhar_quadrado_2_mapa_2_loop_2:
-	beq $10 $0 fim_desenhar_quadrado_2_mapa_2_loop_2
+# chao/piso/solo
 	
-	sw $11 32768($8)
-	sw $11 98304($8)
+solo_init_mapa_2:
+	li $20, 0xc89858
+	lui $8, 0x1001
+	addi $8, $8, 26624
+	addi $22 $8 98304
+	addi $8 $8 32768
+	li $9, 1536
 	
-	addi $8 $8 4
-	addi $10 $10 -1
+solo_mapa_2:
+	beq $9, $0, detalhe_solo_init_mapa_2
+	sw $20, 0($8)
+	sw $20, 0($22)
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9, -1
+	j solo_mapa_2
 	
-	j desenhar_quadrado_2_mapa_2_loop_2
-fim_desenhar_quadrado_2_mapa_2_loop_2:
 	
-	addi $8 $8 -80
-	addi $8 $8 512
-	addi $9 $9 -1
+detalhe_solo_init_mapa_2:
+	#li $20, 0xe0c050
+	#li $21, 2
+	#lui $8, 0x1001
+	#addi $8, $8, 26624
+	#addi $22 $8 98304
+	#addi $8 $8 32768
+	#li $9, 4
+detalhe_solo_mapa_2:
+	#beq $9, $0, npds_mapa_2
 	
-	j desenhar_quadrado_2_mapa_2_loop_1
-fim_desenhar_quadrado_2_mapa_2_loop_1:
-	lui $8 0x1001
-	addi $8 $8 26624
-	add $2 $8 $0
-	addi $9 $0 12
-	addi $11 $0 0x00ffff
+	#sw $20, 0($8)
+	#sw $20, 0($22)
+	#sw $20, 4($8)
+	#sw $20, 4($22)
+	#sw $20, 512($8)
+	#sw $20, 512($22)
+	#sw $20, 516($8)
+	#sw $20, 516($22)
+	#sw $20, 1024($8)
+	#sw $20, 1024($22)
+	#sw $20, 1028($8)
+	#sw $20, 1028($22)
 	
-desenhar_quadrado_3_mapa_2_loop_1:
-	beq $9 $0 fim_desenhar_quadrado_3_mapa_2_loop_1
-	addi $10 $0 128
+	#sw $20, 1036($8)
+	#sw $20, 1036($22)
+	#sw $20, 1548($8)
+	#sw $20, 1548($22)
 	
-desenhar_quadrado_3_mapa_2_loop_2:
-	beq $10 $0 fim_desenhar_quadrado_3_mapa_2_loop_2
+	#addi $8, $8, 32
+	#addi $22 $22 32
+	#addi $9, $9, -1
+	#j detalhe_solo_mapa_2
+npds_mapa_2:
+	#beq $21, $0 grama_init_mapa_2
+	#addi $21, $21, -1
+	#addi $8, $8, 2604
+	#addi $22 $22 2604
+	#li $9, 4
+	#j detalhe_solo_mapa_2
 	
-	sw $11 32768($8)
-	sw $11 98304($8)
+grama_init_mapa_2:
+	li $20, 0x00c800
+	lui $8, 0x1001
+	addi $8, $8, 26624
+	addi $22 $8 98304
+	addi $8 $8 32768
+	li $9, 128
 	
-	addi $8 $8 4
-	addi $10 $10 -1
+grama_mapa_2:
+	beq $9, $0, dg_init_mapa_2
 	
-	j desenhar_quadrado_3_mapa_2_loop_2
-fim_desenhar_quadrado_3_mapa_2_loop_2:
+	sw $20, 0($8)
+	sw $20, 0($22)
+	sw $20, 512($8)
+	sw $20, 512($22)
 	
-	addi $8 $8 -512
-	addi $8 $8 512
-	addi $9 $9 -1
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9, -1
+	j grama_mapa_2
+dg_init_mapa_2:
+	li $21, 0x786818
+	li $9, 26
 	
-	j desenhar_quadrado_3_mapa_2_loop_1
-fim_desenhar_quadrado_3_mapa_2_loop_1:
+dg_mapa_2:
+	beq $9, $0, moita_init_mapa_2
 	
+	sw $20, 0($8)
+	sw $20, 0($22)
+	sw $20, 4($8)
+	sw $20, 4($22)
+	sw $20, 12($8)
+	sw $20, 12($22)
+	
+	# sombras
+	sw $21, 8($8)
+	sw $21, 8($22)
+	sw $21, 16($8)
+	sw $21, 16($22)
+	sw $21, 512($8)
+	sw $21, 512($22)
+	sw $21, 516($8)
+	sw $21, 516($22)
+	sw $21, 524($8)
+	sw $21, 524($22)
+	
+	addi $8, $8, 20
+	addi $22 $22 20
+	addi $9, $9, -1
+	j dg_mapa_2
+moita_init_mapa_2:
+	lui $8, 0x1001
+	addi $8, $8, 21116
+	addi $22 $8 98304
+	addi $8 $8 32768
+	li $9, 5
+	li $20, 0x03f906
+	
+moita_mapa_2:
+	beq $9, $0, dm_mapa_2
+	#line 1
+	sw $20, 52($8)
+	sw $20, 52($22)
+	
+	#line 2
+	sw $20, 560($8)
+	sw $20, 560($22)
+	sw $20, 568($8)
+	sw $20, 568($22)
+	
+	#line 3
+	sw $20, 1064($8)
+	sw $20, 1064($22)
+	sw $20, 1080($8)
+	sw $20, 1080($22)
+	
+	#line 4
+	sw $20, 1576($8)
+	sw $20, 1576($22)
+	sw $20, 1596($8)
+	sw $20, 1596($22)
+	
+	#line 5
+	sw $20, 2088($8)
+	sw $20, 2088($22)
+	sw $20, 2108($8)
+	sw $20, 2108($22)
+	sw $20, 2120($8)
+	sw $20, 2120($22)
+	
+	#line6
+	sw $20, 2596($8)
+	sw $20, 2596($22)
+	sw $20, 2616($8)
+	sw $20, 2616($22)
+	sw $20, 2632($8)
+	sw $20, 2632($22)
+	
+	#line7
+	sw $20, 3104($8)
+	sw $20, 3104($22)
+	sw $20, 3124($8)
+	sw $20, 3124($22)
+	sw $20, 3144($8)
+	sw $20, 3144($22)
+	
+	#line 8*
+	sw $20, 3604($8)
+	sw $20, 3604($22)
+	sw $20, 3624($8)
+	sw $20, 3624($22)
+	sw $20, 3644($8)
+	sw $20, 3644($22)
+	sw $20, 3660($8)
+	sw $20, 3660($22)
+	
+	#line 9
+	sw $20, 4112($8)
+	sw $20, 4112($22)
+	sw $20, 4132($8)
+	sw $20, 4132($22)
+	sw $20, 4152($8)
+	sw $20, 4152($22)
+	sw $20, 4172($8)
+	sw $20, 4172($22)
+	
+	#line 10
+	sw $20, 4620($8)
+	sw $20, 4620($22)
+	sw $20, 4640($8)
+	sw $20, 4640($22)
+	sw $20, 4660($8)
+	sw $20, 4660($22)
+	sw $20, 4680($8)
+	sw $20, 4680($22)
+	sw $20, 4696($8)
+	sw $20, 4696($22)
+	
+	#line 11
+	sw $20, 5132($8)
+	sw $20, 5132($22)
+	sw $20, 5152($8)
+	sw $20, 5152($22)
+	sw $20, 5172($8)
+	sw $20, 5172($22)
+	sw $20, 5192($8)
+	sw $20, 5192($22)
+	sw $20, 5208($8)
+	sw $20, 5208($22)
+	
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9, -1
+	j moita_mapa_2
+dm_mapa_2: 
+	lui $8, 0x1001
+	addi $8, $8, 21116
+	addi $22 $8 98304
+	addi $8 $8 32768
+	
+	sw $20, 1624($8)
+	sw $20, 1624($22)
+	sw $20, 3688($8)
+	sw $20, 3688($22)
+	sw $20, 4200($8)
+	sw $20, 4200($22)
+	sw $20, 4196($8)
+	sw $20, 4196($22)
+	j fim_mapa_2
+	
+fim_mapa_2:
+	
+	addi $29 $29 4                                                    
+       	lw $22 0($29)
+	addi $29 $29 4                                                    
+       	lw $21 0($29)
+	addi $29 $29 4                                                    
+       	lw $20 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
