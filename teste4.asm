@@ -2263,10 +2263,10 @@ desenhar_personagem:
 	add $8 $4 $0
 	addi $9 $0 0xffffff
 	
-	addi $10 $0 16
+	addi $10 $0 8
 laco_personagem_1:
 	beq $10 $0 fim_laco_personagem_1
-	addi $11 $0 16
+	addi $11 $0 8
 laco_personagem_2:
 	beq $11 $0 fim_laco_personagem_2
 	
@@ -2276,7 +2276,7 @@ laco_personagem_2:
 	addi $11 $11 -1
 	j laco_personagem_2
 fim_laco_personagem_2:
-	addi $8 $8 -64
+	addi $8 $8 -32
 	addi $8 $8 512
 	addi $10 $10 -1
 	j laco_personagem_1
@@ -2300,6 +2300,14 @@ andar_para_esquerda:
 	sw $31 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
        	addi $29 $29 -4
        	
        	add $8 $0 $0
@@ -2366,33 +2374,66 @@ andar_para_esquerda:
        	
        	bne $8 $0 nao_anda_esquerda
        	
-	addi $8 $0 0xffffff
+	addi $8 $4 -16
+	addi $9 $4 16
+	add $2 $8 $0
 	
-	sw $8 0($4)
-	sw $8 -4($4)
+	add $4 $8 $0
+	jal desenhar_personagem
 	
-	lw $8 65536($4)
-	sw $8 0($4)
+	addi $10 $0 8
 	
-	addi $4 $4 -4
+laco_1_andar_esquerda:
+	beq $10 $0 fim_laco_1_andar_esquerda
 	
+	addi $11 $0 4
+laco_2_andar_esquerda:
+	beq $11 $0 fim_laco_2_andar_esquerda
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_esquerda
+fim_laco_2_andar_esquerda:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_esquerda
+fim_laco_1_andar_esquerda:
 	jal timer
 	
-	add $2 $4 $0
-	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
       	addi $29 $29 4                                                    
        	lw $31 0($29)
+       	
 	jr $31
 	
 nao_anda_esquerda:
 	add $2 $4 $0
 	
 	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
        	lw $8 0($29)
       	addi $29 $29 4                                                    
        	lw $31 0($29)
+       	
 	jr $31
 	
 #===================================================
@@ -2410,6 +2451,8 @@ andar_para_direita:
        	sw $10 0($29)
        	addi $29 $29 -4
        	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
        	addi $29 $29 -4
        	
        	add $8 $0 $0
@@ -2479,28 +2522,38 @@ andar_para_direita:
 	jal verificar_metade_mapa
 	bne $2 $0 mexer_mapa
 	
-	addi $8 $4 4
+	addi $8 $4 16
 	add $9 $4 $0
 	
 	add $4 $8 $0
 	jal desenhar_personagem
 	
-	addi $10 $0 16
+	addi $10 $0 8
 	
-laco_andar_direita:
-	beq $10 $0 fim_laco_andar_direita
-	lw $11 65536($9)
-	sw $11 0($9)
+laco_1_andar_direita:
+	beq $10 $0 fim_laco_1_andar_direita
+	addi $11 $0 4
+laco_2_andar_direita:
+	beq $11 $0 fim_laco_2_andar_direita
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_direita
+fim_laco_2_andar_direita:
+	addi $9 $9 -16
 	addi $9 $9 512
 	addi $10 $10 -1
-	j laco_andar_direita
-fim_laco_andar_direita:
+	j laco_1_andar_direita
+fim_laco_1_andar_direita:
 	jal timer
 	
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -2521,6 +2574,8 @@ mexer_mapa:
 	add $3 $6 $0
 	add $25 $5 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -2567,6 +2622,8 @@ andar_para_baixo:
        	sw $10 0($29)
        	addi $29 $29 -4
        	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
        	addi $29 $29 -4
        	
        	add $8 $0 $0
@@ -2633,25 +2690,37 @@ andar_para_baixo:
        	
        	bne $8 $0 nao_anda_baixo
        	
-	addi $8 $4 512
+	addi $8 $4 2048
 	add $9 $4 $0
 	add $2 $8 $0
 	
 	add $4 $8 $0
 	jal desenhar_personagem
 	
-	addi $10 $0 16
+	addi $10 $0 4
 	
-laco_andar_baixo:
-	beq $10 $0 fim_laco_andar_baixo
-	lw $11 65536($9)
-	sw $11 0($9)
+laco_1_andar_baixo:
+	beq $10 $0 fim_laco_1_andar_baixo
+	
+	addi $11 $0 8
+laco_2_andar_baixo:
+	beq $11 $0 fim_laco_2_andar_baixo
+	
+	lw $12 65536($9)
+	sw $12 0($9)
 	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_baixo
+fim_laco_2_andar_baixo:
+	addi $9 $9 -32
+	addi $9 $9 512
 	addi $10 $10 -1
-	j laco_andar_baixo
-fim_laco_andar_baixo:
+	j laco_1_andar_baixo
+fim_laco_1_andar_baixo:
 	jal timer
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -2667,6 +2736,8 @@ fim_laco_andar_baixo:
 nao_anda_baixo:
 	add $2 $4 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -2688,6 +2759,14 @@ andar_para_cima:
 	sw $31 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
        	addi $29 $29 -4
        	
        	add $8 $0 $0
@@ -2754,20 +2833,43 @@ andar_para_cima:
        	
        	bne $8 $0 nao_anda_cima
        	
-	addi $8 $0 0xffffff
+	addi $8 $4 -2048
+	add $9 $4 2048
+	add $2 $8 $0
 	
-	sw $8 0($4)
-	sw $8 -512($4)
+	add $4 $8 $0
+	jal desenhar_personagem
 	
-	lw $8 65536($4)
-	sw $8 0($4)
+	addi $10 $0 4
 	
-	addi $4 $4 -512
+laco_1_andar_cima:
+	beq $10 $0 fim_laco_1_andar_cima
 	
+	addi $11 $0 8
+laco_2_andar_cima:
+	beq $11 $0 fim_laco_2_andar_cima
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_cima
+fim_laco_2_andar_cima:
+	addi $9 $9 -32
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_cima
+fim_laco_1_andar_cima:
 	jal timer
 	
-	add $2 $4 $0
-	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
       	addi $29 $29 4                                                    
@@ -2777,6 +2879,14 @@ andar_para_cima:
 nao_anda_cima:
 	add $2 $4 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
       	addi $29 $29 4                                                    
