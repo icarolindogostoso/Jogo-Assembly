@@ -2259,6 +2259,10 @@ desenhar_personagem:
        	addi $29 $29 -4
        	sw $9 0($29)
        	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
        	
 	add $8 $4 $0
 	addi $9 $0 0xffffff
@@ -2282,6 +2286,10 @@ fim_laco_personagem_2:
 	j laco_personagem_1
 fim_laco_personagem_1:
 	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
 	addi $29 $29 4                                                    
        	lw $9 0($29)
        	addi $29 $29 4                                                    
@@ -2594,6 +2602,8 @@ nao_anda_direita:
 	add $3 $6 $0
 	add $25 $5 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -2936,7 +2946,7 @@ laco_verificacao:
 	add $13 $13 $11
 	add $8 $8 $13
 	
-	addi $14 $4 4
+	addi $14 $4 16
 	
 	beq $8 $14 meio_da_tela
 	
@@ -3143,7 +3153,7 @@ andar_mapa_loop_2:
 	sw $14 1548($8)
 	sw $14 67084($8)
 	
-	sw $9 0($4)
+	jal desenhar_personagem
 	
 	addi $8 $8 16
 	j continuacao_andar_mapa
@@ -3272,14 +3282,43 @@ conferir_colisao:
        	addi $29 $29 -4
 	sw $8 0($29)
        	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
        	
 	add $8 $4 $24
-	lw $8 0($8)
 	
-	beq $8 $23 houve_colisao
+	addi $9 $0 8
+laco_conferir_colisao_1:
+	beq $9 $0 fim_laco_conferir_colisao_1
+	addi $10 $0 8
+laco_conferir_colisao_2:
+	beq $10 $0 fim_laco_conferir_colisao_2
+	
+	lw $11 0($8)
+	beq $11 $23 houve_colisao
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_conferir_colisao_2
+fim_laco_conferir_colisao_2:
+	addi $8 $8 -32
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_conferir_colisao_1
+fim_laco_conferir_colisao_1:
 	
 	add $2 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
        	addi $29 $29 4                                                    
@@ -3290,6 +3329,12 @@ conferir_colisao:
 houve_colisao:
 	addi $2 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
        	addi $29 $29 4                                                    
