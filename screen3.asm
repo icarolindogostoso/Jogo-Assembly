@@ -1,7 +1,7 @@
 .text
 ceu_init_m3:  
 	lui $8, 0x1001
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $9, 8192
 	li $20, 0x0ec7db
 ceu_m3:
@@ -15,7 +15,7 @@ ceu_m3:
 nuvem_init_m3:
 	lui $8, 0x1001
 	addi $8, $8, 5212
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $21, 1
 	li $9, 12
 	li $20, 0xfbfdff
@@ -104,7 +104,7 @@ solo_init_m3:
 	li $20, 0xc89858
 	lui $8, 0x1001
 	addi $8, $8, 26624
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $9, 6554
 	
 solo_m3:
@@ -121,7 +121,7 @@ detalhe_solo_init_m3:
 	li $21, 2
 	lui $8, 0x1001
 	addi $8, $8, 26624
-	addi $8, $8, 32768
+	addi $8, $8, 65536
 	li $9, 16
 
 detalhe_solo_m3:
@@ -162,7 +162,7 @@ grama_init_m3:
 	li $20, 0x00c800
 	lui $8, 0x1001
 	addi $8, $8, 26624
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $9, 128
 	
 grama_m3:
@@ -210,7 +210,7 @@ dg_m3:
 moita_init_m3:
 	lui $8, 0x1001
 	addi $8, $8, 21324
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $9, 5
 	li $20, 0x03f906
 	
@@ -330,7 +330,7 @@ dm_m3:
 topo_cano_init_m3:
 	lui $8, 0x1001
 	addi $8, $8, 19004
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $20, 0x00ff50
 	li $9, 16
 	li $10, 4
@@ -391,7 +391,7 @@ borda_tcv_m3:
 cano_init_m3:
 	lui $8, 0x1001
 	addi $8, $8, 22592
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $20, 0x00ff50
 	li $9, 14
 	li $10, 7
@@ -448,7 +448,7 @@ borda_cv_m3:
 buraco_init:
 	lui $8, 0x1001
 	addi $8, $8, 26800
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $20, 0x0ec7db
 	li $9, 18
 	li $10, 10
@@ -489,7 +489,7 @@ dead_line:
 tijolo_init_m3:
 	lui $8, 0x1001
 	addi $8, $8, 11572
-	addi $8, $8, 32768 # converte para proxima tela
+	addi $8, $8, 65536 # converte para proxima tela
 	li $20, 0xed6408
 	li $9, 11
 	li $10, 11
