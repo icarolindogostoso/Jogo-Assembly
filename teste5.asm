@@ -2430,27 +2430,27 @@ detalhe_roupa:
 	
 	sw $10, 3592($8)
 	sw $10, 3608($8)
-cabeça_init:
+cabeÃ§a_init:
 
 	addi $8, $8, 1024
 	li $9, 4
 	li $10, 2
 	li $20, 0xffd7a4
-cabeça:
+cabeÃ§a:
 	beq $9, $0 plc_player
 		
 	sw $20, 12($8)
 	
 	addi $8, $8, 4
 	subi $9, $9, 1
-	j cabeça
+	j cabeÃ§a
 plc_player:
-	beq $10, $0 detalhe_cabeça
+	beq $10, $0 detalhe_cabeÃ§a
 	subi $10, $10, 1
 	addi $8, $8, 496
 	li $9, 4
-	j cabeça
-detalhe_cabeça:
+	j cabeÃ§a
+detalhe_cabeÃ§a:
 	subi $8, $8, 1044
 	li $9, 0x784936
 	li $10, 0x000001
@@ -2563,27 +2563,27 @@ detalhe_roupa_personagem_esquerda:
 	
 	sw $10, 3588($8)
 	sw $10, 3604($8)
-cabeça_init_personagem_esquerda:
+cabeÃ§a_init_personagem_esquerda:
 
 	addi $8, $8, 1024
 	li $9, 4
 	li $10, 2
 	li $20, 0xffd7a4
-cabeça_personagem_esquerda:
+cabeÃ§a_personagem_esquerda:
 	beq $9, $0 plc_player_personagem_esquerda
 		
 	sw $20, 4($8)
 	
 	addi $8, $8, 4
 	subi $9, $9, 1
-	j cabeça_personagem_esquerda
+	j cabeÃ§a_personagem_esquerda
 plc_player_personagem_esquerda:
-	beq $10, $0 detalhe_cabeça_personagem_esquerda
+	beq $10, $0 detalhe_cabeÃ§a_personagem_esquerda
 	subi $10, $10, 1
 	addi $8, $8, 496
 	li $9, 4
-	j cabeça_personagem_esquerda
-detalhe_cabeça_personagem_esquerda:
+	j cabeÃ§a_personagem_esquerda
+detalhe_cabeÃ§a_personagem_esquerda:
 	subi $8, $8, 1044
 	li $9, 0x784936
 	li $10, 0x000001
@@ -2703,6 +2703,10 @@ andar_para_esquerda:
        	bne $8 $0 nao_anda_esquerda
        	
 	addi $8 $4 -16
+	
+	jal verificar_saiu_da_tela
+	bne $2 $0 nao_anda_esquerda
+	
 	addi $9 $4 16
 	add $2 $8 $0
 	
@@ -3021,6 +3025,10 @@ andar_para_baixo:
        	bne $8 $0 nao_anda_baixo
        	
 	addi $8 $4 2048
+	
+	jal verificar_saiu_da_tela
+	bne $2 $0 nao_anda_baixo
+	
 	add $9 $4 $0
 	add $2 $8 $0
 	
@@ -3669,6 +3677,68 @@ houve_colisao:
        	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#=============================================
+# - funcao para conferir se ele ta saindo mapa, mas nao morre
+# - registrador de entrada: $8
+# - registrador de saida: $2
+
+verificar_saiu_da_tela:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	
+	lui $10 0x1001
+	addi $10 $10 496
+	addi $9 $0 64
+laco_verificar_saiu_da_tela_1:
+	beq $9 $0 fim_laco_verificar_saiu_da_tela_1
+	
+	beq $8 $10 saiu_da_tela
+
+	addi $10 $10 512
+	
+	addi $9 $9 -1
+	j laco_verificar_saiu_da_tela_1
+fim_laco_verificar_saiu_da_tela_1:
+	lui $10 0x1001
+	addi $10 $10 30720
+	addi $9 $0 128
+laco_verificar_saiu_da_tela_2:
+	beq $9 $0 fim_laco_verificar_saiu_da_tela_2
+	
+	beq $8 $10 saiu_da_tela
+
+	addi $10 $10 4
+	
+	addi $9 $9 -1
+	j laco_verificar_saiu_da_tela_2
+fim_laco_verificar_saiu_da_tela_2:
+	
+	add $2 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+saiu_da_tela:
+	addi $2 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $31 0($29)
 	
