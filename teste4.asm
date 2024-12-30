@@ -440,7 +440,7 @@ dm:
 	
 tijolo_init:
 	lui $8, 0x1001
-	addi $8, $8, 11452
+	addi $8, $8, 10432
 	li $20, 0xed6408
 	li $9, 11
 	li $10, 11
@@ -462,9 +462,7 @@ plt:
 	j tijolo
 	
 dtvi:
-	beq $11, $0, dtvipc
-	lui $8, 0x1001
-	addi $8, $8, 11448
+	addi $8, $8, -5680
 	li $20, 0x000000
 	li $9, 3
 	
@@ -491,9 +489,7 @@ detalhe_tijoloV:
 	j detalhe_tijoloV
 	
 dthi:
-	beq $11, $0, dthipc
-	lui $8, 0x1001
-	addi $8, $8, 11448
+	addi $8, $8, -1536
 	li $20, 0x000000
 	li $9, 11
 	
@@ -511,24 +507,9 @@ detalhe_tijoloH:
 	addi $9, $9, -1
 	j detalhe_tijoloH
 	
-dtvipc:
-	lui $8, 0x1001
-	addi $8, $8, 11536
-	li $20, 0x000000
-	li $9, 3
-	j detalhe_tijoloV
-
-dthipc:
-	lui $8, 0x1001
-	addi $8, $8, 11536
-	li $20, 0x000000
-	li $9, 11
-	j detalhe_tijoloH
-	
 prox_t:
 	beq $11, $0, caixa_init
-	lui $8, 0x1001
-	addi $8, $8, 11536
+	addi $8, $8, 48
 	li $20, 0xed6408
 	li $9, 11
 	li $10, 11
@@ -537,7 +518,7 @@ prox_t:
 	
 caixa_init:
 	lui $8, 0x1001
-	addi $8, $8, 11496
+	addi $8, $8, 10476
 	li $20, 0xfbbe2e
 	li $9, 11
 	li $10, 11
@@ -560,7 +541,7 @@ plc:
 	
 interro_init:
 	lui $8, 0x1001
-	addi $8, $8, 12020
+	addi $8, $8, 11000
 	li $20, 0xffffff
 	li $9, 2
 
@@ -985,11 +966,11 @@ dm_mapa_2:
 	
 topo_cano_init:
 	lui $8, 0x1001
-	addi $8, $8, 19004
+	addi $8, $8, 19012
 	addi $22 $8 98304
 	addi $8 $8 32768
 	li $20, 0x00ff50
-	li $9, 16
+	li $9, 14
 	li $10, 4
 	li $11, 1
 	
@@ -1006,17 +987,17 @@ topo_cano:
 
 pltc:
 	beq $10, $0, borda_tchi
-	addi $8, $8, 448
-	addi $22 $22 448
-	li $9, 16
+	addi $8, $8, 456
+	addi $22 $22 456
+	li $9, 14
 	subi $10, $10, 1
 	j topo_cano
 	
 borda_tchi:
-	subi $8, $8, 2628
-	subi $22 $22 2628
+	subi $8, $8, 2620
+	subi $22 $22 2620
 	li $20, 0x000000
-	li $9, 18
+	li $9, 16
 borda_tch:
 	beq $9, $0 borda_tcvi
 	
@@ -1031,8 +1012,8 @@ borda_tch:
 	j borda_tch
 	
 borda_tcvi:
-	subi $8, $8, 72
-	subi $22 $22 72
+	subi $8, $8, 64
+	subi $22 $22 64
 	li $9, 6
 	
 borda_tcv:
@@ -1040,8 +1021,8 @@ borda_tcv:
 	
 	sw $20, 0($8)
 	sw $20, 0($22)
-	sw $20, 68($8)
-	sw $20, 68($22)
+	sw $20, 60($8)
+	sw $20, 60($22)
 	
 	addi $8, $8, 512
 	addi $2 $22 512
@@ -1052,11 +1033,11 @@ prox_tc:
 	beq $11, $0 cano_init
 	subi $11, $11, 1
 	lui $8, 0x1001
-	addi $8, $8, 17292
+	addi $8, $8, 17284
 	addi $22 $8 98304
 	addi $8 $8 32768
 	li $20, 0x00ff50
-	li $9, 16
+	li $9, 14
 	li $10, 4
 	j topo_cano
 	
@@ -1064,7 +1045,7 @@ prox_tc:
 
 cano_init:
 	lui $8, 0x1001
-	addi $8, $8, 22592
+	addi $8, $8, 22596
 	addi $22 $8 98304
 	addi $8 $8 32768
 	li $20, 0x00ff50
@@ -1131,7 +1112,7 @@ prox_cano:
 	li $11, 0
 	
 	lui $8, 0x1001
-	addi $8, $8, 20880
+	addi $8, $8, 20868
 	addi $22 $8 98304
 	addi $8 $8 32768
 	
@@ -1533,11 +1514,11 @@ dm_m3:
 	
 topo_cano_init_m3:
 	lui $8, 0x1001
-	addi $8, $8, 19004
+	addi $8, $8, 19012
 	addi $22 $8 98304
 	addi $8 $8 32768
 	li $20, 0x00ff50
-	li $9, 16
+	li $9, 14
 	li $10, 4
 	li $11, 1
 	
@@ -1554,17 +1535,17 @@ topo_cano_m3:
 
 pltc_m3:
 	beq $10, $0, borda_tchi_m3
-	addi $8, $8, 448
-	addi $22 $22 448
-	li $9, 16
+	addi $8, $8, 456
+	addi $22 $22 456
+	li $9, 14
 	subi $10, $10, 1
 	j topo_cano_m3
 	
 borda_tchi_m3:
-	subi $8, $8, 2628
-	subi $22 $22 2628
+	subi $8, $8, 2620
+	subi $22 $22 2620
 	li $20, 0x000000
-	li $9, 18
+	li $9, 16
 borda_tch_m3:
 	beq $9, $0 borda_tcvi_m3
 	
@@ -1579,8 +1560,8 @@ borda_tch_m3:
 	j borda_tch_m3
 	
 borda_tcvi_m3:
-	subi $8, $8, 72
-	subi $22 $22 72
+	subi $8, $8, 64
+	subi $22 $22 64
 	li $9, 6
 	
 borda_tcv_m3:
@@ -1588,8 +1569,8 @@ borda_tcv_m3:
 	
 	sw $20, 0($8)
 	sw $20, 0($22)
-	sw $20, 68($8)
-	sw $20, 68($22)
+	sw $20, 60($8)
+	sw $20, 60($22)
 	
 	addi $8, $8, 512
 	addi $22 $22 512
@@ -1601,7 +1582,7 @@ borda_tcv_m3:
 
 cano_init_m3:
 	lui $8, 0x1001
-	addi $8, $8, 22592
+	addi $8, $8, 22596
 	addi $22 $8 98304
 	addi $8 $8 32768
 	li $20, 0x00ff50
@@ -1710,8 +1691,8 @@ dead_line:
 	
 tijolo_init_m3:
 	lui $8, 0x1001
-	addi $8, $8, 11572
-	addi $22 $8 98304
+	addi $8, $8, 10560
+	addi $22 $8 98308
 	addi $8 $8 32768
 	li $20, 0xed6408
 	li $9, 11
