@@ -9,23 +9,22 @@ main:
 	addi $20 $20 1
 	
 	lui $8 0x1001
+	addi $8 $8 20480
 	add $4 $8 $0
 	jal desenhar_personagem
 	
 	lui $9 0xffff
 	addi $10 $0 'a'
 	addi $11 $0 'd'
-	addi $12 $0 's'
-	addi $13 $0 'w'
+	addi $12 $0 'w'
 	
 loop_principal:
 	lw $21 0($9)
-	beq $21 $0 continuacao
+	beq $21 $0 baixo
 	lw $21 4($9)
 	beq $21 $10 esquerda
 	beq $21 $11 direita
-	beq $21 $12 baixo
-	beq $21 $13 cima
+	beq $21 $12 cima
 	
 	j continuacao
 	
@@ -34,7 +33,7 @@ esquerda:
 	jal andar_para_esquerda
 	add $8 $2 $0
 	
-	j continuacao
+	j baixo
 	
 direita:
 	add $4 $8 $0
@@ -45,7 +44,7 @@ direita:
 	add $22 $3 $0
 	add $20 $25 $0
 	
-	j continuacao
+	j baixo
 	
 baixo:
 	add $4 $8 $0
@@ -55,11 +54,42 @@ baixo:
 	j continuacao
 	
 cima:
+	addi $15 $0 8
+laco_andar_cima:
+	beq $15 $0 fim_laco_andar_cima
+	
+	lw $21 0($9)
+	beq $21 $0 continuacao_cima
+	lw $21 4($9)
+	beq $21 $10 esquerda_cima
+	beq $21 $11 direita_cima
+
+continuacao_cima: 
 	add $4 $8 $0
 	jal andar_para_cima
 	add $8 $2 $0
+	addi $15 $15 -1
+	j laco_andar_cima
+fim_laco_andar_cima:
 	
 	j continuacao
+	
+esquerda_cima:
+	add $4 $8 $0
+	jal andar_para_esquerda
+	add $8 $2 $0
+	
+	j continuacao_cima
+direita_cima:
+	add $4 $8 $0
+	add $5 $20 $0
+	add $6 $22 $0
+	jal andar_para_direita
+	add $8 $2 $0
+	add $22 $3 $0
+	add $20 $25 $0
+	
+	j continuacao_cima
 	
 continuacao:
 	j loop_principal
@@ -2265,7 +2295,7 @@ desenhar_personagem:
        	addi $29 $29 -4
        	
 	add $8 $4 $0
-	addi $9 $0 0xffffff
+	addi $9 $0 0xff00ff
 	
 	addi $10 $0 8
 laco_personagem_1:
@@ -3351,7 +3381,7 @@ timer:
 	sw $8 0($29)
        	addi $29 $29 -4
        	
-	addi $8 $0 10000
+	addi $8 $0 50000
 laco_timer:
 	beq $8 $0 fim_laco_timer
 	nop
