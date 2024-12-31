@@ -1,5 +1,5 @@
 .text
-main:
+menu_level_1:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
 	jal desenhar_mapa_1
@@ -51,9 +51,14 @@ baixo:
 	add $4 $8 $0
 	jal andar_para_baixo
 	add $8 $2 $0
+	addi $2 $0 1
+	beq $2 $3 desenhar_tela_de_morte
 	add $12 $3 $0
 	
 	j continuacao
+	
+desenhar_tela_de_morte:
+	j menu_morte
 	
 cima:
 	addi $15 $0 8
@@ -98,6 +103,27 @@ direita_cima:
 	
 continuacao:
 	j loop_principal
+	
+menu_morte:
+	jal desenhar_mapa_morte
+	
+	lui $9 0xffff
+	addi $10 $0 'r'
+	
+loop_principal_menu_morte:
+	lw $21 0($9)
+	beq $21 $0 continuacao_menu_morte
+	lw $21 4($9)
+	add $19 $21 $0
+	beq $21 $10 renascer
+	
+	j continuacao_menu_morte
+	
+renascer:
+	j menu_level_1
+	
+continuacao_menu_morte:
+	j loop_principal_menu_morte
 	
 #====================================================
 # - funcao para desenhar mapa 1
@@ -2262,6 +2288,42 @@ fim_mapa_4:
        	lw $31 0($29)
 	
 	jr $31
+
+#================================================
+# - funcao para desenhar a tela de morte
+
+desenhar_mapa_morte:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	
+	lui $8 0x1001
+	addi $9 $0 0xff00ff
+	
+	addi $10 $0 8192
+laco_desenhar_mapa_morte:
+	beq $10 $0 fim_laco_desenhar_mapa_morte
+	
+	sw $9 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_desenhar_mapa_morte
+fim_laco_desenhar_mapa_morte:
+	addi $29, $29, 4                                                    
+       	lw $10, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $9, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $8, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $31, 0($29)
+	jr $31
 	
 #================================================
 # - funcao para apagar o fundo do personagem
@@ -3027,7 +3089,7 @@ andar_para_baixo:
 	addi $8 $4 2048
 	
 	jal verificar_saiu_da_tela
-	bne $2 $0 nao_anda_baixo
+	bne $2 $0 morreu_baixo
 	
 	add $9 $4 $0
 	add $2 $8 $0
@@ -3081,6 +3143,27 @@ nao_anda_baixo:
 	add $2 $4 $0
 	
 	addi $3 $0 'w'
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+morreu_baixo:
+	
+	jal personagem_morrendo
+	
+	add $2 $4 $0
+	add $3 $0 1
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -3745,6 +3828,111 @@ saiu_da_tela:
 	jr $31
 	
 #=============================================
+# - funcao para animar o personagem morrendo
+# - registrador de entrada: $4
+# - registrador de saida:
+
+personagem_morrendo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	sw $13 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	
+	addi $9 $0 8
+laco_personagem_morrendo_subindo_1:
+	beq $9 $0 fim_laco_personagem_morrendo_subindo_1
+	
+	addi $8 $8 -2048
+	addi $10 $8 4096
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	addi $11 $0 4
+laco_personagem_morrendo_subindo_2:
+	beq $11 $0 fim_laco_personagem_morrendo_subindo_2
+	
+	addi $12 $0 8
+laco_personagem_morrendo_subindo_3:
+	beq $12 $0 fim_laco_personagem_morrendo_subindo_3
+	
+	lw $13 65536($10)
+	sw $13 0($10)
+	
+	addi $10 $10 4
+	addi $12 $12 -1
+	j laco_personagem_morrendo_subindo_3
+fim_laco_personagem_morrendo_subindo_3:
+	addi $10 $10 -32
+	addi $10 $10 512
+	
+	addi $11 $11 -1
+	j laco_personagem_morrendo_subindo_2
+fim_laco_personagem_morrendo_subindo_2:
+	jal timer
+	addi $9 $9 -1
+	j laco_personagem_morrendo_subindo_1
+fim_laco_personagem_morrendo_subindo_1:
+	addi $9 $0 10
+laco_personagem_morrendo_descendo_1:
+	beq $9 $0 fim_laco_personagem_morrendo_descendo_1
+	addi $8 $8 2048
+	addi $10 $8 -2048
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	addi $11 $0 4
+laco_personagem_morrendo_descendo_2:
+	beq $11 $0 fim_laco_personagem_morrendo_descendo_2
+	addi $12 $0 8
+laco_personagem_morrendo_descendo_3:
+	beq $12 $0 fim_laco_personagem_morrendo_descendo_3
+	
+	lw $13 65536($10)
+	sw $13 0($10)
+	
+	addi $10 $10 4
+	addi $12 $12 -1
+	j laco_personagem_morrendo_descendo_3
+fim_laco_personagem_morrendo_descendo_3:
+	addi $10 $10 -32
+	addi $10 $10 512
+	addi $11 $11 -1
+	j laco_personagem_morrendo_descendo_2
+fim_laco_personagem_morrendo_descendo_2:
+	jal timer
+	addi $9 $9 -1
+	j laco_personagem_morrendo_descendo_1
+fim_laco_personagem_morrendo_descendo_1:
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+	
+#=============================================
 # funcao timer
 
 timer:
@@ -3753,7 +3941,7 @@ timer:
 	sw $8 0($29)
        	addi $29 $29 -4
        	
-	addi $8 $0 30000
+	addi $8 $0 50000
 laco_timer:
 	beq $8 $0 fim_laco_timer
 	nop
