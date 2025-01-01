@@ -1,45 +1,63 @@
 .text
-
 roupa_init:
+
 	lui $8, 0x1001
-	addi $8, $8, 22620
+	addi $8, $8, 6192
+	li $9, 2
+	li $20, 0xfdff0e #amarelo
+	li $10, 0x9A3894 #roxo claro
+	li $11, 0x592559 #roxo escuro
+roupa:
+	beq $9, $0, sapatos
+	sw $20, 0($8)
+	sw $20, 4($8)
+	sw $10, 8($8)
+	sw $10, 12($8)
+	sw $11, 16($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j roupa
+	
+sapatos:
+	addi $8, $8, 4
+	li $20, 0x2b7741 #verde  claro
+	li $10, 0x225028 #verde escuro
+	
+	sw $20, 0($8)
+	sw $20, 4($8)
+	sw $10, 8($8)
+	
+chapeu_init:
+	subi $8, $8, 3584
+	
 	li $9, 3
 	li $20, 0xfdff0e
-	li $10, 0xb64aae
+
 	
 	
-roupa:
+chapeu:
 	beq $9, $0, detalhe_roupaI
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $20 520($8)
 	
-	sw $20 2552($8)
-	
-	sw $10 2560($8)
-	sw $10 3068($8)
-	sw $10 3076($8)
-	
 	addi $8, $8, 4
 	subi $9, $9, 1
-	j roupa
+	j chapeu
 	
 detalhe_roupaI:
 	subi $8, $8, 12
 	li $9, 0xfcfcfc
 	li $20, 0xffffff
-	li $10, 0x247C39
 detalhe_roupa:
 	sw $20, 12($8)
-	sw $20, 3060($8)
-	sw $20, 3088($8)
+	sw $9, 2564($8)
+	sw $20, 3072($8)
 	
-	sw $9, 2560($8)
-	sw $9, 2572($8)
 	
-	sw $10, 3580($8)
-	sw $10, 3596($8)
+
 cabeça_init:
 
 	addi $8, $8, 1024
@@ -80,6 +98,8 @@ detalhe_cabeça:
 fim:
 	li $2, 10
 	syscall
+	
+
 	
 
        
