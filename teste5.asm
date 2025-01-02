@@ -574,18 +574,32 @@ caixa:
 	j caixa
 	
 plc:
-	beq $10, $0, interro_init
+	beq $10, $0, lci
 	addi $10, $10, -1
 	addi $8, $8, 468
 	li $9, 11
 	j caixa
+lci:
+	li $20, 0xfbbe2d
+	li $9, 3
+	addi $8, $8, -4
+lc:
+	beq $9, $0, interro_init
+	sw $20, 0($8)
+	sw $20 -32($8)
+	
+	addi $8, $8, -4
+	addi $9, $9, -1
+	j lc
+ 
 	
 	
 interro_init:
+	addi $8, $8, 44
 	lui $8, 0x1001
 	addi $8, $8, 11000
 	li $20, 0xffffff
-	li $9, 2
+	addi $9 $0 2
 
 interro:
 	beq $9, $0 fim
