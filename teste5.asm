@@ -577,11 +577,26 @@ caixa:
 	j caixa
 	
 plc:
-	beq $10, $0, interro_init
+	beq $10, $0, lci
 	addi $10, $10, -1
 	addi $8, $8, 468
 	li $9, 11
 	j caixa
+	
+lci:
+	li $20, 0xff00ff
+	li $9, 5
+	addi $8, $8, -4
+lc:
+	beq $9, $0, interro_init
+	sw $20, 0($8)
+	sw $20 65536($8)
+	sw $20 -24($8)
+	sw $20 65512($8)
+	
+	addi $8, $8, -4
+	addi $9, $9, -1
+	j lc
 	
 interro_init:
 	addi $8, $8, 44
@@ -3086,6 +3101,7 @@ cabeça_cogumelo:
 	j cabeça_cogumelo
 manchas_coguI:
 	subi $8, $8, 4
+	subi $21 $21 4
 	li $20, 0xff0000
 	sw $20, 0($8)
 	subi $8, $8, 8
@@ -3147,6 +3163,7 @@ fim_laco_trocar_pelo_fundo_2:
 	addi $11 $11 -1
 	j laco_trocar_pelo_fundo_1
 fim_laco_trocar_pelo_fundo_1:
+	
 	addi $29 $29 4  
 	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -4526,6 +4543,9 @@ fim_laco_cogumelo_nascendo_2:
 	addi $9 $9 -1
 	j laco_cogumelo_nascendo_1
 fim_laco_cogumelo_nascendo_1:
+	add $4 $8 $0
+	jal salvar_copia_cogumelo
+	
 	addi $29 $29 4                                                    
        	lw $13 0($29)
 	addi $29 $29 4                                                    
@@ -4540,6 +4560,55 @@ fim_laco_cogumelo_nascendo_1:
        	lw $8 0($29)
        	addi $29 $29 4                                                    
        	lw $4 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+#=============================================
+# - funcao para salvar a copia do cogumelo pronto na memoria
+# - registrador de entrada: $4
+# - registrador de saida:
+
+salvar_copia_cogumelo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 7
+laco_copia_cogumelo_1:
+	beq $9 $0 fim_laco_copia_cogumelo_1
+	addi $10 $0 7
+laco_copia_cogumelo_2:
+	beq $10 $0 fim_laco_copia_cogumelo_2
+	
+	lw $11 0($8)
+	sw $11 65536($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_copia_cogumelo_2
+fim_laco_copia_cogumelo_2:
+	addi $8 $8 -28
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_copia_cogumelo_1
+fim_laco_copia_cogumelo_1:
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
        	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
