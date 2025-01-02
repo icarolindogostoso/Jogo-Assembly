@@ -9,8 +9,7 @@ roupa_init:
 	li $11, 0x592559 #roxo escuro
 roupa:
 	beq $9, $0, sapatos
-	sw $11, 0($8)
-	sw $10, 4($8)
+	sw $11, 4($8)
 	sw $10, 8($8)
 	sw $10, 12($8)
 	sw $10, 16($8)
@@ -27,8 +26,8 @@ sapatos:
 	li $10, 0x225028 #verde escuro
 	
 	sw $10, 0($8)
-	sw $20, 4($8)
-	sw $20, 8($8)
+
+	sw $20, -492($8)
 	
 chapeu_init:
 	subi $8, $8, 3584
@@ -51,7 +50,7 @@ chapeu:
 	
 detalhe_roupaI:
 	subi $8, $8, 12
-	li $9, 0xfcfcfc
+	li $9, 0xe0e0f0
 	li $20, 0xffffff
 	li $10, 0xfdff0e #amarelo
 detalhe_roupa:
@@ -60,6 +59,7 @@ detalhe_roupa:
 	sw $9, 2572($8)
 	sw $9, 2560($8)
 	sw $10, 2068($8)
+	sw $20, 2556($8)
 	
 	
 
