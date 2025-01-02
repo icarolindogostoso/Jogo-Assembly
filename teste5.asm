@@ -2,6 +2,9 @@
 menu_level_1:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
+	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
+	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
 	jal desenhar_mapa_1
 	addi $20 $20 1
 	
@@ -11,7 +14,7 @@ menu_level_1:
 	lui $8 0x1001
 	addi $8 $8 22528
 	add $4 $8 $0
-	jal desenhar_personagem_direita
+	jal desenhar_cogumelo
 	
 	lui $9 0xffff
 	addi $10 $0 'a'
@@ -574,25 +577,11 @@ caixa:
 	j caixa
 	
 plc:
-	beq $10, $0, lci
+	beq $10, $0, interro_init
 	addi $10, $10, -1
 	addi $8, $8, 468
 	li $9, 11
 	j caixa
-lci:
-	li $20, 0xfbbe2d
-	li $9, 3
-	addi $8, $8, -4
-lc:
-	beq $9, $0, interro_init
-	sw $20, 0($8)
-	sw $20 -32($8)
-	
-	addi $8, $8, -4
-	addi $9, $9, -1
-	j lc
- 
-	
 	
 interro_init:
 	addi $8, $8, 44
@@ -2369,10 +2358,10 @@ apagar_fundo:
        	addi $29, $29, -4
 
 	add $8 $4 $0
-	addi $10 $0 8
+	add $10 $0 $5
 lacoP1:
 	beq $10 $0 fimp1
-	addi $11 $0 8
+	add $11 $0 $5
 lacoP2:
 	beq $11 $0 fimp2
 
@@ -2446,6 +2435,8 @@ pint:
 
 desenhar_personagem_direita:
 	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
        	addi $29 $29 -4
@@ -2556,6 +2547,7 @@ detalhe_cabeça:
 	
 fim_personagem_direita:
 
+	addi $5 $0 8
 	jal apagar_fundo
 	
 	addi $29 $29 4                                                    
@@ -2568,6 +2560,8 @@ fim_personagem_direita:
        	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
 	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
@@ -2578,6 +2572,8 @@ fim_personagem_direita:
 
 desenhar_personagem_esquerda:
 	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
        	addi $29 $29 -4
@@ -2690,6 +2686,7 @@ detalhe_cabeça_personagem_esquerda:
 	j fim_personagem_esquerda
 	
 fim_personagem_esquerda:
+	addi $5 $0 8
 	jal apagar_fundo
 
 	addi $29 $29 4                                                    
@@ -2702,6 +2699,8 @@ fim_personagem_esquerda:
        	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
 	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
@@ -2712,6 +2711,8 @@ fim_personagem_esquerda:
 
 desenhar_personagem_pulando_direita:
 	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
        	addi $29 $29 -4
@@ -2845,6 +2846,7 @@ detalhe_cabeça_pulando_direita:
 	j fim_pulando_direita
 	
 fim_pulando_direita:
+	addi $5 $0 8
 	jal apagar_fundo
 
 	addi $29 $29 4                                                    
@@ -2857,6 +2859,8 @@ fim_pulando_direita:
        	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
 	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
@@ -2866,6 +2870,8 @@ fim_pulando_direita:
 # - funcao para desenhar o personagem pulando para a esquerda
 desenhar_personagem_pulando_esquerda:
 	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
        	addi $29 $29 -4
        	sw $8 0($29)
        	addi $29 $29 -4
@@ -3001,6 +3007,7 @@ detalhe_cabeça_pulando_esquerda:
 	j fim_pulando_esquerda
 	
 fim_pulando_esquerda:
+	addi $5 $0 8
 	jal apagar_fundo
 
 	addi $29 $29 4                                                    
@@ -3013,6 +3020,143 @@ fim_pulando_esquerda:
        	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
+# funcao para desenhar o cogumelo
+
+desenhar_cogumelo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 7
+laco_cogumelo_1:
+	beq $10 $0 fim_laco_cogumelo_1
+	addi $11 $0 7
+laco_cogumelo_2:
+	beq $11 $0 fim_laco_cogumelo_2
+	
+	sw $9 0($8)
+	
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_cogumelo_2
+fim_laco_cogumelo_2:
+	addi $8 $8 -28
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_cogumelo_1
+fim_laco_cogumelo_1:
+	add $8 $4 $0
+	li $9, 5
+	li $20, 0xffa237
+
+cabeça_cogumelo:
+	beq $9, $0, manchas_coguI
+	sw $20, 4($8)
+	sw $20, 512($8)
+	sw $20, 520($8)
+	sw $20, 1024($8)
+	sw $20, 1032($8)
+	sw $20, 1536($8)
+	sw $20, 1544($8)
+	sw $20, 2048($8)
+	sw $20, 2056($8)
+	
+	addi $8, $8, 4
+	addi $9, $9 -1
+	j cabeça_cogumelo
+manchas_coguI:
+	subi $8, $8, 4
+	li $20, 0xff0000
+	sw $20, 0($8)
+	subi $8, $8, 8
+	li $9, 2
+manchas_cogumelo:
+	beq $9, $0, base_coguI
+	sw $20, 4($8)	
+	sw $20, 8($8)
+	sw $20, 1020($8)
+	sw $20, 1016($8)	
+	sw $20, 1040($8)
+	
+	addi $8, $8, 512
+	addi $9, $9 -1
+	j manchas_cogumelo	
+
+base_coguI:
+	addi $8, $8, 1532
+	li $20, 0xffffff
+	li $9, 3
+base_cogumelo:
+	beq $9, $0, fim_cogumelo
+	
+	sw $20, 4($8)
+	sw $20, 516($8)
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j base_cogumelo
+fim_cogumelo:
+	addi $5 $0 7
+	jal apagar_fundo
+	
+	addi $8 $0 0xfbbe2e
+	addi $9 $0 0xffffff
+	add $10 $4 $0
+	addi $11 $0 7
+laco_trocar_pelo_fundo_1:
+	beq $11 $0 fim_laco_trocar_pelo_fundo_1
+	addi $12 $0 7
+laco_trocar_pelo_fundo_2:
+	beq $12 $0 fim_laco_trocar_pelo_fundo_2
+	
+	lw $13 65536($10)
+	beq $13 $8 trocar
+	beq $13 $9 trocar
+	j continuacao_trocar
+
+trocar:
+	sw $13 0($10)
+	j continuacao_trocar
+continuacao_trocar:
+	
+	addi $10 $10 4
+	addi $12 $12 -1
+	j laco_trocar_pelo_fundo_2
+fim_laco_trocar_pelo_fundo_2:
+	addi $10 $10 -28
+	addi $10 $10 512
+	addi $11 $11 -1
+	j laco_trocar_pelo_fundo_1
+fim_laco_trocar_pelo_fundo_1:
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
 	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
@@ -3618,6 +3762,7 @@ andar_para_cima:
        	bne $8 $0 nao_anda_cima
        	
 	addi $8 $4 -2048
+	
 	add $9 $4 2048
 	add $2 $8 $0
 	
@@ -3668,6 +3813,12 @@ fim_laco_1_andar_cima:
 	jr $31
 	
 nao_anda_cima:
+	addi $8 $4 -2048
+	
+	bne $17 $0 cogumelo_ja_nasceu
+	jal conferir_cogumelo
+
+cogumelo_ja_nasceu:
 	add $2 $4 $0
 	add $18 $0 $0
 	
@@ -4289,7 +4440,110 @@ fim_laco_personagem_morrendo_descendo_1:
        	lw $31 0($29)
        	
        	jr $31
+       	
+#=================================================
+# - funcao para conferir se o cogumelo vai nascer
+conferir_cogumelo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	
+	addi $24 $0 -512
+       	addi $23 $0 0xfbbe2e
+       	jal conferir_colisao
+	beq $2 $0 nao_nasce_cogumelo
+	jal nascer_cogumelo
+	addi $17 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+nao_nasce_cogumelo:
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#=================================================
+# funcao para fazer a animacao do cogumelo nascendo
+# registrador de entrada: $2
+# registrador de saida:
+
+nascer_cogumelo:
+	sw $31 0($29)
+	addi $29 $29 -4
+	sw $4 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	sw $13 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $8 $8 -4096
+	addi $8 $8 4
+	
+	addi $9 $0 3
+laco_cogumelo_nascendo_1:
+	beq $9 $0 fim_laco_cogumelo_nascendo_1
+	
+	addi $8 $8 -2048
+	addi $10 $8 3584
+	
+	add $4 $8 $0
+	jal desenhar_cogumelo
+	
+	addi $11 $0 4
+laco_cogumelo_nascendo_2:
+	beq $11 $0 fim_laco_cogumelo_nascendo_2
+	
+	addi $12 $0 7
+laco_cogumelo_nascendo_3:
+	beq $12 $0 fim_laco_cogumelo_nascendo_3
+	
+	lw $13 65536($10)
+	sw $13 0($10)
+	
+	addi $10 $10 4
+	addi $12 $12 -1
+	j laco_cogumelo_nascendo_3
+fim_laco_cogumelo_nascendo_3:
+	addi $10 $10 -28
+	addi $10 $10 512
+	
+	addi $11 $11 -1
+	j laco_cogumelo_nascendo_2
+fim_laco_cogumelo_nascendo_2:
+	jal timer
+	addi $9 $9 -1
+	j laco_cogumelo_nascendo_1
+fim_laco_cogumelo_nascendo_1:
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $4 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
 #=============================================
 # funcao timer
 
