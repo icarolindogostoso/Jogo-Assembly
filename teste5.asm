@@ -9,7 +9,7 @@ menu_level_1:
 	addi $20 $20 1
 	
 	lui $8 0x1001
-	addi $8 $8 20480
+	addi $8 $8 22528
 	add $4 $8 $0
 	jal desenhar_personagem_direita
 	
@@ -20,7 +20,18 @@ menu_level_1:
 	
 loop_principal:
 	lw $21 0($9)
+	bne $18 $0 esta_colidindo
 	beq $21 $0 baixo
+	lw $21 4($9)
+	add $19 $21 $0
+	beq $21 $10 esquerda
+	beq $21 $11 direita
+	beq $21 $12 cima
+	
+	j continuacao
+	
+esta_colidindo:
+	beq $21 $0 continuacao
 	lw $21 4($9)
 	add $19 $21 $0
 	beq $21 $10 esquerda
@@ -2681,6 +2692,318 @@ fim_personagem_esquerda:
        	lw $31 0($29)
        	
       	jr $31
+      	
+#===================================================
+# - funcao para desenhar o personagem pulando para a direita
+
+desenhar_personagem_pulando_direita:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+	
+	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 8
+laco_personagem_pulando_direita_1:
+	beq $10 $0 fim_laco_personagem_pulando_direita_1
+	addi $11 $0 8
+laco_personagem_pulando_direita_2:
+	beq $11 $0 fim_laco_personagem_pulando_direita_2
+	
+	sw $9 0($8)
+	
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_pulando_direita_2
+fim_laco_personagem_pulando_direita_2:
+	addi $8 $8 -32
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_pulando_direita_1
+fim_laco_personagem_pulando_direita_1:
+	
+	add $8 $4 $0
+	li $9, 2
+	li $20, 0xfdff0e #amarelo
+	li $10, 0x9A3894 #roxo claro
+	li $11, 0x592559 #roxo escuro
+roupa_pulando_direita:
+	beq $9, $0, sapatos_pulando_direita
+	sw $20, 2056($8)
+	sw $10, 2568($8)
+	sw $10, 2572($8)
+	sw $10, 2576($8)
+	sw $10, 2580($8)
+	sw $11, 2584($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j roupa_pulando_direita
+	
+sapatos_pulando_direita:
+	addi $8, $8, 4
+	li $20, 0x2b7741 #verde  claro
+	li $10, 0x225028 #verde escuro
+	
+	sw $20, 2048($8)
+
+	sw $10, 2580($8)
+	
+chapeu_init_pulando_direita:
+	subi $8, $8, 3584
+	
+	li $9, 3
+	li $20, 0xfdff0e
+
+	
+	
+chapeu_pulando_direita:
+	beq $9, $0, detalhe_roupaI_pulando_direita
+	
+	sw $20 2568($8)
+	sw $20 3080($8)
+	sw $20 3088($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j chapeu_pulando_direita
+	
+detalhe_roupaI_pulando_direita:
+	subi $8, $8, 12
+	li $9, 0xe0e0f0
+	li $20, 0xffffff
+	li $11, 0xfdff0e #amarelo
+detalhe_roupa_pulando_direita:
+	sw $11, 4608($8)
+	sw $20, 2580($8)
+	sw $9, 5128($8)
+	sw $9, 5140($8)
+	sw $20, 5116($8)
+	sw $20, 5144($8)
+	
+	
+
+cabeça_init_pulando_direita:
+
+	addi $8, $8, 1024
+	li $9, 4
+	li $10, 2
+	li $20, 0xffd7a4
+cabeça_pulando_direita:
+	beq $9, $0 plc_player_pulando_direita
+		
+	sw $20, 2568($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j cabeça_pulando_direita
+plc_player_pulando_direita:
+	beq $10, $0 detalhe_cabeça_pulando_direita
+	subi $10, $10, 1
+	addi $8, $8, 496
+	li $9, 4
+	j cabeça_pulando_direita
+detalhe_cabeça_pulando_direita:
+	subi $8, $8, 1044
+	li $9, 0x784936
+	li $10, 0x000001
+	li $20, 0xf474a6
+	
+	sw $9 2568($8)
+	sw $9 3080($8)
+	sw $9 3596($8)
+	sw $9 3092($8)
+	sw $9 3096($8)
+	sw $9 2576($8)
+	
+	sw $10 2580($8)
+	sw $20 3100($8)
+	j fim_pulando_direita
+	
+fim_pulando_direita:
+	jal apagar_fundo
+
+	addi $29 $29 4                                                    
+       	lw $20 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
+# - funcao para desenhar o personagem pulando para a esquerda
+desenhar_personagem_pulando_esquerda:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+	
+	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 8
+laco_personagem_pulando_esquerda_1:
+	beq $10 $0 fim_laco_personagem_pulando_esquerda_1
+	addi $11 $0 8
+laco_personagem_pulando_esquerda_2:
+	beq $11 $0 fim_laco_personagem_pulando_esquerda_2
+	
+	sw $9 0($8)
+	
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_pulando_esquerda_2
+fim_laco_personagem_pulando_esquerda_2:
+	addi $8 $8 -32
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_pulando_esquerda_1
+fim_laco_personagem_pulando_esquerda_1:
+	
+	add $8 $4 $0
+	li $9, 2
+	li $20, 0xfdff0e #amarelo
+	li $10, 0x9A3894 #roxo claro
+	li $11, 0x592559 #roxo escuro
+roupa_pulando_esquerda:
+	beq $9, $0, sapatos_pulando_esquerda
+	sw $11, 2564($8)
+	sw $10, 2568($8)
+	sw $10, 2572($8)
+	sw $10, 2576($8)
+	sw $10, 2580($8)
+	sw $20, 2068($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j roupa_pulando_esquerda
+	
+sapatos_pulando_esquerda:
+	addi $8, $8, 4
+	li $20, 0x2b7741 #verde  claro
+	li $10, 0x225028 #verde escuro
+	
+	sw $10, 2560($8)
+
+	sw $20, 2068($8)
+	
+chapeu_init_pulando_esquerda:
+	subi $8, $8, 3584
+	
+	li $9, 3
+	li $20, 0xfdff0e
+
+	
+	
+chapeu_pulando_esquerda:
+	beq $9, $0, detalhe_roupaI_pulando_esquerda
+	
+	sw $20 2564($8)
+	sw $20 3068($8)
+	sw $20 3076($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j chapeu_pulando_esquerda
+	
+detalhe_roupaI_pulando_esquerda:
+	subi $8, $8, 12
+	li $9, 0xe0e0f0
+	li $20, 0xffffff
+	li $10, 0xfdff0e #amarelo
+detalhe_roupa_pulando_esquerda:
+	sw $20, 2560($8)
+	sw $20, 5144($8)
+	sw $9, 5132($8)
+	sw $9, 5120($8)
+	sw $10, 4628($8)
+	sw $20, 5116($8)
+	
+	
+
+cabeça_init_pulando_esquerda:
+
+	addi $8, $8, 1024
+	li $9, 4
+	li $10, 2
+	li $20, 0xffd7a4
+cabeça_pulando_esquerda:
+	beq $9, $0 plc_player_pulando_esquerda
+		
+	sw $20, 2560($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j cabeça_pulando_esquerda
+plc_player_pulando_esquerda:
+	beq $10, $0 detalhe_cabeça_pulando_esquerda
+	subi $10, $10, 1
+	addi $8, $8, 496
+	li $9, 4
+	j cabeça_pulando_esquerda
+detalhe_cabeça_pulando_esquerda:
+	subi $8, $8, 1044
+	li $9, 0x784936
+	li $10, 0x000001
+	li $20, 0xf474a6
+	#cabelo
+	sw $9 2580($8)
+	sw $9 3092($8)
+	sw $9 3600($8)
+	sw $9 2572($8)
+	#bigas
+	sw $9 3076($8)
+	sw $9 3080($8)
+	
+	# olho e nariz
+	sw $10 2568($8)
+	sw $20 3072($8)
+	j fim_pulando_esquerda
+	
+fim_pulando_esquerda:
+	jal apagar_fundo
+
+	addi $29 $29 4                                                    
+       	lw $20 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
 #===================================================
 # - funcao para andar para a esquerda
 # - registradores de entrada: $4
@@ -3021,6 +3344,8 @@ andar_para_baixo:
        	addi $29 $29 -4
        	sw $12 0($29)
        	addi $29 $29 -4
+       	sw $13 0($29)
+       	addi $29 $29 -4
        	
        	add $8 $0 $0
        	
@@ -3095,11 +3420,12 @@ andar_para_baixo:
 	add $2 $8 $0
 	
 	add $4 $8 $0
-	beq $10 $19 personagem_andando_esquerda_baixo
-	jal desenhar_personagem_direita
+	add $13 $10 $0
+	beq $13 $19 personagem_andando_esquerda_baixo
+	jal desenhar_personagem_pulando_direita
 	j continuacao_para_laco_baixo
 personagem_andando_esquerda_baixo:
-	jal desenhar_personagem_esquerda
+	jal desenhar_personagem_pulando_esquerda
 continuacao_para_laco_baixo:
 	addi $10 $0 4
 	
@@ -3124,7 +3450,10 @@ fim_laco_1_andar_baixo:
 	jal timer
 	
 	add $3 $0 $0
+	add $18 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
@@ -3140,10 +3469,20 @@ fim_laco_1_andar_baixo:
 	jr $31
 	
 nao_anda_baixo:
+	add $13 $10 $0
+	beq $13 $19 personagem_nao_andando_esquerda_baixo
+	jal desenhar_personagem_direita
+	j continuacao_para_laco_baixo_nao_anda
+personagem_nao_andando_esquerda_baixo:
+	jal desenhar_personagem_esquerda
+continuacao_para_laco_baixo_nao_anda:
+	addi $18 $0 1
 	add $2 $4 $0
 	
 	addi $3 $0 'w'
 	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
@@ -3165,6 +3504,8 @@ morreu_baixo:
 	add $2 $4 $0
 	add $3 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
@@ -3268,10 +3609,10 @@ andar_para_cima:
 	
 	add $4 $8 $0
 	beq $10 $19 personagem_andando_esquerda_cima
-	jal desenhar_personagem_direita
+	jal desenhar_personagem_pulando_direita
 	j continuacao_para_laco_cima
 personagem_andando_esquerda_cima:
-	jal desenhar_personagem_esquerda
+	jal desenhar_personagem_pulando_esquerda
 continuacao_para_laco_cima:
 	
 	addi $10 $0 4
@@ -3296,6 +3637,8 @@ fim_laco_2_andar_cima:
 fim_laco_1_andar_cima:
 	jal timer
 	
+	add $18 $0 $0
+	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
@@ -3312,6 +3655,7 @@ fim_laco_1_andar_cima:
 	
 nao_anda_cima:
 	add $2 $4 $0
+	add $18 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
