@@ -5,7 +5,9 @@ menu_level_1:
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
 	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
+	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
 	jal desenhar_mapa_1
+	jal salvar_terceira_copia
 	addi $20 $20 1
 	
 	jal desenhar_mapa_2
@@ -3251,6 +3253,14 @@ andar_para_esquerda:
        	sw $12 0($29)
        	addi $29 $29 -4
        	
+       	bne $16 $0 personagem_grande_esquerda
+       	addi $9 $0 8
+       	j continuacao_conferir_colisoes_esquerda
+personagem_grande_esquerda:
+	addi $9 $0 16
+	j continuacao_conferir_colisoes_esquerda
+continuacao_conferir_colisoes_esquerda:
+       	
        	add $8 $0 $0
        	
        	addi $24 $0 -4
@@ -3315,6 +3325,8 @@ andar_para_esquerda:
        	
        	bne $8 $0 nao_anda_esquerda
        	
+       	bne $16 $0 personagem_grande_andando_esquerda
+       	
 	addi $8 $4 -16
 	
 	addi $24 $0 -4
@@ -3368,6 +3380,55 @@ fim_laco_1_andar_esquerda:
        	
 	jr $31
 	
+personagem_grande_andando_esquerda:
+	addi $8 $4 -16
+	
+	jal verificar_saiu_da_tela
+	bne $2 $0 nao_anda_esquerda
+	
+	addi $9 $4 48
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	jal desenhar_personagem_grande_direita
+	
+	addi $10 $0 16
+	
+laco_1_andar_esquerda_grande:
+	beq $10 $0 fim_laco_1_andar_esquerda_grande
+	
+	addi $11 $0 4
+laco_2_andar_esquerda_grande:
+	beq $11 $0 fim_laco_2_andar_esquerda_grande
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_esquerda_grande
+fim_laco_2_andar_esquerda_grande:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_esquerda_grande
+fim_laco_1_andar_esquerda_grande:
+	jal timer
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
 nao_anda_esquerda:
 	add $2 $4 $0
 	
@@ -3394,9 +3455,13 @@ trocar_para_personagem_grande_esquerda:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	addi $4 $8 -16
+	jal retomar_terceira_copia
 	add $4 $8 $0
 	add $2 $4 $0
 	jal desenhar_personagem_grande_direita
+	
+	addi $16 $0 1
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -3431,6 +3496,14 @@ andar_para_direita:
        	addi $29 $29 -4
        	sw $12 0($29)
        	addi $29 $29 -4
+       	
+       	bne $16 $0 personagem_grande_direita
+       	addi $9 $0 8
+       	j continuacao_conferir_colisoes_direita
+personagem_grande_direita:
+	addi $9 $0 16
+	j continuacao_conferir_colisoes_direita
+continuacao_conferir_colisoes_direita:
        	
        	add $8 $0 $0
        	
@@ -3496,6 +3569,8 @@ andar_para_direita:
        	
        	bne $8 $0 nao_anda_direita
        	
+       	bne $16 $0 personagem_grande_andando_direita
+       	
 	jal verificar_metade_mapa
 	bne $2 $0 mexer_mapa
 	
@@ -3529,6 +3604,56 @@ fim_laco_2_andar_direita:
 	addi $10 $10 -1
 	j laco_1_andar_direita
 fim_laco_1_andar_direita:
+	jal timer
+	
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+
+personagem_grande_andando_direita:
+	jal verificar_metade_mapa
+	bne $2 $0 mexer_mapa
+	
+	addi $8 $4 16
+	
+	add $9 $4 $0
+	
+	add $4 $8 $0
+	jal desenhar_personagem_grande_direita
+	
+	addi $10 $0 16
+	
+laco_1_andar_direita_grande:
+	beq $10 $0 fim_laco_1_andar_direita_grande
+	addi $11 $0 4
+laco_2_andar_direita_grande:
+	beq $11 $0 fim_laco_2_andar_direita_grande
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_direita_grande
+fim_laco_2_andar_direita_grande:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_direita_grande
+fim_laco_1_andar_direita_grande:
 	jal timer
 	
 	add $2 $4 $0
@@ -3600,9 +3725,13 @@ trocar_para_personagem_grande_direita:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	addi $4 $8 -16
+	jal retomar_terceira_copia
 	add $4 $8 $0
 	add $2 $4 $0
 	jal desenhar_personagem_grande_direita
+	
+	addi $16 $0 1
 	
 	add $3 $6 $0
 	add $25 $5 $0
@@ -3642,6 +3771,14 @@ andar_para_baixo:
        	addi $29 $29 -4
        	sw $13 0($29)
        	addi $29 $29 -4
+       	
+       	bne $16 $0 personagem_grande_baixo
+       	addi $9 $0 8
+       	j continuacao_conferir_colisoes_baixo
+personagem_grande_baixo:
+	addi $9 $0 16
+	j continuacao_conferir_colisoes_baixo
+continuacao_conferir_colisoes_baixo:
        	
        	add $8 $0 $0
        	
@@ -3707,6 +3844,8 @@ andar_para_baixo:
        	
        	bne $8 $0 nao_anda_baixo
        	
+       	bne $16 $0 personagem_grande_andando_baixo
+       	
 	addi $8 $4 2048
 	
 	jal verificar_saiu_da_tela
@@ -3769,13 +3908,80 @@ fim_laco_1_andar_baixo:
        	lw $31 0($29)
 	jr $31
 	
+personagem_grande_andando_baixo:
+	addi $8 $4 2048
+	
+	add $9 $4 $0
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	add $13 $10 $0
+	beq $13 $19 personagem_grande_andando_esquerda_baixo
+	jal desenhar_personagem_grande_direita
+	j continuacao_para_laco_baixo_grande
+personagem_grande_andando_esquerda_baixo:
+	jal desenhar_personagem_grande_direita
+continuacao_para_laco_baixo_grande:
+	addi $10 $0 4
+	
+laco_1_andar_baixo_grande:
+	beq $10 $0 fim_laco_1_andar_baixo_grande
+	
+	addi $11 $0 16
+laco_2_andar_baixo_grande:
+	beq $11 $0 fim_laco_2_andar_baixo_grande
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_baixo_grande
+fim_laco_2_andar_baixo_grande:
+	addi $9 $9 -64
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_baixo_grande
+fim_laco_1_andar_baixo_grande:
+	jal timer
+	
+	add $3 $0 $0
+	add $18 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
 nao_anda_baixo:
+	bne $16 $0 personagem_nao_anda_grande
 	add $13 $10 $0
 	beq $13 $19 personagem_nao_andando_esquerda_baixo
 	jal desenhar_personagem_direita
 	j continuacao_para_laco_baixo_nao_anda
 personagem_nao_andando_esquerda_baixo:
 	jal desenhar_personagem_esquerda
+	j continuacao_para_laco_baixo_nao_anda
+	
+personagem_nao_anda_grande:
+	add $13 $10 $0
+	beq $13 $19 personagem_grande_nao_andando_esquerda_baixo
+	jal desenhar_personagem_grande_direita
+	j continuacao_para_laco_baixo_nao_anda
+personagem_grande_nao_andando_esquerda_baixo:
+	jal desenhar_personagem_grande_direita
+	j continuacao_para_laco_baixo_nao_anda
+	
 continuacao_para_laco_baixo_nao_anda:
 	addi $18 $0 1
 	add $2 $4 $0
@@ -3829,12 +4035,16 @@ trocar_para_personagem_grande_baixo:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	addi $4 $8 -16
+	jal retomar_terceira_copia
 	add $4 $8 $0
 	add $2 $4 $0
 	jal desenhar_personagem_grande_direita
 	
 	add $3 $0 $0
 	add $18 $0 $0
+	
+	addi $16 $0 1
 	
 	addi $29 $29 4                                                    
        	lw $13 0($29)
@@ -3870,6 +4080,14 @@ andar_para_cima:
        	addi $29 $29 -4
        	sw $12 0($29)
        	addi $29 $29 -4
+       	
+       	bne $16 $0 personagem_grande_cima
+       	addi $9 $0 8
+       	j continuacao_conferir_colisoes_cima
+personagem_grande_cima:
+	addi $9 $0 16
+	j continuacao_conferir_colisoes_cima
+continuacao_conferir_colisoes_cima:
        	
        	add $8 $0 $0
        	
@@ -3935,6 +4153,8 @@ andar_para_cima:
        	
        	bne $8 $0 nao_anda_cima
        	
+       	bne $16 $0 personagem_grande_andando_cima
+       	
 	addi $8 $4 -2048
 	
 	add $9 $4 2048
@@ -3968,6 +4188,58 @@ fim_laco_2_andar_cima:
 	addi $10 $10 -1
 	j laco_1_andar_cima
 fim_laco_1_andar_cima:
+	jal timer
+	
+	add $18 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+personagem_grande_andando_cima:
+	addi $8 $4 -2048
+	
+	add $9 $4 6144
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	beq $10 $19 personagem_grande_andando_esquerda_cima
+	jal desenhar_personagem_grande_direita
+	j continuacao_para_laco_cima_grande
+personagem_grande_andando_esquerda_cima:
+	jal desenhar_personagem_grande_direita
+continuacao_para_laco_cima_grande:
+	
+	addi $10 $0 4
+	
+laco_1_andar_cima_grande:
+	beq $10 $0 fim_laco_1_andar_cima_grande
+	
+	addi $11 $0 16
+laco_2_andar_cima_grande:
+	beq $11 $0 fim_laco_2_andar_cima_grande
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_cima_grande
+fim_laco_2_andar_cima_grande:
+	addi $9 $9 -64
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_cima_grande
+fim_laco_1_andar_cima_grande:
 	jal timer
 	
 	add $18 $0 $0
@@ -4136,7 +4408,6 @@ mapa_3_incompleto:
 	
 mapa_4_incompleto:
 	jal andar_mapa
-	jal timer
 	addi $6 $6 1
 	
 	addi $29 $29 4                                                    
@@ -4195,70 +4466,102 @@ andar_mapa_loop_2:
 	lw $14 65552($8)
 	sw $14 0($8)
 	sw $14 65536($8)
+	lw $14 131088($8)
+	sw $14 131072($8)
 	
 	lw $14 65556($8)
 	sw $14 4($8)
 	sw $14 65540($8)
+	lw $14 131092($8)
+	sw $14 131076($8)
 	
 	lw $14 65560($8)
 	sw $14 8($8)
 	sw $14 65544($8)
+	lw $14 131096($8)
+	sw $14 131080($8)
 	
 	lw $14 65564($8)
 	sw $14 12($8)
 	sw $14 65548($8)
+	lw $14 131100($8)
+	sw $14 131084($8)
 	
 	
 	lw $14 66064($8)
 	sw $14 512($8)
 	sw $14 66048($8)
+	lw $14 131600($8)
+	sw $14 131584($8)
 	
 	lw $14 66068($8)
 	sw $14 516($8)
 	sw $14 66052($8)
+	lw $14 131604($8)
+	sw $14 131588($8)
 	
 	lw $14 66072($8)
 	sw $14 520($8)
 	sw $14 66056($8)
+	lw $14 131608($8)
+	sw $14 131592($8)
 	
 	lw $14 66076($8)
 	sw $14 524($8)
 	sw $14 66060($8)
+	lw $14 131612($8)
+	sw $14 131596($8)
 	
 	
 	lw $14 66576($8)
 	sw $14 1024($8)
 	sw $14 66560($8)
+	lw $14 132112($8)
+	sw $14 132096($8)
 	
 	lw $14 66580($8)
 	sw $14 1028($8)
 	sw $14 66564($8)
+	lw $14 132116($8)
+	sw $14 132100($8)
 	
 	lw $14 66584($8)
 	sw $14 1032($8)
 	sw $14 66568($8)
+	lw $14 132120($8)
+	sw $14 132104($8)
 	
 	lw $14 66588($8)
 	sw $14 1036($8)
 	sw $14 66572($8)
+	lw $14 132124($8)
+	sw $14 132108($8)
 	
 	
 	
 	lw $14 67088($8)
 	sw $14 1536($8)
 	sw $14 67072($8)
+	lw $14 132624($8)
+	sw $14 132608($8)
 	
 	lw $14 67092($8)
 	sw $14 1540($8)
 	sw $14 67076($8)
+	lw $14 132628($8)
+	sw $14 132612($8)
 	
 	lw $14 67096($8)
 	sw $14 1544($8)
 	sw $14 67080($8)
+	lw $14 132632($8)
+	sw $14 132616($8)
 	
 	lw $14 67100($8)
 	sw $14 1548($8)
 	sw $14 67084($8)
+	lw $14 132636($8)
+	sw $14 132620($8)
 	
 	addi $8 $8 16
 	j continuacao_andar_mapa
@@ -4278,70 +4581,86 @@ pega_proximo:
 	lw $14 32768($15)
 	sw $14 0($8)
 	sw $14 65536($8)
+	sw $14 131072($8)
 	
 	lw $14 32772($15)
 	sw $14 4($8)
 	sw $14 65540($8)
+	sw $14 131076($8)
 	
 	lw $14 32776($15)
 	sw $14 8($8)
 	sw $14 65544($8)
+	sw $14 131080($8)
 	
 	lw $14 32780($15)
 	sw $14 12($8)
 	sw $14 65548($8)
+	sw $14 131084($8)
 	
 	
 	lw $14 33280($15)
 	sw $14 512($8)
 	sw $14 66048($8)
+	sw $14 131584($8)
 	
 	lw $14 33284($15)
 	sw $14 516($8)
 	sw $14 66052($8)
+	sw $14 131588($8)
 	
 	lw $14 33288($15)
 	sw $14 520($8)
 	sw $14 66056($8)
+	sw $14 131592($8)
 	
 	lw $14 33292($15)
 	sw $14 524($8)
 	sw $14 66060($8)
+	sw $14 131596($8)
 	
 	
 	lw $14 33792($15)
 	sw $14 1024($8)
 	sw $14 66560($8)
+	sw $14 132096($8)
 	
 	lw $14 33796($15)
 	sw $14 1028($8)
 	sw $14 66564($8)
+	sw $14 132100($8)
 	
 	lw $14 33800($15)
 	sw $14 1032($8)
 	sw $14 66568($8)
+	sw $14 132104($8)
 	
 	lw $14 33804($15)
 	sw $14 1036($8)
 	sw $14 66572($8)
+	sw $14 132108($8)
 	
 	
 	
 	lw $14 34304($15)
 	sw $14 1536($8)
 	sw $14 67072($8)
+	sw $14 132608($8)
 	
 	lw $14 34308($15)
 	sw $14 1540($8)
 	sw $14 67076($8)
+	sw $14 132612($8)
 	
 	lw $14 34312($15)
 	sw $14 1544($8)
 	sw $14 67080($8)
+	sw $14 132616($8)
 	
 	lw $14 34316($15)
 	sw $14 1548($8)
 	sw $14 67084($8)
+	sw $14 132620($8)
 	
 	addi $8 $8 1552
 	j continuacao_andar_mapa
@@ -4354,7 +4673,6 @@ fim_andar_mapa_loop_2:
 	addi $11 $11 1
 	j andar_mapa_loop_1
 fim_andar_mapa_loop_1:
-	jal desenhar_personagem_direita
 	addi $29 $29 4                                                    
        	lw $16 0($29)
 	addi $29 $29 4                                                    
@@ -4394,13 +4712,16 @@ conferir_colisao:
        	addi $29 $29 -4
        	sw $11 0($29)
        	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
        	
 	add $8 $4 $24
+	add $12 $9 $0
 	
-	addi $9 $0 8
+	add $9 $0 $12
 laco_conferir_colisao_1:
 	beq $9 $0 fim_laco_conferir_colisao_1
-	addi $10 $0 8
+	add $10 $0 $12
 laco_conferir_colisao_2:
 	beq $10 $0 fim_laco_conferir_colisao_2
 	
@@ -4411,7 +4732,9 @@ laco_conferir_colisao_2:
 	addi $10 $10 -1
 	j laco_conferir_colisao_2
 fim_laco_conferir_colisao_2:
-	addi $8 $8 -32
+	addi $11 $0 4
+	mul $11 $11 $12
+	sub $8 $8 $11
 	addi $8 $8 512
 	addi $9 $9 -1
 	j laco_conferir_colisao_1
@@ -4419,6 +4742,8 @@ fim_laco_conferir_colisao_1:
 	
 	add $2 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -4435,6 +4760,8 @@ fim_laco_conferir_colisao_1:
 houve_colisao:
 	addi $2 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
 	addi $29 $29 4                                                    
@@ -4774,6 +5101,87 @@ fim_laco_copia_cogumelo_1:
        	lw $31 0($29)
        	
        	jr $31
+       	
+#=============================================
+# - funcao para salvar o mapa na terceira copia (sempre vai guardar o que tem no mapa 1)
+
+salvar_terceira_copia:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+
+	lui $9 0x1001
+	addi $8 $0 8192
+laco_salvar_terceira_copia:
+	beq $8 $0 fim_laco_salvar_terceira_copia
+	
+	lw $10 65536($9)
+	sw $10 131072($9)
+	
+	addi $9 $9 4
+	addi $8 $8 -1
+	j laco_salvar_terceira_copia
+fim_laco_salvar_terceira_copia:
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para retornar uma parte da terceira copia para o original
+retomar_terceira_copia:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 16
+laco_retomar_terceira_copia_1:
+	beq $9 $0 fim_laco_retomar_terceira_copia_1
+	addi $10 $0 16
+laco_retomar_terceira_copia_2:
+	beq $10 $0 fim_laco_retomar_terceira_copia_2
+	
+	lw $11 131072($8)
+	sw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_retomar_terceira_copia_2
+fim_laco_retomar_terceira_copia_2:
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_retomar_terceira_copia_1
+fim_laco_retomar_terceira_copia_1:
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
 #=============================================
 # funcao timer
 
