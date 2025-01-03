@@ -75,7 +75,7 @@ desenhar_tela_de_morte:
 	j menu_morte
 	
 cima:
-	addi $15 $0 8
+	addi $15 $0 9
 laco_andar_cima:
 	beq $15 $0 fim_laco_andar_cima
 	
@@ -3044,6 +3044,54 @@ fim_pulando_esquerda:
 	jr $31
 	
 #===================================================
+# - funcao para desenhar o personagem grande para a direita
+
+desenhar_personagem_grande_direita:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 0xff00ff
+	
+	addi $10 $0 16
+laco_personagem_grande_direita_1:
+	beq $10 $0 fim_laco_personagem_grande_direita_1
+	addi $11 $0 16
+laco_personagem_grande_direita_2:
+	beq $11 $0 fim_laco_personagem_grande_direita_2
+
+	sw $9 0($8)
+
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_grande_direita_2
+fim_laco_personagem_grande_direita_2:
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_grande_direita_1
+fim_laco_personagem_grande_direita_1:
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+#===================================================
 # funcao para desenhar o cogumelo
 
 desenhar_cogumelo:
@@ -3058,6 +3106,8 @@ desenhar_cogumelo:
        	sw $10 0($29)
        	addi $29 $29 -4
        	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
        	addi $29 $29 -4
        	
 	add $8 $4 $0
@@ -3166,6 +3216,8 @@ fim_laco_trocar_pelo_fundo_2:
 fim_laco_trocar_pelo_fundo_1:
 	
 	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
 	lw $11 0($29)
 	addi $29 $29 4                                                    
        	lw $10 0($29)
@@ -3265,6 +3317,11 @@ andar_para_esquerda:
        	
 	addi $8 $4 -16
 	
+	addi $24 $0 -4
+       	addi $23 $0 0xffa237
+       	jal conferir_colisao
+       	bne $2 $0 trocar_para_personagem_grande_esquerda
+	
 	jal verificar_saiu_da_tela
 	bne $2 $0 nao_anda_esquerda
 	
@@ -3313,6 +3370,33 @@ fim_laco_1_andar_esquerda:
 	
 nao_anda_esquerda:
 	add $2 $4 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+trocar_para_personagem_grande_esquerda:
+	andi $8 $8 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mfhi $9
+	lui $8 0x1001
+	addi $8 $8 2048
+	add $8 $8 $9
+	add $4 $8 $0
+	add $2 $4 $0
+	jal desenhar_personagem_grande_direita
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -3416,6 +3500,12 @@ andar_para_direita:
 	bne $2 $0 mexer_mapa
 	
 	addi $8 $4 16
+	
+	addi $24 $0 4
+       	addi $23 $0 0xffa237
+       	jal conferir_colisao
+       	bne $2 $0 trocar_para_personagem_grande_direita
+	
 	add $9 $4 $0
 	
 	add $4 $8 $0
@@ -3484,6 +3574,36 @@ mexer_mapa:
 	
 nao_anda_direita:
 	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+trocar_para_personagem_grande_direita:
+	andi $8 $8 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mfhi $9
+	lui $8 0x1001
+	addi $8 $8 2048
+	add $8 $8 $9
+	add $4 $8 $0
+	add $2 $4 $0
+	jal desenhar_personagem_grande_direita
+	
 	add $3 $6 $0
 	add $25 $5 $0
 	
@@ -3592,6 +3712,11 @@ andar_para_baixo:
 	jal verificar_saiu_da_tela
 	bne $2 $0 morreu_baixo
 	
+	addi $24 $0 512
+       	addi $23 $0 0xffa237
+       	jal conferir_colisao
+       	bne $2 $0 trocar_para_personagem_grande_baixo
+	
 	add $9 $4 $0
 	add $2 $8 $0
 	
@@ -3679,6 +3804,37 @@ morreu_baixo:
 	
 	add $2 $4 $0
 	add $3 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+trocar_para_personagem_grande_baixo:
+	andi $8 $8 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mfhi $9
+	lui $8 0x1001
+	addi $8 $8 2048
+	add $8 $8 $9
+	add $4 $8 $0
+	add $2 $4 $0
+	jal desenhar_personagem_grande_direita
+	
+	add $3 $0 $0
+	add $18 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $13 0($29)
