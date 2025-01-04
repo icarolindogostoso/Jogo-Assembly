@@ -1,5 +1,3 @@
-
-	
 playergjr_init:
 	lui $8, 0x1001
 	addi $8, $8, 11300
@@ -57,6 +55,7 @@ detalhesCabeçagjri:
 	li $10, 0x784936 # marrom
 	li $11, 0xf474a6 # rosa
 	li $20, 0xffd7a4
+	li $21, 0x000001
 detalhesCabeçagjr:
 	beqz $9 bigasgjr_init
 	
@@ -71,7 +70,7 @@ detalhesCabeçagjr:
 	sw $10, 520($8)
 	sw $10, 524($8)
 	
-	sw $0, 20($8)#0lh0
+	sw $21, 20($8)#0lh0
 	sw $20 512($8)#orelha
 
 	
@@ -81,13 +80,13 @@ detalhesCabeçagjr:
 	
 bigasgjr_init:
 	addi $8, $8 512
-	li $20, 0
+	li $20, 0x000001
 	li $10, 0xffffff
 	li $9, 3
 bigasgjr:
 	beqz $9 macacãogjr_init
-	sw $0, 16($8)
-	sw $0, 20($8)
+	sw $20, 16($8)
+	sw $20, 20($8)
 	sw $10, 532($8)
 	addi $8, $8 4
 	addi $9, $9 -1
@@ -148,39 +147,40 @@ sapatosgjr:
 	j sapatosgjr
 bordashgjr_init:
 	subi $8, $8, 6672
+	li $10, 0x000001
 	li $9, 2
 bordashgjr:
 	beqz $9 bordasvgjr_init
 	
-	sw $0, 4($8) #bone encima
-	sw $0, 8($8)
-	sw $0, 16($8)
+	sw $10, 4($8) #bone encima
+	sw $10, 8($8)
+	sw $10, 16($8)
 	
-	sw $0, 536($8) #cap
+	sw $10, 536($8) #cap
 
-	sw $0, 32($8)#luva direita 
-	sw $0, 36($8)
+	sw $10, 32($8)#luva direita 
+	sw $10, 36($8)
 	
-	sw $0, 1560($8)#cap embaixo
-	sw $0, 1564($8)
+	sw $10, 1560($8)#cap embaixo
+	sw $10, 1564($8)
 	
-	sw $0, 3612($8)#abaixo nariz
+	sw $10, 3612($8)#abaixo nariz
 	
-	sw $0, 3068($8)# pescoço
-	sw $0, 4092($8)
-	sw $0, 4096($8)
+	sw $10, 3068($8)# pescoço
+	sw $10, 4092($8)
+	sw $10, 4096($8)
 	
-	sw $0, 5112($8)#braço esquerdo
-	sw $0, 5108($8)
+	sw $10, 5112($8)#braço esquerdo
+	sw $10, 5108($8)
 	
-	sw $0, 5156($8)#pe direito
-	sw $0, 5152($8)
-	sw $0, 7712($8)
+	sw $10, 5156($8)#pe direito
+	sw $10, 5152($8)
+	sw $10, 7712($8)
 	
-	sw $0, 7192($8)#barriga
-	sw $0, 7188($8)
-	sw $0, 7684($8)
-	sw $0, 7692($8)
+	sw $10, 7192($8)#barriga
+	sw $10, 7188($8)
+	sw $10, 7684($8)
+	sw $10, 7692($8)
 
 	addi $8, $8, 4
 	addi $9, $9, -1
@@ -191,31 +191,31 @@ bordasvgjr_init:
 bordasvgjr:
 	beqz $9 detalhes_finais_playergjr
 	
-	sw $0, 1012($8)#cabeça atras
-	sw $0, 2032($8)
+	sw $10, 1012($8)#cabeça atras
+	sw $10, 2032($8)
 	
-	sw $0, 548($8)#luva direita
-	sw $0, 1048($8)
+	sw $10, 548($8)#luva direita
+	sw $10, 1048($8)
 	
-	sw $0, 1568($8) #braço direito
-	sw $0, 2080($8)
-	sw $0, 3100($8)
-	sw $0, 3612($8)
-	sw $0, 3604($8)
+	sw $10, 1568($8) #braço direito
+	sw $10, 2080($8)
+	sw $10, 3100($8)
+	sw $10, 3612($8)
+	sw $10, 3604($8)
 
-	sw $0, 3576($8)#pescoço
+	sw $10, 3576($8)#pescoço
 	
-	sw $0, 4592($8)# breaço esquerdo
+	sw $10, 4592($8)# breaço esquerdo
 
-	sw $0, 5608($8)#luva esquerda
-	sw $0, 5624($8)
+	sw $10, 5608($8)#luva esquerda
+	sw $10, 5624($8)
 	
-	sw $0, 5668($8)# pe direito
-	sw $0, 6688($8)
-	sw $0, 4632($8)
-	sw $0, 5144($8)
+	sw $10, 5668($8)# pe direito
+	sw $10, 6688($8)
+	sw $10, 4632($8)
+	sw $10, 5144($8)
 	
-	sw $0, 7144($8)# esquerdo
+	sw $10, 7144($8)# esquerdo
 	
 	addi $8, $8, 512
 	addi $9, $9, -1
@@ -226,9 +226,9 @@ detalhes_finais_playergjr:
 	li $20, 0xffffff
 	li $21, 0x9a3894
 	
-	sw $0, 4($8)
+	sw $10, 4($8)
  	sw $20, 24($8)
-	sw $0, 548($8)
+	sw $10, 548($8)
 	#macacao
 	sw $21, 4108($8)
 	sw $21, 4124($8)
@@ -237,10 +237,10 @@ detalhes_finais_playergjr:
 
 
 
-	sw $0, 6136($8)
-	sw $0, 6144($8)
-	sw $0, 6660($8)
-	sw $0, 7168($8)
+	sw $10, 6136($8)
+	sw $10, 6144($8)
+	sw $10, 6660($8)
+	sw $10, 7168($8)
 	
 
 
