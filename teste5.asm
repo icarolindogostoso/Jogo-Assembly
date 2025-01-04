@@ -1,11 +1,25 @@
 .text
 menu_level_1:
-	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
+	add $25 $0 $0 # nada
+	add $24 $0 $0 # nada
+	add $23 $0 $0 # nada
+	add $22 $0 $0 # nada
+	add $21 $0 $0 # registrador qeu vai guardar o que foi lido do teclado
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
+	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
 	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
 	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	add $15 $0 $0 # nada
+	add $14 $0 $0 # nada
+	add $13 $0 $0 # nada
+	add $12 $0 $0 # registrador que vai guardar o movimento pra cima
+	add $11 $0 $0 # registrador que vai guardar o movimento para a direita
+	add $10 $0 $0 # registrador que vai guardar o movimento para a esquerda
+	add $9 $0 $0 # nada
+	add $8 $0 $0 # registrador que vai guardar a posicao atual do personagem
+	
 	jal desenhar_mapa_1
 	jal salvar_terceira_copia
 	addi $20 $20 1
@@ -16,7 +30,7 @@ menu_level_1:
 	lui $8 0x1001
 	addi $8 $8 22528
 	add $4 $8 $0
-	jal desenhar_cogumelo
+	jal desenhar_personagem_direita
 	
 	lui $9 0xffff
 	addi $10 $0 'a'
@@ -3059,6 +3073,12 @@ desenhar_personagem_grande_direita:
        	addi $29 $29 -4
        	sw $11 0($29)
        	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	sw $21 0($29)
+       	addi $29 $29 -4
+       	sw $22 0($29)
+       	addi $29 $29 -4
        	
 	add $8 $4 $0
 	addi $9 $0 0xff00ff
@@ -3081,6 +3101,234 @@ fim_laco_personagem_grande_direita_2:
 	addi $10 $10 -1
 	j laco_personagem_grande_direita_1
 fim_laco_personagem_grande_direita_1:
+	addi $8 $8 -7656
+	li $20, 0xfdff0e
+	li $9, 5
+
+amarelosr:
+	beq $9, $0, cabeçagr_init
+	#chapeu
+	sw $20, 0($8)
+	sw $20, 508($8)
+	sw $20, 524($8)
+	
+	#manga
+	sw $20, 4088($8)
+	sw $20,	4600($8)
+	sw $20, 5112($8)
+	
+	#roupa
+	sw $20, 4104($8)
+	sw $20, 4620($8)
+	
+	
+	addi $8, $8, 4
+	addi $9, $9 -1
+	j amarelosr
+cabeçagr_init:
+	addi $8, $8, 1000
+	li $20, 0xffd7a4
+	li $9, 7
+	li $10, 5
+cabeçagr:
+	beqz $9 plcpr
+	
+	sw $20, 0($8)
+	
+	addi $8, $8, 4
+	addi $9, $9 -1
+	j cabeçagr
+	
+plcpr:
+	beqz $10 detalhesCabeçagri
+	addi $8, $8, 484
+	subi $10, $10, 1
+	li $9, 7
+	j cabeçagr
+	
+detalhesCabeçagri:
+	subi $8, $8, 2588
+	li $9, 2
+	li $10, 0x784936 # marrom
+	li $11, 0xf474a6 # rosa
+	li $20, 0xffd7a4
+	li $22 0x000001
+detalhesCabeçagr:
+	beqz $9 bigasR_init
+	
+	sw $10, 0($8)
+	sw $10, 4($8)
+	sw $10, 516($8)
+	sw $10, 520($8)
+	
+	sw $11, 536($8)
+	sw $11, 540($8)
+	sw $11, 544($8)
+	sw $11, 1052($8)
+	sw $11, 1056($8)
+	
+	sw $22, 16($8)
+	
+	sw $20, 508($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j detalhesCabeçagr
+	
+bigasR_init:
+	addi $8, $8 512
+	li $20, 0
+	li $10, 0xffffff
+	li $9, 3
+bigasR:
+	beqz $9 macacãoR_init
+	
+	sw $20, 12($8)
+	sw $20, 16($8)
+	sw $10, 528($8)
+	addi $8, $8 4
+	addi $9, $9 -1
+	j bigasR
+
+macacãoR_init:
+	addi $8, $8, 1528
+	li $20, 0x9a3894 
+	li $9, 3
+macacão_e_luvaR:
+	beqz $9 sapatospgr_init
+	
+	sw $20, 8($8)
+	sw $20, 524($8)
+	sw $20, 1040($8)
+	sw $20, 1032($8)
+	sw $20, 1540($8)
+	sw $20, 1536($8)
+	sw $20, 1532($8)
+	sw $20, 1044($8)
+	sw $20, 1048($8)
+	sw $20, 1052($8)
+	sw $20, 1036($8)
+	sw $20, 1548($8)
+	
+	sw $10, 1056($8) #luva direita
+	sw $10, 500($8)
+	sw $10, 496($8)
+	sw $10, 1012($8)
+	sw $10, 1016($8)
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j macacão_e_luvaR
+
+sapatospgr_init:
+	addi $8, $8, 516
+	li $9, 3
+	li $20, 0x2b7741
+sapatospgR:
+	beqz $9 bordash_init
+	
+	sw $20, 16($8)
+	sw $20, 528($8)
+	sw $20, 1036($8)
+	
+	sw $20, 496($8)
+	sw $20, 1008($8)
+	
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j sapatospgR
+bordash_init:
+	subi $8, $8, 6672
+	li $9, 2
+	li $22 0x000001
+bordash:
+	beqz $9 bordasv_init
+	
+	sw $22, 0($8)
+	sw $22, 8($8)
+	sw $22, 16($8)
+	sw $22, 536($8)
+	
+	sw $22, 1556($8)
+	sw $22, 1560($8)
+	
+	sw $22, 3608($8)
+	sw $22, 4088($8)
+	sw $22, 4092($8)
+	sw $22, 3064($8)
+	
+	sw $22, 6140($8)
+	sw $22, 6644($8)
+	sw $22, 7172($8)
+	
+	sw $22, 4592($8)
+	
+
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j bordash
+	
+bordasv_init:
+	li $9, 2
+	li $22 0x000001
+bordasv:
+	beqz $9 detalhes_finais_player
+	
+	sw $22, 1008($8)
+	sw $22, 2028($8)
+	sw $22, 2072($8)
+	sw $22, 2584($8)
+	sw $22, 3600($8)
+	sw $22, 3572($8)
+	
+	sw $22, 5092($8)#braço esquerda
+	sw $22, 5660($8) #braço direita
+	sw $22, 6680($8)# pe direito
+	sw $22, 7144($8)# outro pe
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j bordasv
+
+detalhes_finais_player:
+	subi $8, $8 524
+	li $20, 0xffffff
+	li $21, 0x9a3894
+	li $22 0x000001
+	
+	sw $22, 0($8)
+	sw $20, 24($8)
+	sw $22, 548($8)
+	#macacao
+	sw $21, 4104($8)
+	sw $21, 4120($8)
+	sw $21, 4636($8)
+	
+	sw $22, 4128($8)#pescoço frente
+	sw $22, 4644($8)
+	
+	sw $22, 5128($8)
+
+	sw $22, 6656($8)
+	sw $22, 6676($8)
+	sw $22, 6168($8)
+	sw $22, 7184($8)
+	sw $22, 7172($8)
+	sw $22, 7200($8)
+	
+	sw $22, 5620($8)
+	sw $20, 5648($8)
+	sw $20, 5660($8)
+
+fim_personagem_grande_direita:
+	addi $5 $0 16
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $22 0($29)
+	addi $29 $29 4  
+	lw $21 0($29)
+	addi $29 $29 4  
+	lw $20 0($29)
 	addi $29 $29 4  
 	lw $11 0($29)
 	addi $29 $29 4                                                    
