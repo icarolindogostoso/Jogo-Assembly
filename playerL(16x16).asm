@@ -52,6 +52,7 @@ detalhesCabeçagli:
 	li $10, 0x784936 # marrom
 	li $11, 0xf474a6 # rosa
 	li $20, 0xffd7a4
+	li $21, 0x000001
 detalhesCabeçagl:
 	beqz $9 bigasgl_init
 	
@@ -70,7 +71,7 @@ detalhesCabeçagl:
 	
 	sw $20, 536($8)
 	
-	sw $0, 4($8)
+	sw $21, 4($8)
 	
 	addi $8, $8, 512
 	addi $9, $9, -1
@@ -78,7 +79,7 @@ detalhesCabeçagl:
 	
 bigasgl_init:
 	addi $8, $8 512
-	li $20, 0
+	li $20, 0x000001
 	li $10, 0xffffff
 	li $9, 3
 bigasgl:
@@ -142,28 +143,29 @@ sapatospgl:
 	j sapatospgl
 bordashgl_init:
 	subi $8, $8, 6672
+	li $10, 0x000001
 	li $9, 2
 bordashgl:
 	beqz $9 bordasvgl_init
 	
-	sw $0, -8($8)
-	sw $0, 0($8)
-	sw $0, 8($8)
-	sw $0, 496($8)
+	sw $10, -8($8)
+	sw $10, 0($8)
+	sw $10, 8($8)
+	sw $10, 496($8)
 	
-	sw $0, 1520($8)
-	sw $0, 1524($8)
+	sw $10, 1520($8)
+	sw $10, 1524($8)
 	
-	sw $0, 3088($8)
+	sw $10, 3088($8)
 	
-	sw $0, 3568($8) #abaixo do nariz
-	sw $0, 4108($8) #pescoço
-	sw $0, 4112($8)
+	sw $10, 3568($8) #abaixo do nariz
+	sw $10, 4108($8) #pescoço
+	sw $10, 4112($8)
 	
-	sw $0, 4632($8)#cima luva
-	sw $0, 6156($8)#baixo braço
-	sw $0, 6676($8)#pe direita
-	sw $0, 7172($8)#pe exquerda
+	sw $10, 4632($8)#cima luva
+	sw $10, 6156($8)#baixo braço
+	sw $10, 6676($8)#pe direita
+	sw $10, 7172($8)#pe exquerda
 
 	
 
@@ -176,18 +178,18 @@ bordasvgl_init:
 bordasvgl:
 	beqz $9 detalhes_finais_playergl
 	
-	sw $0, 1036($8)#bone
+	sw $10, 1036($8)#bone
 	
-	sw $0, 2064($8) #orelha
-	sw $0, 2020($8)# nariz
-	sw $0, 2532($8)#nariz tbm
-	sw $0, 3592($8)#parte da orelha
-	sw $0, 3564($8)# parte do nariz
+	sw $10, 2064($8) #orelha
+	sw $10, 2020($8)# nariz
+	sw $10, 2532($8)#nariz tbm
+	sw $10, 3592($8)#parte da orelha
+	sw $10, 3564($8)# parte do nariz
 	
-	sw $0, 5144($8)#braço esquerda
-	sw $0, 5600($8) #braço direita
-	sw $0, 6628($8)# pe direito
-	sw $0, 7188($8)# outro pe
+	sw $10, 5144($8)#braço esquerda
+	sw $10, 5600($8) #braço direita
+	sw $10, 6628($8)# pe direito
+	sw $10, 7188($8)# outro pe
 	
 	addi $8, $8, 512
 	addi $9, $9, -1
@@ -198,10 +200,10 @@ detalhes_finais_playergl:
 	li $20, 0xffffff
 	li $21, 0x9a3894
 	
-	sw $0, 20($8)
+	sw $10, 20($8)
 	sw $20, -4($8)
 
-	sw $0, 496($8)
+	sw $10, 496($8)
 	#macacao
 	sw $21, 4092($8)
 	sw $21, 4108($8)#direita
@@ -210,19 +212,19 @@ detalhes_finais_playergl:
 	sw $20, 5636($8)#botoes
 	sw $20, 5624($8)
 	
-	sw $0, 4084($8)#pescoço frente
-	sw $0, 4592($8)
+	sw $10, 4084($8)#pescoço frente
+	sw $10, 4592($8)
 	
-	sw $0, 5132($8)#braço
-	sw $0, 5664($8)
+	sw $10, 5132($8)#braço
+	sw $10, 5664($8)
 	
-	sw $0, 6656($8)
-	sw $0, 6676($8)
-	sw $0, 6140($8)
+	sw $10, 6656($8)
+	sw $10, 6676($8)
+	sw $10, 6140($8)
 	
-	sw $0, 7184($8)
-	sw $0, 7172($8)
-	sw $0, 7156($8)
+	sw $10, 7184($8)
+	sw $10, 7172($8)
+	sw $10, 7156($8)
 	
 	
 
