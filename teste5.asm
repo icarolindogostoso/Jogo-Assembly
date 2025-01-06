@@ -1,22 +1,29 @@
 .text
 menu_level_1:
-	add $25 $0 $0 # nada
-	add $24 $0 $0 # nada
-	add $23 $0 $0 # nada
+	add $25 $0 $0 # registrador de retorno (pode usar)
+	add $24 $0 $0 # registrador de retorno (pode usar)
+	add $23 $0 $0 # registrador de retorno (pode usar)
+	
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
-	add $21 $0 $0 # registrador qeu vai guardar o que foi lido do teclado
+	add $21 $0 $0 # registrador que vai guardar o que foi lido do teclado
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
+	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
 	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
 	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
-	add $13 $0 $0 # nada
+	add $13 $0 $0 # registrador que vai guardar a posicao do inimigo
+	
 	add $12 $0 $0 # registrador que vai guardar o movimento pra cima
 	add $11 $0 $0 # registrador que vai guardar o movimento para a direita
 	add $10 $0 $0 # registrador que vai guardar o movimento para a esquerda
+	
 	add $9 $0 $0 # nada
+	
 	add $8 $0 $0 # registrador que vai guardar a posicao atual do personagem
 	
 	jal desenhar_mapa_1
@@ -32,7 +39,7 @@ menu_level_1:
 	jal desenhar_personagem_direita
 	
 	lui $13 0x1001
-	addi $13 $13 23008
+	addi $13 $13 22888
 	add $4 $13 $0
 	jal desenhar_toad
 	
@@ -136,9 +143,11 @@ direita_cima:
 	j continuacao_cima
 	
 continuacao:
+	add $5 $14 $0
 	add $4 $13 $0
 	jal andar_toad
 	add $13 $2 $0
+	add $14 $3 $0
 	
 	j loop_principal
 	
@@ -2458,7 +2467,8 @@ pintar:
        	lw $31, 0($29)
 	jr $31		
 pint:
-	lw $12 65536($8)
+	lw $12 131072($8)
+	sw $12 65536($8)
 	sw $12 0($8)
 	
 	lw $13, 0($29)
@@ -4245,7 +4255,7 @@ desenhar_toad:
        	
 	add $8 $4 $0
 	addi $22 $8 65536
-	addi $9 $0 0xff00ff #0x0ec7db
+	addi $9 $0 0x0ec7db
 	
 	addi $10 $0 8
 laco_toad_1:
@@ -5613,6 +5623,7 @@ mapa_3_incompleto:
 mapa_4_incompleto:
 	jal andar_mapa
 	addi $13 $13 -16
+	#addi $14 $14 4
 	addi $6 $6 1
 	
 	addi $29 $29 4                                                    
@@ -6406,6 +6417,13 @@ andar_toad:
        	sw $12 0($29)
        	addi $29 $29 -4
        	
+       	addi $8 $0 122
+       	div $5 $8
+       	mfhi $8
+       	addi $9 $0 60
+       	slt $9 $9 $8
+       	bne $9 $0 toad_andar_direita
+       	
 	addi $8 $4 -4
 	add $2 $8 $0
 	
@@ -6428,6 +6446,49 @@ laco_1_andar_toad_esquerda:
 	j laco_1_andar_toad_esquerda
 fim_laco_1_andar_toad_esquerda:
 	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+toad_andar_direita:
+	addi $8 $4 4
+	add $2 $8 $0
+	
+	addi $9 $8 -4
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_direita:
+	beq $10 $0 fim_laco_1_andar_toad_direita
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_direita
+fim_laco_1_andar_toad_direita:
+	jal timer_mob
+	
+	addi $3 $5 1
        
        	addi $29 $29 4                                                    
        	lw $12 0($29)	
