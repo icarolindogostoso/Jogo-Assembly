@@ -3,9 +3,8 @@ menu_level_1:
 	add $25 $0 $0 # nada
 	add $24 $0 $0 # nada
 	add $23 $0 $0 # nada
-	add $22 $0 $0 # nada
-	add $21 $0 $0 # registrador qeu vai guardar o que foi lido do teclado
 	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
+	add $21 $0 $0 # registrador qeu vai guardar o que foi lido do teclado
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
 	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
@@ -30,7 +29,12 @@ menu_level_1:
 	lui $8 0x1001
 	addi $8 $8 22528
 	add $4 $8 $0
-	jal desenhar_personagem_morrendo
+	jal desenhar_personagem_direita
+	
+	lui $13 0x1001
+	addi $13 $13 23008
+	add $4 $13 $0
+	jal desenhar_toad
 	
 	lui $9 0xffff
 	addi $10 $0 'a'
@@ -132,6 +136,10 @@ direita_cima:
 	j continuacao_cima
 	
 continuacao:
+	add $4 $13 $0
+	jal andar_toad
+	add $13 $2 $0
+	
 	j loop_principal
 	
 menu_morte:
@@ -4213,6 +4221,216 @@ fim_laco_trocar_pelo_fundo_1:
 	jr $31
 	
 #===================================================
+# - funcao para desenhar o toad (o inimigo)
+
+desenhar_toad:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	sw $21 0($29)
+       	addi $29 $29 -4
+       	sw $22 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $22 $8 65536
+	addi $9 $0 0xff00ff #0x0ec7db
+	
+	addi $10 $0 8
+laco_toad_1:
+	beq $10 $0 fim_laco_toad_1
+	addi $11 $0 8
+laco_toad_2:
+	beq $11 $0 fim_laco_toad_2
+	
+	sw $9 0($8)
+	sw $9 0($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $11 $11 -1
+	j laco_toad_2
+fim_laco_toad_2:
+	addi $8 $8 -32
+	addi $22 $22 -32
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $10 $10 -1
+	j laco_toad_1
+fim_laco_toad_1:
+	add $8 $4 $0
+	addi $8 $8 512
+	addi $22 $8 65536
+	li $9 7
+	li $10 3
+	li $20, 0xffffff
+	
+cabeça_toad:
+	beqz $9 plc_toad
+	
+	sw $20, 0($8)
+	sw $20, 0($22)
+	
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9 -1
+	j cabeça_toad
+	
+plc_toad:
+	beqz $10 detalhes_cabeça_toad_init
+	subi $10, $10, 1
+	addi $8, $8, 484
+	addi $22 $22 484
+	li $9, 7
+	j cabeça_toad
+
+detalhes_cabeça_toad_init:
+	addi $8, $8 -2072
+	addi $22 $22 -2072
+	li $9 2
+	li $20, 0xff0000
+	li $21, 0xffffff
+	
+detalhes_cabeça_toad:
+	beqz $9 rosto_toad_init
+	
+	sw $21 0($8)
+	sw $21 4($8)
+	sw $21 0($22)
+	sw $21 4($22)
+	
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 16($8)
+	sw $20 8($22)
+	sw $20 12($22)
+	sw $20 16($22)
+	
+	sw $20 1044($8)
+	sw $20 1044($22)
+	
+	sw $20 1020($8)
+	sw $20 1024($8)
+	sw $20 1020($22)
+	sw $20 1024($22)
+
+	addi $8, $8, 512
+	addi $22 $22 512
+	addi $9, $9 -1
+	j detalhes_cabeça_toad
+	
+	
+rosto_toad_init:
+	addi $8, $8 516
+	addi $22 $22 516
+	li $9 3
+	li $10 2
+	li $20, 0xffd4a2
+	
+rosto_toad:
+	beqz $9 plr_toad
+	
+	sw $20, 0($8)
+	sw $20, 0($22)
+	
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9 -1
+	j rosto_toad
+	
+plr_toad:
+	beqz $10 roupas_toad_init
+	subi $10, $10, 1
+	addi $8, $8, 500
+	addi $22 $22 500
+	li $9, 3
+	j rosto_toad
+	
+roupas_toad_init:
+	addi $8, $8 -16
+	addi $22 $22 -16
+	li $9 2
+	li $10, 0xffffff
+	li $20, 0x2025ff
+	li $21, 0x924328
+
+roupas_toad:
+	beqz $9 detalhes_toad
+	
+	sw $20, 0($8)
+	sw $20, 12($8)
+	sw $20, 0($22)
+	sw $20, 12($22)
+	
+	sw $10 512($8)
+	sw $10 520($8)
+	sw $10 524($8)
+	sw $10 512($22)
+	sw $10 520($22)
+	sw $10 524($22)
+	
+	sw $21 1024($8)
+	sw $21 1036($8)
+	sw $21 1024($22)
+	sw $21 1036($22)
+		
+	addi $8, $8, 4
+	addi $22 $22 4
+	addi $9, $9 -1
+	j roupas_toad
+	
+detalhes_toad:
+	subi $8, $8, 1028
+	subi $22 $22 1028
+	li $10 0x000001
+	li $20 0xffd4a2
+	
+	sw $10 0($8)
+	sw $10 8($8)
+	sw $10 0($22)
+	sw $10 8($22)
+	
+	sw $20 1016($8)
+	sw $20 1040($8)
+	sw $20 1016($22)
+	sw $20 1040($22)
+fim_toad:
+	addi $5 $0 8
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $22 0($29)
+	addi $29 $29 4  
+	lw $21 0($29)
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
 # - funcao para andar para a esquerda
 # - registradores de entrada: $4
 # - registradores de saida: $2
@@ -5167,6 +5385,10 @@ fim_laco_2_andar_cima:
 	j laco_1_andar_cima
 fim_laco_1_andar_cima:
 	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
 	
 	add $18 $0 $0
 	
@@ -5218,6 +5440,10 @@ fim_laco_2_andar_cima_grande:
 	addi $10 $10 -1
 	j laco_1_andar_cima_grande
 fim_laco_1_andar_cima_grande:
+	jal timer
+	jal timer
+	jal timer
+	jal timer
 	jal timer
 	
 	add $18 $0 $0
@@ -5386,6 +5612,7 @@ mapa_3_incompleto:
 	
 mapa_4_incompleto:
 	jal andar_mapa
+	addi $13 $13 -16
 	addi $6 $6 1
 	
 	addi $29 $29 4                                                    
@@ -5425,6 +5652,7 @@ andar_mapa:
 	
 	lui $8 0x1001
 	addi $9 $0 0xffffff
+	
 	
 	addi $10 $0 16
 	add $11 $0 $0
@@ -5651,6 +5879,7 @@ fim_andar_mapa_loop_2:
 	addi $11 $11 1
 	j andar_mapa_loop_1
 fim_andar_mapa_loop_1:
+
 	addi $29 $29 4                                                    
        	lw $16 0($29)
 	addi $29 $29 4                                                    
@@ -6161,6 +6390,61 @@ fim_laco_retomar_terceira_copia_1:
        	jr $31
        	
 #=============================================
+# - funcao para o fazer o toad andar pelo cenario
+
+andar_toad:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+	addi $8 $4 -4
+	add $2 $8 $0
+	
+	addi $9 $8 32
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_esquerda:
+	beq $10 $0 fim_laco_1_andar_toad_esquerda
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_esquerda
+fim_laco_1_andar_toad_esquerda:
+	jal timer_mob
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
 # funcao timer
 
 timer:
@@ -6169,7 +6453,7 @@ timer:
 	sw $8 0($29)
        	addi $29 $29 -4
        	
-	addi $8 $0 50000
+	addi $8 $0 10000
 laco_timer:
 	beq $8 $0 fim_laco_timer
 	nop
@@ -6177,6 +6461,30 @@ laco_timer:
 	addi $8 $8 -1
 	j laco_timer
 fim_laco_timer:
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao timer somente para os mobs
+
+timer_mob:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	
+	addi $8 $0 150000
+laco_timer_mob:
+	beq $8 $0 fim_laco_timer_mob
+	nop
+	nop
+	addi $8 $8 -1
+	j laco_timer_mob
+fim_laco_timer_mob:
 	addi $29 $29 4                                                    
        	lw $8 0($29)
        	addi $29 $29 4                                                    
