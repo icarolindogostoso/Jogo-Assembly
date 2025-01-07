@@ -6428,13 +6428,18 @@ andar_toad:
        	bne $9 $0 toad_andar_direita
        	
 	addi $8 $4 -4
-	add $2 $8 $0
 	
 	addi $9 $8 32
 	
 	add $4 $8 $0
 	jal desenhar_toad
 	
+	jal verificar_toad_visivel
+       	beq $2 $0 nao_apagar_primeira_vez
+       	add $4 $8 $0
+	jal apagar_area_toad
+nao_apagar_primeira_vez:
+	add $2 $8 $0
 	addi $10 $0 8
 	
 laco_1_andar_toad_esquerda:
@@ -6449,7 +6454,6 @@ laco_1_andar_toad_esquerda:
 	j laco_1_andar_toad_esquerda
 fim_laco_1_andar_toad_esquerda:
 	jal timer_mob
-	
 	addi $3 $5 1
        
        	addi $29 $29 4                                                    
@@ -6688,14 +6692,14 @@ apagar_area_toad:
 	div $8 $9
 	mflo $10
 	mul $10 $10 $9
-	addi $9 $0 272
+	addi $9 $0 484
 	add $10 $10 $9
 	lui $9 0x1001
 	add $8 $9 $10
 	addi $9 $0 8
 laco_apagar_area_toad_1:
 	beq $9 $0 fim_laco_apagar_area_toad_1
-	addi $10 $0 10
+	addi $10 $0 7
 laco_apagar_area_toad_2:
 	beq $10 $0 fim_laco_apagar_area_toad_2
 	
@@ -6707,7 +6711,7 @@ laco_apagar_area_toad_2:
 	addi $10 $10 -1
 	j laco_apagar_area_toad_2
 fim_laco_apagar_area_toad_2:
-	addi $8 $8 -40
+	addi $8 $8 -28
 	addi $8 $8 512
 	addi $9 $9 -1
 	j laco_apagar_area_toad_1
@@ -6743,11 +6747,12 @@ verificar_toad_passou:
 	div $8 $9
 	mflo $10
 	mul $10 $10 $9
-	addi $9 $0 472
+	addi $9 $0 484
 	add $10 $10 $9
 	lui $9 0x1001
 	add $8 $9 $10
-	beq $8 $4 toad_passou
+	slt $9 $8 $4
+	beq $9 $0 toad_passou
 	
 	add $2 $0 $0
 	
