@@ -85,6 +85,9 @@ direita:
 	add $8 $2 $0
 	add $22 $3 $0
 	add $20 $25 $0
+	addi $2 $0 1
+	beq $2 $24 desenhar_tela_de_morte
+	add $12 $24 $0
 	
 	j baixo
 	
@@ -143,12 +146,20 @@ direita_cima:
 	j continuacao_cima
 	
 continuacao:
+	add $4 $8 $0
+	jal verificar_situacao_toad
+	bne $2 $0 desenhar_tela_de_morte
+       	
+       	andi $5 $13 0xffff0000
+       	lui $4 0x1001
+       	bne $4 $5 mob_foi_morto
 	add $5 $14 $0
 	add $4 $13 $0
 	jal andar_toad
 	add $13 $2 $0
 	add $14 $3 $0
 	
+mob_foi_morto:
 	j loop_principal
 	
 menu_morte:
@@ -4284,7 +4295,7 @@ fim_laco_toad_1:
 	addi $22 $8 65536
 	li $9 7
 	li $10 3
-	li $20, 0xffffff
+	li $20, 0xfffffe
 	
 cabeça_toad:
 	beqz $9 plc_toad
@@ -4310,7 +4321,7 @@ detalhes_cabeça_toad_init:
 	addi $22 $22 -2072
 	li $9 2
 	li $20, 0xff0000
-	li $21, 0xffffff
+	li $21, 0xfffffe
 	
 detalhes_cabeça_toad:
 	beqz $9 rosto_toad_init
@@ -4371,7 +4382,7 @@ roupas_toad_init:
 	addi $8, $8 -16
 	addi $22 $22 -16
 	li $9 2
-	li $10, 0xffffff
+	li $10, 0xfffffe
 	li $20, 0x2025ff
 	li $21, 0x924328
 
@@ -4815,6 +4826,7 @@ fim_laco_1_andar_direita:
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
+	add $24 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -4865,6 +4877,7 @@ fim_laco_1_andar_direita_grande:
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
+	add $24 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -4887,6 +4900,7 @@ mexer_mapa:
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
+	add $24 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -4907,6 +4921,7 @@ nao_anda_direita:
 	add $2 $4 $0
 	add $3 $6 $0
 	add $25 $5 $0
+	add $24 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -4941,6 +4956,7 @@ trocar_para_personagem_grande_direita:
 	
 	add $3 $6 $0
 	add $25 $5 $0
+	add $24 $0 $0
 	
 	addi $29 $29 4                                                    
        	lw $12 0($29)
@@ -6109,6 +6125,9 @@ fim_laco_personagem_morrendo_subindo_3:
 	j laco_personagem_morrendo_subindo_2
 fim_laco_personagem_morrendo_subindo_2:
 	jal timer
+	jal timer
+	jal timer
+	jal timer
 	addi $9 $9 -1
 	j laco_personagem_morrendo_subindo_1
 fim_laco_personagem_morrendo_subindo_1:
@@ -6139,6 +6158,9 @@ fim_laco_personagem_morrendo_descendo_3:
 	addi $11 $11 -1
 	j laco_personagem_morrendo_descendo_2
 fim_laco_personagem_morrendo_descendo_2:
+	jal timer
+	jal timer
+	jal timer
 	jal timer
 	addi $9 $9 -1
 	j laco_personagem_morrendo_descendo_1
@@ -6771,6 +6793,116 @@ toad_passou:
 	addi $2 $0 1
 	
 	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para saber se o toad tocou no personagem
+
+verificar_situacao_toad:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $9 $0 8
+       	
+	addi $24 $0 4
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $0 $2
+       	
+       	addi $24 $0 -4
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	bne $8 $0 personagem_morreu
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $0 $2
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0xff0000
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	bne $8 $0 personagem_matou
+       	
+       	add $2 $0 $0
+       	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+personagem_morreu:
+	jal personagem_morrendo
+	addi $2 $0 1 
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+personagem_matou:
+	addi $8 $4 4096
+	addi $8 $8 -32
+	addi $9 $0 8
+laco_personagem_matou_1:
+	beq $9 $0 fim_laco_personagem_matou_1
+	addi $10 $0 24
+laco_personagem_matou_2:
+	beq $10 $0 fim_laco_personagem_matou_2
+	
+	lw $11 131072($8)
+	sw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_personagem_matou_2
+fim_laco_personagem_matou_2:
+	addi $8 $8 -96
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_personagem_matou_1
+fim_laco_personagem_matou_1:
+	add $2 $0 $0
+	add $13 $0 $0
+	add $14 $0 $0
+
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
        	lw $10 0($29)
 	addi $29 $29 4                                                    
        	lw $9 0($29)
