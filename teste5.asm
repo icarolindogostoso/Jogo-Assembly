@@ -6417,6 +6417,9 @@ andar_toad:
        	sw $12 0($29)
        	addi $29 $29 -4
        	
+       	jal verificar_toad_visivel
+       	bne $2 $0 deixar_toad_invisivel
+       	
        	addi $8 $0 122
        	div $5 $8
        	mfhi $8
@@ -6495,6 +6498,274 @@ fim_laco_1_andar_toad_direita:
        	addi $29 $29 4                                                    
        	lw $11 0($29)
        	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+deixar_toad_invisivel:
+	addi $8 $0 122
+       	div $5 $8
+       	mfhi $8
+       	addi $9 $0 60
+       	slt $9 $9 $8
+       	bne $9 $0 toad_andar_direita_invisivel
+       	
+	addi $8 $4 -4
+	
+	addi $9 $8 32
+	
+	jal verificar_toad_passou
+	bne $2 $0 toad_passou_esquerda
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	jal apagar_area_toad
+	
+toad_passou_esquerda:
+	add $2 $8 $0
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_esquerda_invisivel:
+	beq $10 $0 fim_laco_1_andar_toad_esquerda_invisivel
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_esquerda_invisivel
+fim_laco_1_andar_toad_esquerda_invisivel:
+	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+toad_andar_direita_invisivel:
+	addi $8 $4 4
+	
+	addi $9 $8 -4
+	
+	jal verificar_toad_passou
+	bne $2 $0 toad_passou_direita
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	jal apagar_area_toad
+	
+toad_passou_direita:
+	add $2 $8 $0
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_direita_invisivel:
+	beq $10 $0 fim_laco_1_andar_toad_direita_invisivel
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_direita_invisivel
+fim_laco_1_andar_toad_direita_invisivel:
+	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para verificar se o toad esta com os pes no chao, se nao tiver ele tem que ficar invisivel
+
+verificar_toad_visivel:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	addi $8 $4 4096
+	addi $11 $0 0x00c800
+	addi $9 $0 8
+laco_toad_visivel:
+	beq $9 $0 fim_laco_toad_visivel
+	
+	lw $10 0($8)
+	bne $10 $11 toad_invisivel
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j laco_toad_visivel
+fim_laco_toad_visivel:
+	add $2 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+toad_invisivel:
+	addi $2 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para apagar a area que o toad nao pode aparecer
+
+apagar_area_toad:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	andi $8 $4 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mflo $10
+	mul $10 $10 $9
+	addi $9 $0 272
+	add $10 $10 $9
+	lui $9 0x1001
+	add $8 $9 $10
+	addi $9 $0 8
+laco_apagar_area_toad_1:
+	beq $9 $0 fim_laco_apagar_area_toad_1
+	addi $10 $0 10
+laco_apagar_area_toad_2:
+	beq $10 $0 fim_laco_apagar_area_toad_2
+	
+	lw $11 131072($8)
+	sw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_apagar_area_toad_2
+fim_laco_apagar_area_toad_2:
+	addi $8 $8 -40
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_apagar_area_toad_1
+fim_laco_apagar_area_toad_1:
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para verificar se o toad ja passou completamente para o outro lado
+
+verificar_toad_passou:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	
+	andi $8 $4 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mflo $10
+	mul $10 $10 $9
+	addi $9 $0 472
+	add $10 $10 $9
+	lui $9 0x1001
+	add $8 $9 $10
+	beq $8 $4 toad_passou
+	
+	add $2 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+toad_passou:
+
+	addi $2 $0 1
+	
+	addi $29 $29 4                                                    
        	lw $10 0($29)
 	addi $29 $29 4                                                    
        	lw $9 0($29)
