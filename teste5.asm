@@ -4101,6 +4101,307 @@ fim_personagem_grande_pulando_direita:
 	jr $31
 	
 #===================================================
+# - funcao para desenhar o personagem grande pulando para a esquerda
+
+desenhar_personagem_grande_pulando_esquerda:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	sw $21 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 16
+laco_personagem_grande_pulando_esquerda_1:
+	beq $10 $0 fim_laco_personagem_grande_pulando_esquerda_1
+	addi $11 $0 16
+laco_personagem_grande_pulando_esquerda_2:
+	beq $11 $0 fim_laco_personagem_grande_pulando_esquerda_2
+
+	sw $9 0($8)
+
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_grande_pulando_esquerda_2
+fim_laco_personagem_grande_pulando_esquerda_2:
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_grande_pulando_esquerda_1
+fim_laco_personagem_grande_pulando_esquerda_1:
+	addi $8 $4 16
+	li $20, 0xfdff0e
+	li $9, 5
+
+amarelosgjr_pulando_esquerda:
+	beq $9, $0, cabeçagjr_init_pulando_esquerda
+
+	sw $20, 8($8)
+	sw $20, 512($8)
+	sw $20, 528($8)
+	
+	sw $20, 1016($8)
+	sw $20, 2040($8)
+	sw $20, 1524($8)
+	
+	sw $20 3576($8)
+	sw $20 4096($8)
+	sw $20 4112($8)
+	sw $20 4608($8)
+	sw $20 4620($8)
+	sw $20 5128($8)
+	sw $20 5640($8)
+	
+	
+	addi $8, $8, 4
+	addi $9, $9 -1
+	j amarelosgjr_pulando_esquerda
+cabeçagjr_init_pulando_esquerda:
+	addi $8, $8, 1004
+	li $20, 0xffd7a4
+	li $9, 7
+	li $10, 5
+cabeçagjr_pulando_esquerda:
+	beqz $9 plcpgjr_pulando_esquerda
+	
+	sw $20, 4($8)
+	
+	addi $8, $8, 4
+	addi $9, $9 -1
+	j cabeçagjr_pulando_esquerda
+	
+plcpgjr_pulando_esquerda:
+	beqz $10 detalhesCabeçagjri_pulando_esquerda
+	addi $8, $8, 484
+	subi $10, $10, 1
+	li $9, 7
+	j cabeçagjr_pulando_esquerda
+	
+detalhesCabeçagjri_pulando_esquerda:
+	subi $8, $8, 2592
+	li $9, 2
+	li $10, 0x784936 # marrom
+	li $11, 0xf474a6 # rosa
+	li $20, 0xffd7a4
+	li $21, 0x000001
+detalhesCabeçagjr_pulando_esquerda:
+	beqz $9 bigasgjr_init_pulando_esquerda
+	
+	sw $21, 16($8)
+	
+	sw $11, 512($8)
+	sw $11, 516($8)
+	sw $11, 520($8)
+	sw $11, 1024($8)
+	sw $11, 1028($8)
+	
+	sw $20, 548($8)
+	
+	sw $10, 28($8)
+	sw $10, 32($8)
+	sw $10, 536($8)
+	sw $10, 540($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j detalhesCabeçagjr_pulando_esquerda
+	
+bigasgjr_init_pulando_esquerda:
+	addi $8, $8 512
+	li $20, 0x000001
+	li $10, 0xffffff
+	li $9, 3
+bigasgjr_pulando_esquerda:
+	beqz $9 macacãogjr_init_pulando_esquerda
+	sw $20, 8($8)
+	sw $20, 12($8)
+	sw $10, 520($8)
+	
+	addi $8, $8 4
+	addi $9, $9 -1
+	j bigasgjr_pulando_esquerda
+
+macacãogjr_init_pulando_esquerda:
+	addi $8, $8, 1528
+	li $20, 0x9a3894 
+	li $9, 3
+macacão_e_luvagjr_pulando_esquerda:
+	beqz $9 sapatosgjr_init_pulando_esquerda
+
+	sw $10, -4100($8)
+	sw $10, -4104($8)
+	sw $10, -4108($8)
+	sw $10, 544($8)
+	sw $10, 548($8)
+	sw $10, 552($8)
+	
+	sw $20, 512($8)
+	sw $20, 528($8)
+	sw $20, 1024($8)
+	sw $20, 1028($8)
+	sw $20, 1032($8)
+	sw $20, 1036($8)
+	sw $20, 1548($8)
+	sw $20, 1552($8)
+	sw $20, 1556($8)
+	sw $20, 2072($8)
+	sw $20, 1564($8)
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j macacão_e_luvagjr_pulando_esquerda
+
+sapatosgjr_init_pulando_esquerda:
+	addi $8, $8, 516
+	li $9, 3
+	li $20, 0x2b7741
+sapatosgjr_pulando_esquerda:
+	beqz $9 bordashgjr_init_pulando_esquerda
+	
+	sw $20, -1044($8)
+	sw $20, -528($8)
+	sw $20, -16($8)
+	sw $20, 500($8)
+	sw $20, 28($8)
+	sw $20, 540($8)
+	sw $20, 1052($8)
+	
+
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j sapatosgjr_pulando_esquerda
+bordashgjr_init_pulando_esquerda:
+	subi $8, $8, 6672
+	li $10, 0x000001
+	li $9, 2
+bordashgjr_pulando_esquerda:
+	beqz $9 bordasvgjr_init_pulando_esquerda
+	
+	sw $10, 8($8) #bone encima
+	sw $10, 12($8)
+	sw $10, 20($8)
+	
+	sw $10, 512($8) #cap
+
+	sw $10, -12($8)#luva direita 
+	sw $10, -8($8)
+	
+	sw $10, 1536($8)#cap embaixo
+
+	
+	sw $10, 3580($8)#abaixo nariz
+	
+	sw $10, 3100($8)# pescoço
+	sw $10, 4120($8)
+	sw $10, 4124($8)
+	
+	sw $10, 5152($8)#braço esquerdo
+	sw $10, 5156($8)
+	
+	sw $10, 5108($8)#pe direito
+	sw $10, 7672($8)
+	
+	sw $10, 7172($8)#barriga
+	sw $10, 7168($8)
+	sw $10, 7692($8)
+	sw $10, 7700($8)
+
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j bordashgjr_pulando_esquerda
+	
+bordasvgjr_init_pulando_esquerda:
+	li $9, 2
+bordasvgjr_pulando_esquerda:
+	beqz $9 detalhes_finais_playergjr_pulando_esquerda
+	
+	sw $10, 1048($8)#cabeça atras
+	sw $10, 2076($8)
+	
+	sw $10, 488($8)#luva esquerda
+	sw $10, 1012($8)
+	
+	sw $10, 1516($8) #braço esquerdo
+	sw $10, 2028($8)
+	sw $10, 3056($8)
+	sw $10, 3568($8)
+	sw $10, 3576($8)
+
+	sw $10, 3604($8)#pescoço
+	
+	sw $10, 4636($8)# breaço direito
+
+	sw $10, 5608($8)#luva direita
+	sw $10, 5652($8)
+	
+	sw $10, 5668($8)# pe direito
+	sw $10, 6636($8)
+
+	sw $10, 5108($8)
+	sw $10, 4596($8)
+	
+	sw $10, 7204($8)# esquerdo
+	
+	addi $8, $8, 512
+	addi $9, $9, -1
+	j bordasvgjr_pulando_esquerda
+
+detalhes_finais_playergjr_pulando_esquerda:
+	subi $8, $8 524
+	li $20, 0xffffff
+	li $21, 0x9a3894
+	
+	sw $10, 32($8)
+ 	sw $20, 12($8)
+	sw $10, 548($8)
+	#macacao
+	sw $21, 4104($8)
+	sw $21, 4120($8)
+	sw $20, 5136($8)
+	sw $20, 5124($8)
+
+	sw $10, 6188($8)
+	sw $10, 6180($8)
+	sw $10, 6688($8)
+	sw $10, 7204($8)
+
+fim_personagem_grande_pulando_esquerda:
+	addi $5 $0 16
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $21 0($29)
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
 # funcao para desenhar o cogumelo
 
 desenhar_cogumelo:
@@ -4676,7 +4977,7 @@ trocar_para_personagem_grande_esquerda:
 	jal retomar_terceira_copia
 	add $4 $8 $0
 	add $2 $4 $0
-	jal desenhar_personagem_grande_direita
+	jal desenhar_personagem_grande_esquerda
 	
 	addi $16 $0 1
 	
@@ -5142,7 +5443,7 @@ personagem_grande_andando_baixo:
 	jal desenhar_personagem_grande_pulando_direita
 	j continuacao_para_laco_baixo_grande
 personagem_grande_andando_esquerda_baixo:
-	jal desenhar_personagem_grande_pulando_direita
+	jal desenhar_personagem_grande_pulando_esquerda
 continuacao_para_laco_baixo_grande:
 	addi $10 $0 4
 	
@@ -5443,7 +5744,7 @@ personagem_grande_andando_cima:
 	jal desenhar_personagem_grande_pulando_direita
 	j continuacao_para_laco_cima_grande
 personagem_grande_andando_esquerda_cima:
-	jal desenhar_personagem_grande_pulando_direita
+	jal desenhar_personagem_grande_pulando_esquerda
 continuacao_para_laco_cima_grande:
 	
 	addi $10 $0 4
