@@ -5410,13 +5410,28 @@ fim_laco_2_andar_baixo:
 	addi $10 $10 -1
 	j laco_1_andar_baixo
 fim_laco_1_andar_baixo:
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+       	
+	andi $8 $13 0xffff0000
+       	lui $9 0x1001
+       	bne $9 $8 mob_foi_morto_medir_time
+	
 	jal timer
+	j continuacao_medir_time
+	
+mob_foi_morto_medir_time:
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
+continuacao_medir_time:
 	
 	add $3 $0 $0
 	add $18 $0 $0
 	
-	addi $29 $29 4                                                    
-       	lw $13 0($29)
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
@@ -5465,13 +5480,28 @@ fim_laco_2_andar_baixo_grande:
 	addi $10 $10 -1
 	j laco_1_andar_baixo_grande
 fim_laco_1_andar_baixo_grande:
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+       	
+	andi $8 $13 0xffff0000
+       	lui $9 0x1001
+       	bne $9 $8 mob_foi_morto_medir_time_grande
+	
 	jal timer
+	j continuacao_medir_time_grande
+	
+mob_foi_morto_medir_time_grande:
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
+continuacao_medir_time_grande:
 	
 	add $3 $0 $0
 	add $18 $0 $0
 	
-	addi $29 $29 4                                                    
-       	lw $13 0($29)
 	addi $29 $29 4                                                    
        	lw $12 0($29)
 	addi $29 $29 4                                                    
