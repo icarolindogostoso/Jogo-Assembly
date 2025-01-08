@@ -148,6 +148,7 @@ direita_cima:
 continuacao:
 	add $4 $8 $0
 	jal verificar_situacao_toad
+	add $8 $3 $0
 	bne $2 $0 desenhar_tela_de_morte
        	
        	andi $5 $13 0xffff0000
@@ -7149,9 +7150,10 @@ verificar_situacao_toad:
        	sw $11 0($29)
        	addi $29 $29 -4
        	
+       	bne $16 $0 personagem_grande_situacao_toad
        	addi $9 $0 8
        	
-	addi $24 $0 4
+       	addi $24 $0 4
        	addi $23 $0 0xfffffe
        	jal conferir_colisao
        	add $8 $0 $2
@@ -7174,6 +7176,48 @@ verificar_situacao_toad:
        	bne $8 $0 personagem_matou
        	
        	add $2 $0 $0
+       	add $3 $4 $0
+       	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+personagem_grande_situacao_toad:
+	addi $9 $0 16
+       	
+	addi $24 $0 4
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $0 $2
+       	
+       	addi $24 $0 -4
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	bne $8 $0 personagem_diminuir
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0xfffffe
+       	jal conferir_colisao
+       	add $8 $0 $2
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0xff0000
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	bne $8 $0 personagem_matou
+       	
+       	add $2 $0 $0
+       	add $3 $4 $0
        	
        	addi $29 $29 4                                                    
        	lw $11 0($29)
@@ -7190,6 +7234,7 @@ verificar_situacao_toad:
 personagem_morreu:
 	jal personagem_morrendo
 	addi $2 $0 1 
+	add $3 $4 $0
 	
 	addi $29 $29 4                                                    
        	lw $11 0($29)
@@ -7228,9 +7273,55 @@ fim_laco_personagem_matou_2:
 	j laco_personagem_matou_1
 fim_laco_personagem_matou_1:
 	add $2 $0 $0
+	add $3 $4 $0
 	add $13 $0 $0
 	add $14 $0 $0
 
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+personagem_diminuir:
+	add $8 $4 $0
+	addi $9 $0 16
+laco_personagem_diminuir_1:
+	beq $9 $0 fim_laco_personagem_diminuir_1
+	addi $10 $0 16
+laco_personagem_diminuir_2:
+	beq $10 $0 fim_laco_personagem_diminuir_2
+	
+	lw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_personagem_diminuir_2
+fim_laco_personagem_diminuir_2:
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_personagem_diminuir_1
+fim_laco_personagem_diminuir_1:
+	add $16 $0 $0
+	
+	addi $8 $4 4096
+	addi $8 $8 -32
+	
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	add $2 $0 $0
+	add $3 $8 $0
+	
 	addi $29 $29 4                                                    
        	lw $11 0($29)
        	addi $29 $29 4                                                    
