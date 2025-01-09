@@ -150,6 +150,11 @@ continuacao:
 	jal verificar_situacao_toad
 	add $8 $3 $0
 	bne $2 $0 desenhar_tela_de_morte
+	
+	add $4 $22 $0
+	jal coferir_spawn_toad
+	add $13 $2 $0
+	add $14 $3 $0
        	
        	andi $5 $13 0xffff0000
        	lui $4 0x1001
@@ -6774,10 +6779,10 @@ andar_toad:
        	jal verificar_toad_visivel
        	bne $2 $0 deixar_toad_invisivel
        	
-       	addi $8 $0 122
+       	addi $8 $0 102
        	div $5 $8
        	mfhi $8
-       	addi $9 $0 60
+       	addi $9 $0 50
        	slt $9 $9 $8
        	bne $9 $0 toad_andar_direita
        	
@@ -6867,10 +6872,10 @@ fim_laco_1_andar_toad_direita:
        	jr $31
        	
 deixar_toad_invisivel:
-	addi $8 $0 122
+	addi $8 $0 102
        	div $5 $8
        	mfhi $8
-       	addi $9 $0 60
+       	addi $9 $0 50
        	slt $9 $9 $8
        	bne $9 $0 toad_andar_direita_invisivel
        	
@@ -7095,7 +7100,7 @@ verificar_toad_passou:
        	addi $29 $29 -4
        	sw $10 0($29)
        	addi $29 $29 -4
-       	
+       
 	andi $8 $4 0x0000ffff
 	addi $9 $0 512
 	div $8 $9
@@ -7106,6 +7111,7 @@ verificar_toad_passou:
 	lui $9 0x1001
 	add $8 $9 $10
 	slt $9 $8 $4
+	
 	beq $9 $0 toad_passou
 	
 	add $2 $0 $0
@@ -7329,6 +7335,50 @@ fim_laco_personagem_diminuir_1:
 	addi $29 $29 4                                                    
        	lw $9 0($29)
 	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para conferir o spawn do toad
+
+coferir_spawn_toad:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	
+	add $8 $4 $0
+	addi $9 $0 22
+	beq $8 $9 spawnar_outro_toad
+	
+	addi $9 $0 72
+	beq $8 $9 spawnar_outro_toad
+	
+	add $2 $13 $0
+	add $3 $14 $0
+	
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+	
+spawnar_outro_toad:
+	lui $2 0x1001
+	addi $2 $2 23040
+	add $3 $0 $0
+       	
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
        	lw $8 0($29)
        	addi $29 $29 4                                                    
        	lw $31 0($29)
