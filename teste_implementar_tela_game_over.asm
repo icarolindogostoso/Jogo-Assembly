@@ -7516,7 +7516,7 @@ personagem_morreu:
 personagem_matou:
 	addi $8 $4 4096
 	addi $8 $8 -32
-	addi $9 $0 8
+	addi $9 $0 12
 laco_personagem_matou_1:
 	beq $9 $0 fim_laco_personagem_matou_1
 	addi $10 $0 24
