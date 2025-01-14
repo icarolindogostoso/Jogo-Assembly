@@ -2181,7 +2181,7 @@ bola_init_mapa_4:
 	addi $8 $8 32768
 	li $9, 3
 bola_mapa_4:
-	beq $9, $0, bandeira_init_mapa_4
+	beq $9, $0, bloco_init_mapa_4
 	sw $20, 0($8)
 	sw $20,	508($8)
 	sw $20,516($8)
@@ -2204,35 +2204,6 @@ bola_mapa_4:
 	addi $9, $9, -1
 	j bola_mapa_4
 	
-bandeira_init_mapa_4:
-	li $20, 0xffffff
-	lui $8, 0x1001
-	addi $8, $8, 10576
-	addi $22 $8 98304
-	addi $8 $8 32768
-	li $9, 12
-	move $10, $9 
-bandeira_mapa_4:
-	beq $9, $0, plb_mapa_4
-	sw $20, 0($8)
-	sw $20, 0($22)
-	
-	addi $8, $8, 4
-	addi $22 $22 4
-	addi $9, $9, -1
-	j bandeira_mapa_4
-plb_mapa_4:
-	beq $10, $0, bloco_init_mapa_4
-	addi $9, $10, -1
-	move $10, $9
-	li $4, 4
-	mul $11, $10, $4
-	addi $8, $8, 512
-	addi $22 $22 512
-	sub $8, $8, $11
-	sub $22 $22 $11
-
-	j bandeira_mapa_4
 
 bloco_init_mapa_4:
 	li $20, 0xae4c0f
@@ -5017,6 +4988,89 @@ fim_toad:
 	jr $31
 	
 #===================================================
+# - funcao para desenhar a bandeira do mastro
+
+desenhar_bandeira:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	
+       	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 12
+laco_bandeira_1:
+	beq $10 $0 fim_laco_bandeira_1
+	addi $11 $0 12
+laco_bandeira_2:
+	beq $11 $0 fim_laco_bandeira_2
+	
+	sw $9 0($8)
+	
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_bandeira_2
+fim_laco_bandeira_2:
+	addi $8 $8 -48
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_bandeira_1
+fim_laco_bandeira_1:
+
+	li $20, 0xffffff
+	add $8 $4 $0
+	li $9, 12
+	move $10, $9 
+bandeira_mapa_4:
+	beq $9, $0, plb_mapa_4
+	sw $20, 0($8)
+	
+	addi $8, $8, 4
+	addi $9, $9, -1
+	j bandeira_mapa_4
+plb_mapa_4:
+	beq $10, $0, fim_bandeira_desenhar
+	addi $9, $10, -1
+	move $10, $9
+	li $12, 4
+	mul $11, $10, $12
+	addi $8, $8, 512
+	sub $8, $8, $11
+
+	j bandeira_mapa_4
+	
+fim_bandeira_desenhar:
+	addi $5 $0 12
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $12 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+#===================================================
 # - funcao para andar para a esquerda
 # - registradores de entrada: $4
 # - registradores de saida: $2
@@ -5362,6 +5416,11 @@ continuacao_conferir_colisoes_direita:
        	addi $23 $0 0xffa237
        	jal conferir_colisao
        	bne $2 $0 trocar_para_personagem_grande_direita
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xb4f42c
+       	jal conferir_colisao
+       	bne $2 $0 personagem_vitoria
 	
 	add $9 $4 $0
 	
@@ -5413,6 +5472,11 @@ personagem_grande_andando_direita:
 	bne $2 $0 mexer_mapa
 	
 	addi $8 $4 16
+	
+	addi $24 $0 4
+       	addi $23 $0 0xb4f42c
+       	jal conferir_colisao
+       	bne $2 $0 personagem_vitoria
 	
 	add $9 $4 $0
 	
@@ -5537,6 +5601,54 @@ trocar_para_personagem_grande_direita:
        	lw $31 0($29)
        	
 	jr $31
+	
+personagem_vitoria:
+	addi $25 $8 -16
+	lui $8, 0x1001
+	addi $8, $8, 18784
+	addi $9 $0 16
+laco_subir_bandeira_1:
+	beq $9 $0 fim_laco_subir_bandeira_1
+	
+	add $4 $8 $0
+	jal desenhar_bandeira
+	
+	bne $16 $0 personagem_grande_vitoria
+	add $4 $25 $0
+	jal desenhar_personagem_direita
+	j continuacao_vitoria
+personagem_grande_vitoria:
+	add $4 $25 $0
+	jal desenhar_personagem_grande_direita
+	j continuacao_vitoria
+continuacao_vitoria:
+	
+	addi $10 $0 12
+	addi $11 $8 6144
+laco_subir_bandeira_2:
+	beq $10 $0 fim_laco_subir_bandeira_2
+	
+	lw $12 65536($11)
+	sw $12 0($11)
+	
+	addi $11 $11 4
+	addi $10 $10 -1
+	j laco_subir_bandeira_2
+fim_laco_subir_bandeira_2:
+
+	addi $8 $8 -512
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
+	addi $9 $9 -1
+	j laco_subir_bandeira_1
+fim_laco_subir_bandeira_1:
+	
+	addi $2 $0 10
+	syscall
 	
 #===================================================
 # - funcao para andar para baixo
