@@ -5005,6 +5005,8 @@ desenhar_bandeira:
        	addi $29 $29 -4
        	sw $20 0($29)
        	addi $29 $29 -4
+       	sw $22 0($29)
+       	addi $29 $29 -4
        	
        	add $8 $4 $0
 	addi $9 $0 0x0ec7db
@@ -5030,13 +5032,16 @@ fim_laco_bandeira_1:
 
 	li $20, 0xffffff
 	add $8 $4 $0
+	addi $22 $8 65536
 	li $9, 12
 	move $10, $9 
 bandeira_mapa_4:
 	beq $9, $0, plb_mapa_4
 	sw $20, 0($8)
+	sw $20, 0($22)
 	
 	addi $8, $8, 4
+	addi $22 $22 4
 	addi $9, $9, -1
 	j bandeira_mapa_4
 plb_mapa_4:
@@ -5046,7 +5051,9 @@ plb_mapa_4:
 	li $12, 4
 	mul $11, $10, $12
 	addi $8, $8, 512
+	addi $22 $22 512
 	sub $8, $8, $11
+	sub $22 $22 $11
 
 	j bandeira_mapa_4
 	
@@ -5054,6 +5061,8 @@ fim_bandeira_desenhar:
 	addi $5 $0 12
 	jal apagar_fundo
 	
+	addi $29 $29 4  
+	lw $22 0($29)
 	addi $29 $29 4  
 	lw $20 0($29)
 	addi $29 $29 4  
@@ -5628,7 +5637,8 @@ continuacao_vitoria:
 laco_subir_bandeira_2:
 	beq $10 $0 fim_laco_subir_bandeira_2
 	
-	lw $12 65536($11)
+	lw $12 131072($11)
+	sw $12 65536($11)
 	sw $12 0($11)
 	
 	addi $11 $11 4
@@ -5825,6 +5835,9 @@ continuacao_medir_time:
 personagem_grande_andando_baixo:
 	addi $8 $4 2048
 	
+	jal verificar_saiu_da_tela
+	bne $2 $0 morreu_baixo_grande
+	
 	add $9 $4 $0
 	add $2 $8 $0
 	
@@ -5974,6 +5987,49 @@ trocar_para_personagem_grande_baixo:
 	add $18 $0 $0
 	
 	addi $16 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+morreu_baixo_grande:
+	addi $9 $0 16
+	addi $11 $8 -2048
+laco_morreu_baixo_grande_1:
+	beq $9 $0 fim_morreu_baixo_grande_1
+	addi $10 $0 16
+laco_morreu_baixo_grande_2:
+	beq $10 $0 fim_laco_morreu_baixo_grande_2
+	
+	lw $12 65536($11)
+	sw $12 0($11)
+	
+	addi $11 $11 4
+	addi $10 $10 -1
+	j laco_morreu_baixo_grande_2
+fim_laco_morreu_baixo_grande_2:
+	addi $11 $11 -64
+	addi $11 $11 512
+	addi $9 $9 -1
+	j laco_morreu_baixo_grande_1
+fim_morreu_baixo_grande_1:
+	addi $4 $4 20 
+	jal personagem_morrendo
+
+	add $2 $4 $0
+	add $3 $0 1
 	
 	addi $29 $29 4                                                    
        	lw $13 0($29)
@@ -6728,6 +6784,8 @@ verificar_saiu_da_tela:
        	addi $29 $29 -4
        	sw $10 0($29)
        	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
        	
 	lui $10 0x1001
 	addi $10 $10 496
@@ -6743,12 +6801,18 @@ laco_verificar_saiu_da_tela_1:
 	j laco_verificar_saiu_da_tela_1
 fim_laco_verificar_saiu_da_tela_1:
 	lui $10 0x1001
-	addi $10 $10 30720
+	addi $10 $10 28672
 	addi $9 $0 128
 laco_verificar_saiu_da_tela_2:
 	beq $9 $0 fim_laco_verificar_saiu_da_tela_2
 	
-	beq $8 $10 saiu_da_tela
+	bne $16 $0 personagem_grande_saiu_tela_verificar
+	add $11 $8 $0
+	j cotinuacao_verificacao_saiu_tela
+personagem_grande_saiu_tela_verificar:
+	addi $11 $8 4096
+cotinuacao_verificacao_saiu_tela:
+	beq $11 $10 saiu_da_tela
 
 	addi $10 $10 4
 	
@@ -6758,6 +6822,8 @@ fim_laco_verificar_saiu_da_tela_2:
 	
 	add $2 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
 	addi $29 $29 4                                                    
        	lw $10 0($29)
 	addi $29 $29 4                                                    
@@ -6769,6 +6835,8 @@ fim_laco_verificar_saiu_da_tela_2:
 saiu_da_tela:
 	addi $2 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
 	addi $29 $29 4                                                    
        	lw $10 0($29)
 	addi $29 $29 4                                                    
