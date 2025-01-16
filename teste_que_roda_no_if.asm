@@ -280,7 +280,7 @@ direita_nivel_2:
 	add $4 $8 $0
 	add $5 $20 $0
 	add $6 $22 $0
-	jal andar_para_direita
+	jal andar_para_direita_nivel_2
 	add $8 $2 $0
 	add $22 $3 $0
 	add $20 $25 $0
@@ -337,7 +337,7 @@ direita_cima_nivel_2:
 	add $4 $8 $0
 	add $5 $20 $0
 	add $6 $22 $0
-	jal andar_para_direita
+	jal andar_para_direita_nivel_2
 	add $8 $2 $0
 	add $22 $3 $0
 	add $20 $25 $0
@@ -360,7 +360,7 @@ continuacao_nivel_2:
        	bne $4 $5 mob_foi_morto_nivel_2
 	add $5 $14 $0
 	add $4 $13 $0
-	jal andar_toad
+	jal andar_toad # analisar
 	add $13 $2 $0
 	add $14 $3 $0
 	
@@ -6002,6 +6002,358 @@ fim_laco_subir_bandeira_1:
        	
 	jr $31
 	
+#==================================================
+# - funcao para andar para a direita, mas especificamente para o nivel 2
+
+andar_para_direita_nivel_2:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+       	bne $16 $0 personagem_grande_direita_nivel_2
+       	addi $9 $0 8
+       	j continuacao_conferir_colisoes_direita_nivel_2
+personagem_grande_direita_nivel_2:
+	addi $9 $0 16
+	j continuacao_conferir_colisoes_direita_nivel_2
+continuacao_conferir_colisoes_direita_nivel_2:
+       	
+       	add $8 $0 $0
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xed6408
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0x000000
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xfbbe2e
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0x00c800
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xc89858
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0x786818
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xae4c0f
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xae4c0f
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xd28a5c
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0x5e3217
+       	jal conferir_colisao
+       	
+       	add $8 $8 $2
+       	
+       	bne $8 $0 nao_anda_direita_nivel_2
+       	
+       	bne $16 $0 personagem_grande_andando_direita_nivel_2
+       	
+	jal verificar_metade_mapa
+	bne $2 $0 mexer_mapa_nivel_2
+	
+	addi $8 $4 16
+	
+	addi $24 $0 4
+       	addi $23 $0 0xffa237
+       	jal conferir_colisao
+       	bne $2 $0 trocar_para_personagem_grande_direita_nivel_2
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0xb4f42c
+       	jal conferir_colisao
+       	bne $2 $0 personagem_vitoria_nivel_2
+	
+	add $9 $4 $0
+	
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	addi $10 $0 8
+	
+laco_1_andar_direita_nivel_2:
+	beq $10 $0 fim_laco_1_andar_direita_nivel_2
+	addi $11 $0 4
+laco_2_andar_direita_nivel_2:
+	beq $11 $0 fim_laco_2_andar_direita_nivel_2
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_direita_nivel_2
+fim_laco_2_andar_direita_nivel_2:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_direita_nivel_2
+fim_laco_1_andar_direita_nivel_2:
+	jal timer
+	
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+
+personagem_grande_andando_direita_nivel_2:
+	jal verificar_metade_mapa
+	bne $2 $0 mexer_mapa_nivel_2
+	
+	addi $8 $4 16
+	
+	addi $24 $0 4
+       	addi $23 $0 0xb4f42c
+       	jal conferir_colisao
+       	bne $2 $0 personagem_vitoria_nivel_2
+	
+	add $9 $4 $0
+	
+	add $4 $8 $0
+	jal desenhar_personagem_grande_direita
+	
+	addi $10 $0 16
+	
+laco_1_andar_direita_grande_nivel_2:
+	beq $10 $0 fim_laco_1_andar_direita_grande_nivel_2
+	addi $11 $0 4
+laco_2_andar_direita_grande_nivel_2:
+	beq $11 $0 fim_laco_2_andar_direita_grande_nivel_2
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_direita_grande_nivel_2
+fim_laco_2_andar_direita_grande_nivel_2:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_direita_grande_nivel_2
+fim_laco_1_andar_direita_grande_nivel_2:
+	jal timer
+	
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+mexer_mapa_nivel_2:
+	jal conferir_mexer_mapa_nivel_2
+	
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+nao_anda_direita_nivel_2:
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+trocar_para_personagem_grande_direita_nivel_2:
+	andi $8 $8 0x0000ffff
+	addi $9 $0 512
+	div $8 $9
+	mfhi $9
+	lui $8 0x1001
+	addi $8 $8 2048
+	add $8 $8 $9
+	addi $4 $8 -16
+	jal retomar_terceira_copia
+	add $4 $8 $0
+	add $2 $4 $0
+	jal desenhar_personagem_grande_direita
+	
+	addi $16 $0 1
+	
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+personagem_vitoria_nivel_2:
+	addi $25 $8 -16
+	lui $8, 0x1001
+	addi $8, $8, 18784
+	addi $9 $0 16
+laco_subir_bandeira_1_nivel_2:
+	beq $9 $0 fim_laco_subir_bandeira_1_nivel_2
+	
+	add $4 $8 $0
+	jal desenhar_bandeira
+	
+	bne $16 $0 personagem_grande_vitoria_nivel_2
+	add $4 $25 $0
+	jal desenhar_personagem_direita
+	j continuacao_vitoria_nivel_2
+personagem_grande_vitoria_nivel_2:
+	add $4 $25 $0
+	jal desenhar_personagem_grande_direita
+	j continuacao_vitoria_nivel_2
+continuacao_vitoria_nivel_2:
+	
+	addi $10 $0 12
+	addi $11 $8 6144
+laco_subir_bandeira_2_nivel_2:
+	beq $10 $0 fim_laco_subir_bandeira_2_nivel_2
+	
+	lw $12 131072($11)
+	sw $12 65536($11)
+	sw $12 0($11)
+	
+	addi $11 $11 4
+	addi $10 $10 -1
+	j laco_subir_bandeira_2_nivel_2
+fim_laco_subir_bandeira_2_nivel_2:
+
+	addi $8 $8 -512
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
+	addi $9 $9 -1
+	j laco_subir_bandeira_1_nivel_2
+fim_laco_subir_bandeira_1_nivel_2:
+
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	add $24 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
 #===================================================
 # - funcao para andar para baixo
 # - registradores de entrada: $4
@@ -6742,6 +7094,48 @@ mapa_3_incompleto:
 	addi $5 $5 1
 	
 mapa_4_incompleto:
+	jal andar_mapa
+	addi $13 $13 -16
+	#addi $14 $14 4
+	addi $6 $6 1
+	
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $2 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para conferir se o mapa vai andar especificamente para o mapa 2
+
+conferir_mexer_mapa_nivel_2:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $2 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	
+	addi $8 $0 32
+	bne $6 $8 nao_desenhar_mapa_7
+	jal desenhar_mapa_7
+	j mapa_7_incompleto
+
+nao_desenhar_mapa_7:
+	addi $8 $0 63
+	bne $6 $8 mapa_7_incompleto
+	jal desenhar_mapa_8
+	addi $5 $5 1
+
+mapa_7_incompleto:
+	addi $8 $0 94
+	bne $6 $8 mapa_8_incompleto
+	addi $5 $5 1
+	
+mapa_8_incompleto:
 	jal andar_mapa
 	addi $13 $13 -16
 	#addi $14 $14 4
@@ -7652,10 +8046,10 @@ fim_laco_1_andar_toad_direita:
        	jr $31
        	
 deixar_toad_invisivel:
-	addi $8 $0 102
+	addi $8 $0 122
        	div $5 $8
        	mfhi $8
-       	addi $9 $0 50
+       	addi $9 $0 60
        	slt $9 $9 $8
        	bne $9 $0 toad_andar_direita_invisivel
        	
@@ -7733,6 +8127,219 @@ laco_1_andar_toad_direita_invisivel:
 	addi $10 $10 -1
 	j laco_1_andar_toad_direita_invisivel
 fim_laco_1_andar_toad_direita_invisivel:
+	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para o fazer o toad andar pelo cenario espeficamente para o nivel 2
+
+andar_toad_nivel_2:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+       	jal verificar_toad_visivel
+       	bne $2 $0 deixar_toad_invisivel_nivel_2
+       	
+       	addi $8 $0 102
+       	div $5 $8
+       	mfhi $8
+       	addi $9 $0 50
+       	slt $9 $9 $8
+       	bne $9 $0 toad_andar_direita_nivel_2
+       	
+	addi $8 $4 -4
+	
+	addi $9 $8 32
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	
+	jal verificar_toad_visivel
+       	beq $2 $0 nao_apagar_primeira_vez_nivel_2
+       	add $4 $8 $0
+	jal apagar_area_toad
+nao_apagar_primeira_vez_nivel_2:
+	add $2 $8 $0
+	addi $10 $0 8
+	
+laco_1_andar_toad_esquerda_nivel_2:
+	beq $10 $0 fim_laco_1_andar_toad_esquerda_nivel_2
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_esquerda_nivel_2
+fim_laco_1_andar_toad_esquerda_nivel_2:
+	jal timer_mob
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+toad_andar_direita_nivel_2:
+	addi $8 $4 4
+	add $2 $8 $0
+	
+	addi $9 $8 -4
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_direita_nivel_2:
+	beq $10 $0 fim_laco_1_andar_toad_direita_nivel_2
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_direita_nivel_2
+fim_laco_1_andar_toad_direita_nivel_2:
+	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+deixar_toad_invisivel_nivel_2:
+	addi $8 $0 102
+       	div $5 $8
+       	mfhi $8
+       	addi $9 $0 50
+       	slt $9 $9 $8
+       	bne $9 $0 toad_andar_direita_invisivel_nivel_2
+       	
+	addi $8 $4 -4
+	
+	addi $9 $8 32
+	
+	jal verificar_toad_passou
+	bne $2 $0 toad_passou_esquerda_nivel_2
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	jal apagar_area_toad
+	
+toad_passou_esquerda_nivel_2:
+	add $2 $8 $0
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_esquerda_invisivel_nivel_2:
+	beq $10 $0 fim_laco_1_andar_toad_esquerda_invisivel_nivel_2
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_esquerda_invisivel_nivel_2
+fim_laco_1_andar_toad_esquerda_invisivel_nivel_2:
+	jal timer_mob
+	
+	addi $3 $5 1
+       
+       	addi $29 $29 4                                                    
+       	lw $12 0($29)	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+toad_andar_direita_invisivel_nivel_2:
+	addi $8 $4 4
+	
+	addi $9 $8 -4
+	
+	jal verificar_toad_passou
+	bne $2 $0 toad_passou_direita_nivel_2
+	
+	add $4 $8 $0
+	jal desenhar_toad
+	jal apagar_area_toad
+	
+toad_passou_direita_nivel_2:
+	add $2 $8 $0
+	
+	addi $10 $0 8
+	
+laco_1_andar_toad_direita_invisivel_nivel_2:
+	beq $10 $0 fim_laco_1_andar_toad_direita_invisivel_nivel_2
+	
+	lw $12 131072($9)
+	sw $12 65536($9)
+	sw $12 0($9)
+	
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_toad_direita_invisivel_nivel_2
+fim_laco_1_andar_toad_direita_invisivel_nivel_2:
 	jal timer_mob
 	
 	addi $3 $5 1
