@@ -87,6 +87,8 @@ direita:
 	add $20 $25 $0
 	addi $2 $0 1
 	beq $2 $24 desenhar_tela_de_morte
+	addi $2 $0 2
+	beq $2 $24 iniciar_nivel_2
 	add $12 $24 $0
 	
 	j baixo
@@ -142,6 +144,9 @@ direita_cima:
 	add $8 $2 $0
 	add $22 $3 $0
 	add $20 $25 $0
+	addi $2 $0 2
+	beq $2 $24 iniciar_nivel_2
+	add $12 $24 $0
 	
 	j continuacao_cima
 	
@@ -188,6 +193,179 @@ renascer:
 	
 continuacao_menu_morte:
 	j loop_principal_menu_morte
+	
+iniciar_nivel_2:
+	jal timer_mob
+	jal timer_mob
+	jal timer_mob
+	
+	add $25 $0 $0 # registrador de retorno (pode usar)
+	add $24 $0 $0 # registrador de retorno (pode usar)
+	add $23 $0 $0 # registrador de retorno (pode usar)
+	
+	add $22 $0 $0 # registrador que vai guardar quantas vezes o mapa andou
+	add $21 $0 $0 # registrador que vai guardar o que foi lido do teclado
+	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
+	
+	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
+	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	
+	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
+	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	
+	add $15 $0 $0 # nada
+	add $14 $0 $0 # nada
+	add $13 $0 $0 # registrador que vai guardar a posicao do inimigo
+	
+	add $12 $0 $0 # registrador que vai guardar o movimento pra cima
+	add $11 $0 $0 # registrador que vai guardar o movimento para a direita
+	add $10 $0 $0 # registrador que vai guardar o movimento para a esquerda
+	
+	add $9 $0 $0 # nada
+	
+	add $8 $0 $0 # registrador que vai guardar a posicao atual do personagem
+	
+	jal desenhar_mapa_5
+	jal salvar_terceira_copia
+	addi $20 $20 1
+	
+	jal desenhar_mapa_6
+	addi $20 $20 1
+	
+	lui $8 0x1001
+	addi $8 $8 22528
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	lui $13 0x1001
+	addi $13 $13 22888
+	add $4 $13 $0
+	jal desenhar_toad
+	
+	lui $9 0xffff
+	addi $10 $0 'a'
+	addi $11 $0 'd'
+	add $12 $0 $0
+	
+loop_principal_nivel_2:
+	lw $21 0($9)
+	bne $18 $0 esta_colidindo_nivel_2
+	beq $21 $0 baixo_nivel_2
+	lw $21 4($9)
+	add $19 $21 $0
+	beq $21 $10 esquerda_nivel_2
+	beq $21 $11 direita_nivel_2
+	beq $21 $12 cima_nivel_2
+	
+	j continuacao_nivel_2
+	
+esta_colidindo_nivel_2:
+	beq $21 $0 continuacao_nivel_2
+	lw $21 4($9)
+	add $19 $21 $0
+	beq $21 $10 esquerda_nivel_2
+	beq $21 $11 direita_nivel_2
+	beq $21 $12 cima_nivel_2
+	
+	j continuacao_nivel_2
+	
+esquerda_nivel_2:
+	add $4 $8 $0
+	jal andar_para_esquerda
+	add $8 $2 $0
+	
+	j baixo_nivel_2
+	
+direita_nivel_2:
+	add $4 $8 $0
+	add $5 $20 $0
+	add $6 $22 $0
+	jal andar_para_direita
+	add $8 $2 $0
+	add $22 $3 $0
+	add $20 $25 $0
+	addi $2 $0 1
+	beq $2 $24 desenhar_tela_de_morte_nivel_2
+	add $12 $24 $0
+	
+	j baixo_nivel_2
+	
+baixo_nivel_2:
+	add $4 $8 $0
+	jal andar_para_baixo
+	add $8 $2 $0
+	addi $2 $0 1
+	beq $2 $3 desenhar_tela_de_morte_nivel_2
+	add $12 $3 $0
+	
+	j continuacao_nivel_2
+	
+desenhar_tela_de_morte_nivel_2:
+	j menu_morte
+	
+cima_nivel_2:
+	addi $15 $0 9
+laco_andar_cima_nivel_2:
+	beq $15 $0 fim_laco_andar_cima_nivel_2
+	
+	lw $21 0($9)
+	beq $21 $0 continuacao_cima_nivel_2
+	lw $21 4($9)
+	add $19 $21 $0
+	beq $21 $10 esquerda_cima_nivel_2
+	beq $21 $11 direita_cima_nivel_2
+
+continuacao_cima_nivel_2: 
+	add $4 $8 $0
+	jal andar_para_cima
+	add $8 $2 $0
+	addi $15 $15 -1
+	j laco_andar_cima_nivel_2
+fim_laco_andar_cima_nivel_2:
+
+	add $12 $0 $0
+	
+	j continuacao_nivel_2
+	
+esquerda_cima_nivel_2:
+	add $4 $8 $0
+	jal andar_para_esquerda
+	add $8 $2 $0
+	
+	j continuacao_cima_nivel_2
+direita_cima_nivel_2:
+	add $4 $8 $0
+	add $5 $20 $0
+	add $6 $22 $0
+	jal andar_para_direita
+	add $8 $2 $0
+	add $22 $3 $0
+	add $20 $25 $0
+	
+	j continuacao_cima_nivel_2
+	
+continuacao_nivel_2:
+	add $4 $8 $0
+	jal verificar_situacao_toad
+	add $8 $3 $0
+	bne $2 $0 desenhar_tela_de_morte_nivel_2
+	
+	add $4 $22 $0
+	jal coferir_spawn_toad
+	add $13 $2 $0
+	add $14 $3 $0
+       	
+       	andi $5 $13 0xffff0000
+       	lui $4 0x1001
+       	bne $4 $5 mob_foi_morto_nivel_2
+	add $5 $14 $0
+	add $4 $13 $0
+	jal andar_toad
+	add $13 $2 $0
+	add $14 $3 $0
+	
+mob_foi_morto_nivel_2:
+	j loop_principal_nivel_2
 	
 #====================================================
 # - funcao para desenhar mapa 1
@@ -2339,7 +2517,154 @@ fim_mapa_4:
        	lw $31 0($29)
 	
 	jr $31
+	
+#================================================
+# - funcao para desenhar tela 5
 
+desenhar_mapa_5:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	
+	lui $8 0x1001
+	addi $9 $0 6656
+	addi $10 $0 0xffff00
+laco_desenhar_mapa_5:
+	beq $9 $0 fim_laco_desenhar_mapa_5
+	
+	sw $10 0($8)
+	sw $10 65536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j laco_desenhar_mapa_5
+fim_laco_desenhar_mapa_5:
+	addi $29 $29 4  
+	lw $10 0($29)
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#================================================
+# - funcao para desenhar tela 6
+
+desenhar_mapa_6:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	
+	lui $8 0x1001
+	addi $9 $0 6656
+	addi $10 $0 0xff00ff
+laco_desenhar_mapa_6:
+	beq $9 $0 fim_laco_desenhar_mapa_6
+	
+	sw $10 32768($8)
+	sw $10 98304($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j laco_desenhar_mapa_6
+fim_laco_desenhar_mapa_6:
+	addi $29 $29 4  
+	lw $10 0($29)
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#================================================
+# - funcao para desenhar tela 7
+
+desenhar_mapa_7:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	
+	lui $8 0x1001
+	addi $9 $0 6656
+	addi $10 $0 0x00ffff
+laco_desenhar_mapa_7:
+	beq $9 $0 fim_laco_desenhar_mapa_7
+	
+	sw $10 32768($8)
+	sw $10 98304($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j laco_desenhar_mapa_7
+fim_laco_desenhar_mapa_7:
+	addi $29 $29 4  
+	lw $10 0($29)
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#================================================
+# - funcao para desenhar tela 8
+
+desenhar_mapa_8:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	
+	lui $8 0x1001
+	addi $9 $0 6656
+	addi $10 $0 0xffffff
+laco_desenhar_mapa_8:
+	beq $9 $0 fim_laco_desenhar_mapa_8
+	
+	sw $10 32768($8)
+	sw $10 98304($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j laco_desenhar_mapa_8
+fim_laco_desenhar_mapa_8:
+	addi $29 $29 4  
+	lw $10 0($29)
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
 #================================================
 # - funcao para desenhar a tela de morte
 
@@ -5656,9 +5981,26 @@ fim_laco_subir_bandeira_2:
 	addi $9 $9 -1
 	j laco_subir_bandeira_1
 fim_laco_subir_bandeira_1:
+
+	add $2 $4 $0
+	add $3 $6 $0
+	add $25 $5 $0
+	addi $24 $0 2
 	
-	addi $2 $0 10
-	syscall
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
 	
 #===================================================
 # - funcao para andar para baixo
