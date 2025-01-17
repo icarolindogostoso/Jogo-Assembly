@@ -5334,6 +5334,7 @@ desenhar_bandeira:
        	addi $29 $29 -4
        	
        	add $8 $4 $0
+       	addi $22 $8 65536
 	addi $9 $0 0x0ec7db
 	
 	addi $10 $0 12
@@ -5344,13 +5345,18 @@ laco_bandeira_2:
 	beq $11 $0 fim_laco_bandeira_2
 	
 	sw $9 0($8)
+	sw $9 0($22)
+	sw $9 65536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $11 $11 -1
 	j laco_bandeira_2
 fim_laco_bandeira_2:
 	addi $8 $8 -48
+	addi $22 $22 -48
 	addi $8 $8 512
+	addi $22 $22 512
 	addi $10 $10 -1
 	j laco_bandeira_1
 fim_laco_bandeira_1:
@@ -5364,6 +5370,7 @@ bandeira_mapa_4:
 	beq $9, $0, plb_mapa_4
 	sw $20, 0($8)
 	sw $20, 0($22)
+	sw $20 65536($22)
 	
 	addi $8, $8, 4
 	addi $22 $22 4
@@ -8065,24 +8072,8 @@ deixar_toad_invisivel:
 	jal apagar_area_toad
 	
 toad_passou_esquerda:
-	add $2 $8 $0
-	
-	addi $10 $0 8
-	
-laco_1_andar_toad_esquerda_invisivel:
-	beq $10 $0 fim_laco_1_andar_toad_esquerda_invisivel
-	
-	lw $12 131072($9)
-	sw $12 65536($9)
-	sw $12 0($9)
-	
-	addi $9 $9 512
-	addi $10 $10 -1
-	j laco_1_andar_toad_esquerda_invisivel
-fim_laco_1_andar_toad_esquerda_invisivel:
-	jal timer_mob
-	
 	addi $3 $5 1
+	add $2 $8 $0
        
        	addi $29 $29 4                                                    
        	lw $12 0($29)	
@@ -8112,24 +8103,9 @@ toad_andar_direita_invisivel:
 	jal apagar_area_toad
 	
 toad_passou_direita:
-	add $2 $8 $0
-	
-	addi $10 $0 8
-	
-laco_1_andar_toad_direita_invisivel:
-	beq $10 $0 fim_laco_1_andar_toad_direita_invisivel
-	
-	lw $12 131072($9)
-	sw $12 65536($9)
-	sw $12 0($9)
-	
-	addi $9 $9 512
-	addi $10 $10 -1
-	j laco_1_andar_toad_direita_invisivel
-fim_laco_1_andar_toad_direita_invisivel:
-	jal timer_mob
 	
 	addi $3 $5 1
+	add $2 $8 $0
        
        	addi $29 $29 4                                                    
        	lw $12 0($29)	
@@ -8590,13 +8566,12 @@ personagem_grande_situacao_toad:
 	addi $24 $0 4
        	addi $23 $0 0xfffffe
        	jal conferir_colisao
-       	add $8 $0 $2
+       	bne $2 $0 personagem_diminuir_direita
        	
        	addi $24 $0 -4
        	addi $23 $0 0xfffffe
        	jal conferir_colisao
-       	add $8 $8 $2
-       	bne $8 $0 personagem_diminuir
+       	bne $2 $0 personagem_diminuir_esquerda
        	
        	addi $24 $0 512
        	addi $23 $0 0xfffffe
@@ -8683,7 +8658,7 @@ fim_laco_personagem_matou_1:
        	
        	jr $31
        	
-personagem_diminuir:
+personagem_diminuir_direita:
 	add $8 $4 $0
 	addi $9 $0 16
 laco_personagem_diminuir_1:
@@ -8707,7 +8682,6 @@ fim_laco_personagem_diminuir_1:
 	add $16 $0 $0
 	
 	addi $8 $4 4096
-	addi $8 $8 -32
 	
 	add $4 $8 $0
 	jal desenhar_personagem_direita
@@ -8728,6 +8702,50 @@ fim_laco_personagem_diminuir_1:
        	
        	jr $31
        	
+personagem_diminuir_esquerda:
+       	add $8 $4 $0
+	addi $9 $0 16
+laco_personagem_diminuir_1_esquerda:
+	beq $9 $0 fim_laco_personagem_diminuir_1_esquerda
+	addi $10 $0 16
+laco_personagem_diminuir_2_esquerda:
+	beq $10 $0 fim_laco_personagem_diminuir_2_esquerda
+	
+	lw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	j laco_personagem_diminuir_2_esquerda
+fim_laco_personagem_diminuir_2_esquerda:
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $9 $9 -1
+	j laco_personagem_diminuir_1_esquerda
+fim_laco_personagem_diminuir_1_esquerda:
+	add $16 $0 $0
+	
+	addi $8 $4 4096
+	addi $8 $8 32
+	
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	add $2 $0 $0
+	add $3 $8 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
 #=============================================
 # - funcao para conferir o spawn do toad
 
