@@ -4,13 +4,28 @@ tela_1:
 	li $9 8192
 	li $20 0x20d8ff
 ceu:
-	beq $9 $0 bloco_chao_1_init
+	beq $9 $0 parte_la_debaixo_init
 	
 	sw $20 0($8)
 	
 	addi $8 $8 4
 	addi $9 $9 -1
 	j ceu
+	
+parte_la_debaixo_init:
+	lui $8 0x1001
+	addi $8 $8 31744
+	li $9 256
+	li $20 0x0c5454
+parte_la_debaixo:
+	beq $9 $0 bloco_chao_1_init
+	
+	sw $20 0($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	j parte_la_debaixo
+
 bloco_chao_1_init:
 	lui $8 0x1001
 	addi $8 $8 26624
