@@ -9,10 +9,10 @@ menu_level_1:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃ¡ colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem estÃ¡ grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -208,10 +208,10 @@ iniciar_nivel_2:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃ¡ colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem estÃ¡ grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -3109,58 +3109,79 @@ final_bloco_chao_6_tela_6_2:
 	addi $10 $10 -1
 	bne $10 $0 laco_bloco_chao_6_tela_6_2
 	
-bloco_chao_6_init_tela_2_3:
+bloco_chao_6_init_tela_6_3:
 	lui $8 0x1001
 	addi $8 $8 29072
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $10 7
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
-laco_bloco_chao_6_tela_2_3:
+laco_bloco_chao_6_tela_6_3:
 	li $9 4
-bloco_chao_6_tela_2_3:
-	beq $9 $0 final_bloco_chao_6_tela_2_3
+bloco_chao_6_tela_6_3:
+	beq $9 $0 final_bloco_chao_6_tela_6_3
 	
 	sw $11 0($8)
 	sw $12 512($8)
 	sw $12 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_6_tela_2_3
-final_bloco_chao_6_tela_2_3:
+	j bloco_chao_6_tela_6_3
+final_bloco_chao_6_tela_6_3:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $20 0($8)
 	sw $20 12($8)
 	sw $20 516($8)
 	sw $20 520($8)
+	sw $20 0($22)
+	sw $20 12($22)
+	sw $20 516($22)
+	sw $20 520($22)
 	
+	addi $22 $22 16
 	addi $8 $8 16
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_chao_6_tela_2_3
+	bne $10 $0 laco_bloco_chao_6_tela_6_3
 	
-bloco_chao_7_init_tela_2:
+bloco_chao_7_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 24640
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $9 4
-bloco_chao_7_tela_2:
-	beq $9 $0 final_bloco_chao_7_tela_2
+bloco_chao_7_tela_6:
+	beq $9 $0 final_bloco_chao_7_tela_6
 	
 	sw $11 0($8)
 	sw $12 512($8)
 	sw $12 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_7_tela_2
-final_bloco_chao_7_tela_2:
+	j bloco_chao_7_tela_6
+final_bloco_chao_7_tela_6:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $20 0($8)
 	sw $20 516($8)
@@ -3169,27 +3190,42 @@ final_bloco_chao_7_tela_2:
 	sw $20 1032($8)
 	sw $11 1036($8)
 	sw $20 1548($8)
+	sw $20 0($22)
+	sw $20 516($22)
+	sw $20 520($22)
+	sw $11 524($22)
+	sw $20 1032($22)
+	sw $11 1036($22)
+	sw $20 1548($22)
 	
-bloco_chao_7_init_tela_2_2:
+bloco_chao_7_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 28928
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $9 4
-bloco_chao_7_tela_2_2:
-	beq $9 $0 final_bloco_chao_7_tela_2_2
+bloco_chao_7_tela_6_2:
+	beq $9 $0 final_bloco_chao_7_tela_6_2
 	
 	sw $11 0($8)
 	sw $12 512($8)
 	sw $12 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_7_tela_2_2
-final_bloco_chao_7_tela_2_2:
+	j bloco_chao_7_tela_6_2
+final_bloco_chao_7_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $20 0($8)
 	sw $20 516($8)
@@ -3198,26 +3234,41 @@ final_bloco_chao_7_tela_2_2:
 	sw $20 1032($8)
 	sw $11 1036($8)
 	sw $20 1548($8)
+	sw $20 0($22)
+	sw $20 516($22)
+	sw $20 520($22)
+	sw $11 524($22)
+	sw $20 1032($22)
+	sw $11 1036($22)
+	sw $20 1548($22)
 	
-bloco_chao_8_init_tela_2:
+bloco_chao_8_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 28880
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $9 4
-bloco_chao_8_tela_2:
-	beq $9 $0 final_bloco_chao_8_tela_2
+bloco_chao_8_tela_6:
+	beq $9 $0 final_bloco_chao_8_tela_6
 	
 	sw $11 0($8)
 	sw $12 512($8)
 	sw $12 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_8_tela_2
-final_bloco_chao_8_tela_2:
+	j bloco_chao_8_tela_6
+final_bloco_chao_8_tela_6:
+	addi $8 $8 -16
 	addi $8 $8 -16
 	
 	sw $20 12($8)
@@ -3227,27 +3278,42 @@ final_bloco_chao_8_tela_2:
 	sw $20 1028($8)
 	sw $11 1024($8)
 	sw $20 1536($8)
+	sw $20 12($22)
+	sw $20 520($22)
+	sw $20 516($22)
+	sw $11 512($22)
+	sw $20 1028($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
 	
-bloco_chao_8_init_tela_2_2:
+bloco_chao_8_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 29056
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $9 4
-bloco_chao_8_tela_2_2:
-	beq $9 $0 final_bloco_chao_8_tela_2_2
+bloco_chao_8_tela_6_2:
+	beq $9 $0 final_bloco_chao_8_tela_6_2
 	
 	sw $11 0($8)
 	sw $12 512($8)
 	sw $12 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_8_tela_2_2
-final_bloco_chao_8_tela_2_2:
+	j bloco_chao_8_tela_6_2
+final_bloco_chao_8_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $20 12($8)
 	sw $20 520($8)
@@ -3256,28 +3322,43 @@ final_bloco_chao_8_tela_2_2:
 	sw $20 1028($8)
 	sw $11 1024($8)
 	sw $20 1536($8)
+	sw $20 12($22)
+	sw $20 520($22)
+	sw $20 516($22)
+	sw $11 512($22)
+	sw $20 1028($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
 	
-bloco_chao_9_init_tela_2:
+bloco_chao_9_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 26688
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $13 0x6b5727
 	li $9 4
-bloco_chao_9_tela_2:
-	beq $9 $0 final_bloco_chao_9_tela_2
+bloco_chao_9_tela_6:
+	beq $9 $0 final_bloco_chao_9_tela_6
 	
 	sw $12 0($8)
 	sw $12 4($8)
 	sw $12 8($8)
 	sw $11 12($8)
+	sw $12 0($22)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_chao_9_tela_2
-final_bloco_chao_9_tela_2:
+	j bloco_chao_9_tela_6
+final_bloco_chao_9_tela_6:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $20 12($8)
 	sw $20 520($8)
@@ -3288,28 +3369,45 @@ final_bloco_chao_9_tela_2:
 	sw $13 1536($8)
 	sw $13 1540($8)
 	sw $13 1544($8)
+	sw $20 12($22)
+	sw $20 520($22)
+	sw $13 516($22)
+	sw $20 1032($22)
+	sw $13 1024($22)
+	sw $20 1548($22)
+	sw $13 1536($22)
+	sw $13 1540($22)
+	sw $13 1544($22)
 	
-bloco_chao_9_init_tela_2_2:
+bloco_chao_9_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 30976
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $13 0x6b5727
 	li $9 4
-bloco_chao_9_tela_2_2:
-	beq $9 $0 final_bloco_chao_9_tela_2_2
+bloco_chao_9_tela_6_2:
+	beq $9 $0 final_bloco_chao_9_tela_6_2
 	
 	sw $12 0($8)
 	sw $12 4($8)
 	sw $12 8($8)
 	sw $11 12($8)
+	sw $12 0($22)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_chao_9_tela_2_2
-final_bloco_chao_9_tela_2_2:
+	j bloco_chao_9_tela_6_2
+final_bloco_chao_9_tela_6_2:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $20 12($8)
 	sw $20 520($8)
@@ -3320,28 +3418,45 @@ final_bloco_chao_9_tela_2_2:
 	sw $13 1536($8)
 	sw $13 1540($8)
 	sw $13 1544($8)
+	sw $20 12($22)
+	sw $20 520($22)
+	sw $13 516($22)
+	sw $20 1032($22)
+	sw $13 1024($22)
+	sw $20 1548($22)
+	sw $13 1536($22)
+	sw $13 1540($22)
+	sw $13 1544($22)
 	
-bloco_chao_10_init_tela_2:
+bloco_chao_10_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 30928
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $13 0x6b5727
 	li $9 4
-bloco_chao_10_tela_2:
-	beq $9 $0 final_bloco_chao_10_tela_2
+bloco_chao_10_tela_6:
+	beq $9 $0 final_bloco_chao_10_tela_6
 	
 	sw $11 0($8)
 	sw $12 4($8)
 	sw $12 8($8)
 	sw $12 12($8)
+	sw $11 0($22)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $12 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_chao_10_tela_2
-final_bloco_chao_10_tela_2:
+	j bloco_chao_10_tela_6
+final_bloco_chao_10_tela_6:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $20 0($8)
 	sw $20 516($8)
@@ -3352,28 +3467,45 @@ final_bloco_chao_10_tela_2:
 	sw $13 1540($8)
 	sw $13 1544($8)
 	sw $13 1548($8)
+	sw $20 0($22)
+	sw $20 516($22)
+	sw $13 520($22)
+	sw $20 1028($22)
+	sw $13 1036($22)
+	sw $20 1536($22)
+	sw $13 1540($22)
+	sw $13 1544($22)
+	sw $13 1548($22)
 	
-bloco_chao_10_init_tela_2_2:
+bloco_chao_10_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 31104
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x817235
 	li $13 0x6b5727
 	li $9 4
-bloco_chao_10_tela_2_2:
-	beq $9 $0 final_bloco_chao_10_tela_2_2
+bloco_chao_10_tela_6_2:
+	beq $9 $0 final_bloco_chao_10_tela_6_2
 	
 	sw $11 0($8)
 	sw $12 4($8)
 	sw $12 8($8)
 	sw $12 12($8)
+	sw $11 0($22)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $12 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_chao_10_tela_2_2
-final_bloco_chao_10_tela_2_2:
+	j bloco_chao_10_tela_6_2
+final_bloco_chao_10_tela_6_2:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $20 0($8)
 	sw $20 516($8)
@@ -3384,140 +3516,203 @@ final_bloco_chao_10_tela_2_2:
 	sw $13 1540($8)
 	sw $13 1544($8)
 	sw $13 1548($8)
+	sw $20 0($22)
+	sw $20 516($22)
+	sw $13 520($22)
+	sw $20 1028($22)
+	sw $13 1036($22)
+	sw $20 1536($22)
+	sw $13 1540($22)
+	sw $13 1544($22)
+	sw $13 1548($22)
 	
-bloco_chao_11_init_tela_2:
+bloco_chao_11_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 28736
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $10 2
 	li $20 0x000000 #detalhe
 	li $11 0x16a546
 	li $12 0x6b5727
-laco_bloco_chao_11_tela_2:
+laco_bloco_chao_11_tela_6:
 	li $9 4
-bloco_chao_11_tela_2:
-	beq $9 $0 final_bloco_chao_11_tela_2
+bloco_chao_11_tela_6:
+	beq $9 $0 final_bloco_chao_11_tela_6
 	
 	sw $12 0($8)
 	sw $12 4($8)
 	sw $12 8($8)
 	sw $11 12($8)
+	sw $12 0($22)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_chao_11_tela_2
-final_bloco_chao_11_tela_2:
+	j bloco_chao_11_tela_6
+final_bloco_chao_11_tela_6:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $20 12($8)
 	sw $20 520($8)
 	sw $20 1032($8)
 	sw $20 1548($8)
+	sw $20 12($22)
+	sw $20 520($22)
+	sw $20 1032($22)
+	sw $20 1548($22)
 	
+	addi $22 $22 2048
 	addi $8 $8 2048
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_chao_11_tela_2
+	bne $10 $0 laco_bloco_chao_11_tela_6
 	
-bloco_chao_12_init_tela_2:
+bloco_chao_12_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 26624
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $10 4
 	li $11 0x817235
 	li $12 0x6b5727
-laco_bloco_chao_12_tela_2:
+laco_bloco_chao_12_tela_6:
 	li $9 4
-bloco_chao_12_tela_2:
-	beq $9 $0 final_bloco_chao_12_tela_2
+bloco_chao_12_tela_6:
+	beq $9 $0 final_bloco_chao_12_tela_6
 	
 	sw $11 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_12_tela_2
-final_bloco_chao_12_tela_2:
+	j bloco_chao_12_tela_6
+final_bloco_chao_12_tela_6:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $12 1024($8)
 	sw $12 1036($8)
 	sw $12 516($8)
 	sw $12 520($8)
+	sw $12 1024($22)
+	sw $12 1036($22)
+	sw $12 516($22)
+	sw $12 520($22)
 	
+	addi $22 $22 16
 	addi $8 $8 16
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_chao_12_tela_2
+	bne $10 $0 laco_bloco_chao_12_tela_6
 	
-bloco_chao_12_init_tela_2_2:
+bloco_chao_12_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 30944
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $10 2
 	li $11 0x817235
 	li $12 0x6b5727
-laco_bloco_chao_12_tela_2_2:
+laco_bloco_chao_12_tela_6_2:
 	li $9 4
-bloco_chao_12_tela_2_2:
-	beq $9 $0 final_bloco_chao_12_tela_2_2
+bloco_chao_12_tela_6_2:
+	beq $9 $0 final_bloco_chao_12_tela_6_2
 	
 	sw $11 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_12_tela_2_2
-final_bloco_chao_12_tela_2_2:
+	j bloco_chao_12_tela_6_2
+final_bloco_chao_12_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $12 1024($8)
 	sw $12 1036($8)
 	sw $12 516($8)
 	sw $12 520($8)
+	sw $12 1024($22)
+	sw $12 1036($22)
+	sw $12 516($22)
+	sw $12 520($22)
 	
+	addi $22 $22 16
 	addi $8 $8 16
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_chao_12_tela_2_2
+	bne $10 $0 laco_bloco_chao_12_tela_6_2
 	
-bloco_chao_12_init_tela_2_3:
+bloco_chao_12_init_tela_6_3:
 	lui $8 0x1001
 	addi $8 $8 31120
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $10 7
 	li $11 0x817235
 	li $12 0x6b5727
-laco_bloco_chao_12_tela_2_3:
+laco_bloco_chao_12_tela_6_3:
 	li $9 4
-bloco_chao_12_tela_2_3:
-	beq $9 $0 final_bloco_chao_12_tela_2_3
+bloco_chao_12_tela_6_3:
+	beq $9 $0 final_bloco_chao_12_tela_6_3
 	
 	sw $11 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
 	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_12_tela_2_3
-final_bloco_chao_12_tela_2_3:
+	j bloco_chao_12_tela_6_3
+final_bloco_chao_12_tela_6_3:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $12 1024($8)
 	sw $12 1036($8)
 	sw $12 516($8)
 	sw $12 520($8)
+	sw $12 1024($22)
+	sw $12 1036($22)
+	sw $12 516($22)
+	sw $12 520($22)
 	
+	addi $22 $22 16
 	addi $8 $8 16
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_chao_12_tela_2_3
+	bne $10 $0 laco_bloco_chao_12_tela_6_3
 	
-bloco_chao_13_init_tela_2:
+bloco_chao_13_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 28672
+	addi $22 $8 98304
+	addi $8 $8 32768
 	li $11 0x6b5727
-laco_bloco_chao_13_tela_2:
+laco_bloco_chao_13_tela_6:
 	li $9 16
-bloco_chao_13_tela_2:
-	beq $9 $0 bloco_obstaculo_1_init_tela_2
+bloco_chao_13_tela_6:
+	beq $9 $0 bloco_obstaculo_1_init_tela_6
 	sw $11 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
@@ -3526,80 +3721,117 @@ bloco_chao_13_tela_2:
 	sw $11 2560($8)
 	sw $11 3072($8)
 	sw $11 3584($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
+	sw $11 2048($22)
+	sw $11 2560($22)
+	sw $11 3072($22)
+	sw $11 3584($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_chao_13_tela_2
+	j bloco_chao_13_tela_6
 	
-bloco_obstaculo_1_init_tela_2:
+bloco_obstaculo_1_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 12288
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $14 0x00b215
 	li $9 4
-bloco_obstaculo_1_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_1_tela_2
+	
+bloco_obstaculo_1_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_1_tela_6
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_1_tela_2
-fim_bloco_obstaculo_1_tela_2:
+	j bloco_obstaculo_1_tela_6
+fim_bloco_obstaculo_1_tela_6:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $11 516($8)
 	sw $20 1024($8)
 	sw $20 1536($8)
 	sw $14 1540($8)
+	sw $11 516($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	sw $14 1540($22)
 	
-bloco_obstaculo_2_init_tela_2:
+bloco_obstaculo_2_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 12304
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_2_tela_2:
-	beq $9 $0 bloco_obstaculo_3_init_tela_2
+bloco_obstaculo_2_tela_6:
+	beq $9 $0 bloco_obstaculo_3_init_tela_6
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_2_tela_2
+	j bloco_obstaculo_2_tela_6
 
-bloco_obstaculo_3_init_tela_2:
+bloco_obstaculo_3_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 12320
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_3_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_3_tela_2
+bloco_obstaculo_3_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_3_tela_6
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_3_tela_2
-fim_bloco_obstaculo_3_tela_2:
+	j bloco_obstaculo_3_tela_6
+fim_bloco_obstaculo_3_tela_6:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $11 520($8)
 	sw $13 1024($8)
@@ -3609,28 +3841,44 @@ fim_bloco_obstaculo_3_tela_2:
 	sw $12 1540($8)
 	sw $12 1544($8)
 	sw $20 1548($8)
+	sw $11 520($22)
+	sw $13 1024($22)
+	sw $13 1028($22)
+	sw $20 1036($22)
+	sw $13 1536($22)
+	sw $12 1540($22)
+	sw $12 1544($22)
+	sw $20 1548($22)
 	
-bloco_obstaculo_4_init_tela_2:
+bloco_obstaculo_4_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 14336
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_4_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_4_tela_2
+bloco_obstaculo_4_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_4_tela_6
 	
 	sw $20 0($8)
 	sw $11 4($8)
 	sw $11 8($8)
 	sw $11 12($8)
+	sw $20 0($22)
+	sw $11 4($22)
+	sw $11 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_4_tela_2
-fim_bloco_obstaculo_4_tela_2:
+	j bloco_obstaculo_4_tela_6
+fim_bloco_obstaculo_4_tela_6:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $12 4($8)
 	sw $12 8($8)
@@ -3638,138 +3886,190 @@ fim_bloco_obstaculo_4_tela_2:
 	sw $12 516($8)
 	sw $12 1028($8)
 	sw $12 1540($8)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $12 12($22)
+	sw $12 516($22)
+	sw $12 1028($22)
+	sw $12 1540($22)
 	
-bloco_obstaculo_5_init_tela_2:
+bloco_obstaculo_5_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 14352
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_5_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_5_tela_2
+bloco_obstaculo_5_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_5_tela_6
 	
 	sw $12 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $12 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_5_tela_2
-fim_bloco_obstaculo_5_tela_2:
+	j bloco_obstaculo_5_tela_6
+fim_bloco_obstaculo_5_tela_6:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $13 524($8)
 	sw $13 1036($8)
 	sw $13 1548($8)
+	sw $13 524($22)
+	sw $13 1036($22)
+	sw $13 1548($22)
 	
-bloco_obstaculo_6_init_tela_2:
+bloco_obstaculo_6_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 14368
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_6_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_6_tela_2
+bloco_obstaculo_6_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_6_tela_6
 	
 	sw $11 0($8)
 	sw $11 4($8)
 	sw $12 8($8)
 	sw $20 12($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	sw $12 8($22)
+	sw $20 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_6_tela_2
-fim_bloco_obstaculo_6_tela_2:
+	j bloco_obstaculo_6_tela_6
+fim_bloco_obstaculo_6_tela_6:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $12 0($8)
 	sw $13 512($8)
 	sw $13 1024($8)
 	sw $13 1536($8)
+	sw $12 0($22)
+	sw $13 512($22)
+	sw $13 1024($22)
+	sw $13 1536($22)
 	
-bloco_obstaculo_7_init_tela_2:
+bloco_obstaculo_7_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 16384
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 3
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_7_tela_2:
+laco_bloco_obstaculo_7_tela_6:
 	li $9 4
-bloco_obstaculo_7_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_7_tela_2
+bloco_obstaculo_7_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_7_tela_6
 	
 	sw $20 0($8)
 	sw $12 4($8)
 	sw $11 8($8)
 	sw $11 12($8)
+	sw $20 0($22)
+	sw $12 4($22)
+	sw $11 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_7_tela_2
-fim_bloco_obstaculo_7_tela_2:	
+	j bloco_obstaculo_7_tela_6
+fim_bloco_obstaculo_7_tela_6:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_7_tela_2
+	bne $10 $0 laco_bloco_obstaculo_7_tela_6
 	
-bloco_obstaculo_8_init_tela_2:
+bloco_obstaculo_8_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 16400
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 3
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_8_tela_2:
+laco_bloco_obstaculo_8_tela_6:
 	li $9 4
-bloco_obstaculo_8_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_8_tela_2
+bloco_obstaculo_8_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_8_tela_6
 	
 	sw $11 0($8)
 	sw $11 4($8)
 	sw $11 8($8)
 	sw $13 12($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	sw $11 8($22)
+	sw $13 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_8_tela_2
-fim_bloco_obstaculo_8_tela_2:	
+	j bloco_obstaculo_8_tela_6
+fim_bloco_obstaculo_8_tela_6:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_8_tela_2
+	bne $10 $0 laco_bloco_obstaculo_8_tela_6
 	
-bloco_obstaculo_9_init_tela_2:
+bloco_obstaculo_9_init_tela_6:
 	lui $8 0x1001
 	addi $8 $8 16416
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 3
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_9_tela_2:
+laco_bloco_obstaculo_9_tela_6:
 	li $9 4
-bloco_obstaculo_9_tela_2:
-	beq $9 $0 fim_bloco_obstaculo_9_tela_2
+bloco_obstaculo_9_tela_6:
+	beq $9 $0 fim_bloco_obstaculo_9_tela_6
 	
 	sw $13 0($8)
 	sw $11 4($8)
 	sw $12 8($8)
 	sw $20 12($8)
+	sw $13 0($22)
+	sw $11 4($22)
+	sw $12 8($22)
+	sw $20 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_9_tela_2
-fim_bloco_obstaculo_9_tela_2:	
+	j bloco_obstaculo_9_tela_6
+fim_bloco_obstaculo_9_tela_6:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_9_tela_2
+	bne $10 $0 laco_bloco_obstaculo_9_tela_6
 	
-bloco_obstaculo_1_init_tela_2_2:
+bloco_obstaculo_1_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 18864
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
@@ -3777,66 +4077,91 @@ bloco_obstaculo_1_init_tela_2_2:
 	li $14 0x00b215
 	li $9 4
 	
-bloco_obstaculo_1_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_1_tela_2_2
+bloco_obstaculo_1_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_1_tela_6_2
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_1_tela_2_2
-fim_bloco_obstaculo_1_tela_2_2:
+	j bloco_obstaculo_1_tela_6_2
+fim_bloco_obstaculo_1_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $11 516($8)
 	sw $20 1024($8)
 	sw $20 1536($8)
 	sw $14 1540($8)
+	sw $11 516($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	sw $14 1540($22)
 	
-bloco_obstaculo_2_init_tela_2_2:
+bloco_obstaculo_2_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 18880
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_2_tela_2_2:
-	beq $9 $0 bloco_obstaculo_3_init_tela_2_2
+bloco_obstaculo_2_tela_6_2:
+	beq $9 $0 bloco_obstaculo_3_init_tela_6_2
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_2_tela_2_2
+	j bloco_obstaculo_2_tela_6_2
 
-bloco_obstaculo_3_init_tela_2_2:
+bloco_obstaculo_3_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 18896
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_3_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_3_tela_2_2
+bloco_obstaculo_3_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_3_tela_6_2
 	
 	sw $20 0($8)
 	sw $20 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_3_tela_2_2
-fim_bloco_obstaculo_3_tela_2_2:
+	j bloco_obstaculo_3_tela_6_2
+fim_bloco_obstaculo_3_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $11 520($8)
 	sw $13 1024($8)
@@ -3846,28 +4171,44 @@ fim_bloco_obstaculo_3_tela_2_2:
 	sw $12 1540($8)
 	sw $12 1544($8)
 	sw $20 1548($8)
+	sw $11 520($22)
+	sw $13 1024($22)
+	sw $13 1028($22)
+	sw $20 1036($22)
+	sw $13 1536($22)
+	sw $12 1540($22)
+	sw $12 1544($22)
+	sw $20 1548($22)
 	
-bloco_obstaculo_4_init_tela_2_2:
+bloco_obstaculo_4_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 20912
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_4_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_4_tela_2_2
+bloco_obstaculo_4_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_4_tela_6_2
 	
 	sw $20 0($8)
 	sw $11 4($8)
 	sw $11 8($8)
 	sw $11 12($8)
+	sw $20 0($22)
+	sw $11 4($22)
+	sw $11 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_4_tela_2_2
-fim_bloco_obstaculo_4_tela_2_2:
+	j bloco_obstaculo_4_tela_6_2
+fim_bloco_obstaculo_4_tela_6_2:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $12 4($8)
 	sw $12 8($8)
@@ -3875,134 +4216,184 @@ fim_bloco_obstaculo_4_tela_2_2:
 	sw $12 516($8)
 	sw $12 1028($8)
 	sw $12 1540($8)
+	sw $12 4($22)
+	sw $12 8($22)
+	sw $12 12($22)
+	sw $12 516($22)
+	sw $12 1028($22)
+	sw $12 1540($22)
 	
-bloco_obstaculo_5_init_tela_2_2:
+bloco_obstaculo_5_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 20928
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_5_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_5_tela_2_2
+bloco_obstaculo_5_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_5_tela_6_2
 	
 	sw $12 0($8)
 	sw $11 512($8)
 	sw $11 1024($8)
 	sw $11 1536($8)
+	sw $12 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
 	
+	addi $22 $22 4
 	addi $8 $8 4
 	addi $9 $9 -1
-	j bloco_obstaculo_5_tela_2_2
-fim_bloco_obstaculo_5_tela_2_2:
+	j bloco_obstaculo_5_tela_6_2
+fim_bloco_obstaculo_5_tela_6_2:
 	addi $8 $8 -16
+	addi $22 $22 -16
 	
 	sw $13 524($8)
 	sw $13 1036($8)
 	sw $13 1548($8)
+	sw $13 524($22)
+	sw $13 1036($22)
+	sw $13 1548($22)
 	
-bloco_obstaculo_6_init_tela_2_2:
+bloco_obstaculo_6_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 20944
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
 	li $9 4
-bloco_obstaculo_6_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_6_tela_2_2
+bloco_obstaculo_6_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_6_tela_6_2
 	
 	sw $11 0($8)
 	sw $11 4($8)
 	sw $12 8($8)
 	sw $20 12($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	sw $12 8($22)
+	sw $20 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_6_tela_2_2
-fim_bloco_obstaculo_6_tela_2_2:
+	j bloco_obstaculo_6_tela_6_2
+fim_bloco_obstaculo_6_tela_6_2:
 	addi $8 $8 -2048
+	addi $22 $22 -2048
 	
 	sw $12 0($8)
 	sw $13 512($8)
 	sw $13 1024($8)
 	sw $13 1536($8)
+	sw $12 0($22)
+	sw $13 512($22)
+	sw $13 1024($22)
+	sw $13 1536($22)
 	
-bloco_obstaculo_7_init_tela_2_2:
+bloco_obstaculo_7_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 22960
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 2
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_7_tela_2_2:
+laco_bloco_obstaculo_7_tela_6_2:
 	li $9 4
 bloco_obstaculo_7_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_7_tela_2_2
+	beq $9 $0 fim_bloco_obstaculo_7_tela_6_2
 	
 	sw $20 0($8)
 	sw $12 4($8)
 	sw $11 8($8)
 	sw $11 12($8)
+	sw $20 0($22)
+	sw $12 4($22)
+	sw $11 8($22)
+	sw $11 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_7_tela_2_2
-fim_bloco_obstaculo_7_tela_2_2:	
+	j bloco_obstaculo_7_tela_6_2
+fim_bloco_obstaculo_7_tela_6_2:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_7_tela_2_2
+	bne $10 $0 laco_bloco_obstaculo_7_tela_6_2
 	
-bloco_obstaculo_8_init_tela_2_2:
+bloco_obstaculo_8_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 22976
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 2
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_8_tela_2_2:
+laco_bloco_obstaculo_8_tela_6_2:
 	li $9 4
-bloco_obstaculo_8_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_8_tela_2_2
+bloco_obstaculo_8_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_8_tela_6_2
 	
 	sw $11 0($8)
 	sw $11 4($8)
 	sw $11 8($8)
 	sw $13 12($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	sw $11 8($22)
+	sw $13 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_8_tela_2_2
-fim_bloco_obstaculo_8_tela_2_2:	
+	j bloco_obstaculo_8_tela_6_2
+fim_bloco_obstaculo_8_tela_6_2:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_8_tela_2_2
+	bne $10 $0 laco_bloco_obstaculo_8_tela_6_2
 	
-bloco_obstaculo_9_init_tela_2_2:
+bloco_obstaculo_9_init_tela_6_2:
 	lui $8 0x1001
 	addi $8 $8 22992
+	addi $8 $8 28672
+	addi $22 $8 98304
 	li $10 2
 	li $20 0x000000
 	li $11 0x00d419
 	li $12 0x00b215
 	li $13 0x35ff4c
-laco_bloco_obstaculo_9_tela_2_2:
+laco_bloco_obstaculo_9_tela_6_2:
 	li $9 4
-bloco_obstaculo_9_tela_2_2:
-	beq $9 $0 fim_bloco_obstaculo_9_tela_2_2
+bloco_obstaculo_9_tela_6_2:
+	beq $9 $0 fim_bloco_obstaculo_9_tela_6_2
 	
 	sw $13 0($8)
 	sw $11 4($8)
 	sw $12 8($8)
 	sw $20 12($8)
+	sw $13 0($22)
+	sw $11 4($22)
+	sw $12 8($22)
+	sw $20 12($22)
 	
+	addi $22 $22 512
 	addi $8 $8 512
 	addi $9 $9 -1
-	j bloco_obstaculo_9_tela_2_2
-fim_bloco_obstaculo_9_tela_2_2:	
+	j bloco_obstaculo_9_tela_6_2
+fim_bloco_obstaculo_9_tela_6_2:	
 	addi $10 $10 -1
-	bne $10 $0 laco_bloco_obstaculo_9_tela_2_2
+	bne $10 $0 laco_bloco_obstaculo_9_tela_6_2
 
 fundo_1_parte_1_tela_2_init:
 	lui $8 0x1001
@@ -5127,6 +5518,18 @@ fundo_6_parte_5_tela_2_init:
 	sw $20 520($8)
 	sw $20 1028($8)
 	
+	addi $29 $29 4  
+	lw $22 0($29)
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $14 0($29)
+	addi $29 $29 4  
+	lw $13 0($29)
+	addi $29 $29 4  
+	lw $12 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
 	addi $29 $29 4  
 	lw $10 0($29)
        	addi $29 $29 4                                                    
@@ -6551,8 +6954,8 @@ bordasv:
 	sw $22, 3600($8)
 	sw $22, 3572($8)
 	
-	sw $22, 5092($8)#braço esquerda
-	sw $22, 5660($8) #braço direita
+	sw $22, 5092($8)#braÃ§o esquerda
+	sw $22, 5660($8) #braÃ§o direita
 	sw $22, 6680($8)# pe direito
 	sw $22, 7144($8)# outro pe
 	
@@ -6574,7 +6977,7 @@ detalhes_finais_player:
 	sw $21, 4120($8)
 	sw $21, 4636($8)
 	
-	sw $22, 4128($8)#pescoço frente
+	sw $22, 4128($8)#pescoÃ§o frente
 	sw $22, 4644($8)
 	
 	sw $22, 5128($8)
@@ -6815,11 +7218,11 @@ bordashgl:
 	sw $10, 3088($8)
 	
 	sw $10, 3568($8) #abaixo do nariz
-	sw $10, 4108($8) #pescoço
+	sw $10, 4108($8) #pescoÃ§o
 	sw $10, 4112($8)
 	
 	sw $10, 4632($8)#cima luva
-	sw $10, 6156($8)#baixo braço
+	sw $10, 6156($8)#baixo braÃ§o
 	sw $10, 6676($8)#pe direita
 	sw $10, 7172($8)#pe exquerda
 
@@ -6842,8 +7245,8 @@ bordasvgl:
 	sw $10, 3592($8)#parte da orelha
 	sw $10, 3564($8)# parte do nariz
 	
-	sw $10, 5144($8)#braço esquerda
-	sw $10, 5600($8) #braço direita
+	sw $10, 5144($8)#braÃ§o esquerda
+	sw $10, 5600($8) #braÃ§o direita
 	sw $10, 6628($8)# pe direito
 	sw $10, 7188($8)# outro pe
 	
@@ -6868,10 +7271,10 @@ detalhes_finais_playergl:
 	sw $20, 5636($8)#botoes
 	sw $20, 5624($8)
 	
-	sw $10, 4084($8)#pescoço frente
+	sw $10, 4084($8)#pescoÃ§o frente
 	sw $10, 4592($8)
 	
-	sw $10, 5132($8)#braço
+	sw $10, 5132($8)#braÃ§o
 	sw $10, 5664($8)
 	
 	sw $10, 6656($8)
@@ -6958,7 +7361,7 @@ amarelosgjr:
 	sw $20, 512($8)
 	sw $20, 524($8)
 	
-	sw $20, 1048($8)#braço
+	sw $20, 1048($8)#braÃ§o
 	sw $20, 1560($8)
 	sw $20, 2072($8)
 	sw $20, 3604($8)
@@ -7051,7 +7454,7 @@ macacao_e_luvagjr:
 	sw $10 504($8)
 	sw $10 508($8)
 	
-	sw $20 524($8)# alça
+	sw $20 524($8)# alÃ§a
 	sw $20 540($8)
 	
 	sw $20 1040($8)
@@ -7109,11 +7512,11 @@ bordashgjr:
 	
 	sw $10, 3612($8)#abaixo nariz
 	
-	sw $10, 3068($8)# pescoço
+	sw $10, 3068($8)# pescoÃ§o
 	sw $10, 4092($8)
 	sw $10, 4096($8)
 	
-	sw $10, 5112($8)#braço esquerdo
+	sw $10, 5112($8)#braÃ§o esquerdo
 	sw $10, 5108($8)
 	
 	sw $10, 5156($8)#pe direito
@@ -7134,21 +7537,21 @@ bordasvgjr_init:
 bordasvgjr:
 	beqz $9 detalhes_finais_playergjr
 	
-	sw $10, 1012($8)#cabeça atras
+	sw $10, 1012($8)#cabeÃ§a atras
 	sw $10, 2032($8)
 	
 	sw $10, 548($8)#luva direita
 	sw $10, 1048($8)
 	
-	sw $10, 1568($8) #braço direito
+	sw $10, 1568($8) #braÃ§o direito
 	sw $10, 2080($8)
 	sw $10, 3100($8)
 	sw $10, 3612($8)
 	sw $10, 3604($8)
 
-	sw $10, 3576($8)#pescoço
+	sw $10, 3576($8)#pescoÃ§o
 	
-	sw $10, 4592($8)# breaço esquerdo
+	sw $10, 4592($8)# breaÃ§o esquerdo
 
 	sw $10, 5608($8)#luva esquerda
 	sw $10, 5624($8)
@@ -7410,11 +7813,11 @@ bordashgjr_pulando_esquerda:
 	
 	sw $10, 3580($8)#abaixo nariz
 	
-	sw $10, 3100($8)# pescoço
+	sw $10, 3100($8)# pescoÃ§o
 	sw $10, 4120($8)
 	sw $10, 4124($8)
 	
-	sw $10, 5152($8)#braço esquerdo
+	sw $10, 5152($8)#braÃ§o esquerdo
 	sw $10, 5156($8)
 	
 	sw $10, 5108($8)#pe direito
@@ -7434,21 +7837,21 @@ bordasvgjr_init_pulando_esquerda:
 bordasvgjr_pulando_esquerda:
 	beqz $9 detalhes_finais_playergjr_pulando_esquerda
 	
-	sw $10, 1048($8)#cabeça atras
+	sw $10, 1048($8)#cabeÃ§a atras
 	sw $10, 2076($8)
 	
 	sw $10, 488($8)#luva esquerda
 	sw $10, 1012($8)
 	
-	sw $10, 1516($8) #braço esquerdo
+	sw $10, 1516($8) #braÃ§o esquerdo
 	sw $10, 2028($8)
 	sw $10, 3056($8)
 	sw $10, 3568($8)
 	sw $10, 3576($8)
 
-	sw $10, 3604($8)#pescoço
+	sw $10, 3604($8)#pescoÃ§o
 	
-	sw $10, 4636($8)# breaço direito
+	sw $10, 4636($8)# breaÃ§o direito
 
 	sw $10, 5608($8)#luva direita
 	sw $10, 5652($8)
