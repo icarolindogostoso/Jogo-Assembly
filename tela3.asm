@@ -2045,3 +2045,416 @@ fundo_2_parte_8_tela_7_2:
 	addi $8 $8 -8192
 	
 	sw $11 0($8)
+
+fundo_2_parte_9_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 18904
+	li $20 0x0c646c
+	li $11 0x248c7c
+	li $9 10
+fundo_2_parte_9_tela_7_1:
+	
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_2_parte_9_tela_7_1
+	
+	addi $8 $8 -40
+	
+	sw $11 -8($8)
+	sw $11 -4($8)
+	sw $11 0($8)
+	sw $11 20($8)
+	sw $11 504($8)
+	sw $11 508($8)
+	sw $11 512($8)
+	sw $11 1016($8)
+	sw $11 1020($8)
+	sw $11 1528($8)
+	sw $11 1532($8)
+	
+fundo_2_parte_10_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 16864
+	li $20 0x0c646c
+	li $11 0x248c7c
+	li $9 8
+fundo_2_parte_10_tela_7_1:
+	
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_2_parte_10_tela_7_1
+	
+	addi $8 $8 -32
+	
+	sw $20 4($8)
+	sw $20 512($8)
+	sw $20 516($8)
+	sw $11 1036($8)
+	sw $11 1040($8)
+	sw $11 1044($8)
+	sw $11 1548($8)
+	sw $11 1552($8)
+	
+fundo_3_parte_1_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 24576
+	li $20 0x9494fc
+	li $11 0x20d8ff
+	li $12 0x248c7c
+	li $9 16
+fundo_3_parte_1_tela_7:
+
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_3_parte_1_tela_7
+	
+	sw $12 504($8)
+	sw $12 508($8)
+	
+fundo_3_parte_2_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 24640
+	li $20 0x9494fc
+	li $11 0x20d8ff
+	li $12 0x248c7c
+	li $13 0x0c646c
+	li $9 40
+fundo_3_parte_2_tela_7:
+
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_3_parte_2_tela_7
+	
+	addi $8 $8 -64
+	
+	sw $13 -8($8)
+	sw $13 -4($8)
+	sw $13 0($8)
+	sw $13 504($8)
+	sw $13 508($8)
+	sw $13 512($8)
+	sw $13 1016($8)
+	sw $13 1020($8)
+	sw $13 1024($8)
+	sw $13 1528($8)
+	sw $13 1532($8)
+	sw $13 1536($8)
+	sw $13 1540($8)
+	
+	addi $8 $8 -96
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	
+fundo_3_parte_3_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 26672
+	li $20 0x9494fc
+	li $11 0x20d8ff
+	li $12 0x248c7c
+	li $13 0x0c646c
+	li $9 24
+fundo_3_parte_3_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_3_parte_3_tela_7
+	
+fundo_3_parte_4_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 28720
+	li $20 0x9494fc
+	li $11 0x20d8ff
+	li $12 0x248c7c
+	li $13 0x0c646c
+	li $9 8
+fundo_3_parte_4_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_3_parte_4_tela_7
+	
+fundo_3_parte_5_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 26800
+	li $20 0x9494fc
+	li $11 0x20d8ff
+	li $12 0x248c7c
+	li $13 0x0c646c
+	li $9 12
+fundo_3_parte_5_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_3_parte_5_tela_7
+	
+	sw $13 1020($8)
+	sw $13 1524($8)
+	sw $13 1528($8)
+	sw $13 1532($8)
+	
+fundo_4_parte_1_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 22608
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 40
+fundo_4_parte_1_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_1_tela_7
+	
+	sw $12 -4($8)
+	sw $12 508($8)
+	sw $12 1020($8)
+	sw $12 1532($8)
+	
+	addi $8 $8 -88
+	
+	sw $12 0($8)
+	sw $12 4($8)
+	sw $12 512($8)
+	sw $12 516($8)
+	sw $12 1024($8)
+	sw $12 1028($8)
+	sw $12 1536($8)
+	sw $12 1540($8)
+	
+	addi $8 $8 -72
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 512($8)
+	sw $11 516($8)
+	sw $11 1024($8)
+	
+fundo_4_parte_2_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 20560
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 48
+fundo_4_parte_2_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_2_tela_7
+	
+	addi $8 $8 -192
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 8($8)
+	sw $11 12($8)
+	sw $11 512($8)
+	sw $11 516($8)
+	sw $11 520($8)
+	sw $11 1024($8)
+	sw $11 1028($8)
+	sw $11 1032($8)
+	sw $11 1536($8)
+	sw $11 1540($8)
+	
+fundo_4_parte_3_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 18576
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 32
+fundo_4_parte_3_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_3_tela_7
+	
+fundo_4_parte_4_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 18528
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 12
+fundo_4_parte_4_tela_7:
+
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_4_tela_7
+	
+	sw $20 1020($8)
+	sw $20 1524($8)
+	sw $20 1528($8)
+	sw $20 1532($8)
+	
+	addi $8 $8 -48
+	
+	sw $20 516($8)
+	sw $20 1028($8)
+	sw $20 1032($8)
+	sw $20 1536($8)
+	sw $20 1540($8)
+	sw $20 1544($8)
+	sw $20 1548($8)
+	
+fundo_4_parte_5_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 14560
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 20
+fundo_4_parte_5_tela_7:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $20 2048($8)
+	sw $20 2560($8)
+	sw $20 3072($8)
+	sw $20 3584($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_5_tela_7
+	
+	sw $12 3056($8)
+	sw $12 3568($8)
+	
+	addi $8 $8 -80
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 512($8)
+	sw $11 516($8)
+	sw $11 1024($8)
+	
+fundo_4_parte_6_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 14512
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 12
+fundo_4_parte_6_tela_7:
+
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	sw $11 2048($8)
+	sw $11 2560($8)
+	sw $11 3072($8)
+	sw $20 3584($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_6_tela_7
+	
+	sw $20 2044($8)
+	sw $20 2552($8)
+	sw $20 2556($8)
+	sw $20 3060($8)
+	sw $20 3064($8)
+	sw $20 3068($8)
+	
+	addi $8 $8 -48
+	
+	sw $20 3072($8)
+	sw $20 3076($8)
+	sw $20 3080($8)
+	
+fundo_4_parte_7_init_tela_7:
+	lui $8 0x1001
+	addi $8 $8 14480
+	li $20 0x248c7c
+	li $11 0x20d8ff
+	li $12 0x0c646c
+	li $9 8
+fundo_4_parte_7_tela_7:
+
+	sw $11 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 16($8)
+	sw $20 20($8)
+	sw $20 24($8)
+	sw $11 28($8)
+	
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 fundo_4_parte_7_tela_7
+	
+	addi $8 $8 -4096
+	
+	sw $11 4($8)
+	sw $11 20($8)
+	sw $11 24($8)
+	sw $11 516($8)
+	sw $11 532($8)
+	sw $11 536($8)
+	sw $11 1028($8)
+	sw $11 1048($8)
+	sw $11 1560($8)
+	sw $20 2588($8)
+	sw $20 3100($8)
+	sw $20 3612($8)
