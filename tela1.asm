@@ -15,10 +15,10 @@ arvore_clara_init:
    li $20 0x2a8d79
    lui $8 0x1001
    addi $8, $8, 4464
-   li $9 24
+   li $9 42
 arvore_clara:
 	beqz $9 arvore_escura_init
-   	
+   	#arvre 1
    	sw $20 13968($8)
    	sw $20 11924($8)
    	sw $20 9368($8)
@@ -34,6 +34,7 @@ arvore_clara:
    	sw $20 11456($8)
    	sw $20 11972($8)
    	
+   	# arvore 2
    	sw $20 11464($8)
    	sw $20 10956($8)
    	sw $20 9936($8)
@@ -53,6 +54,7 @@ arvore_clara:
    	sw $20 11528($8)
    	sw $20 11532($8)
    	
+   	#arvre 3
    	sw $20 11024($8)
    	sw $20 11028($8)
    	sw $20 10520($8)
@@ -310,8 +312,17 @@ arvore_escura:
 	sw $20 4080($8)
 	sw $20 4596($8)
 	
+	addi $8 $8 512
+	addi $9 $9 -1
+	j arvore_escura
 	
-	
+nuvem_init:
+	li $20 0xa8f0fe
+   	lui $8 0x1001
+   	addi $8, $8, 16904
+   	li $9 15
+   	
+nuvem:
 	
 	addi $8 $8 512
 	addi $9 $9 -1
