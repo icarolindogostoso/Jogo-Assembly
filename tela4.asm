@@ -1131,3 +1131,213 @@ final_bloco_obstaculo_8_tela_4:
 	sw $20 524($8)
 	sw $20 1036($8)
 	sw $20 1548($8)
+
+fundo_1_parte_1_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 26688
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 12
+fundo_1_parte_1_tela_8_1:
+	
+	li $10 12
+fundo_1_parte_1_tela_8_2:
+	sw $20 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	bne $10 $0 fundo_1_parte_1_tela_8_2
+	addi $8 $8 -48
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_1_tela_8_1
+	
+	addi $8 $8 -6144
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 512($8)
+	
+fundo_1_parte_2_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 24656
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 8
+fundo_1_parte_2_tela_8:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_2_tela_8
+	
+	addi $8 $8 -32
+	
+	sw $11 0($8)
+	
+fundo_1_parte_3_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 24768
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 16
+fundo_1_parte_3_tela_8_1:
+	
+	li $10 16
+fundo_1_parte_3_tela_8_2:
+	sw $20 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	bne $10 $0 fundo_1_parte_3_tela_8_2
+	addi $8 $8 -64
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_3_tela_8_1
+	
+fundo_1_parte_4_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 24832
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 64
+fundo_1_parte_4_tela_8:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_4_tela_8
+	
+fundo_1_parte_5_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 22616
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 106
+fundo_1_parte_5_tela_8:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_5_tela_8
+	
+	addi $8 $8 -424
+	
+	sw $11 -8($8)
+	sw $11 -4($8)
+	sw $11 0($8)
+	sw $11 504($8)
+	sw $11 508($8)
+	sw $11 512($8)
+	sw $11 1016($8)
+	sw $11 1020($8)
+	sw $11 1528($8)
+	sw $11 1532($8)
+	
+fundo_1_parte_6_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 20576
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 104
+fundo_1_parte_6_tela_8:
+
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_6_tela_8
+	
+	addi $8 $8 -400
+	
+	sw $11 -4($8)
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 8($8)
+	sw $11 12($8)
+	sw $11 16($8)
+	sw $11 20($8)
+	sw $11 24($8)
+	sw $11 516($8)
+	sw $11 520($8)
+	sw $11 524($8)
+	sw $11 528($8)
+	
+fundo_1_parte_7_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 14768
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 12
+fundo_1_parte_7_tela_8_1:
+	li $10 20
+fundo_1_parte_7_tela_8_2:
+	sw $20 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	bne $10 $0 fundo_1_parte_7_tela_8_2
+	addi $8 $8 -80
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_7_tela_8_1
+	
+	addi $8 $8 -6144
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 8($8)
+	sw $11 512($8)
+	sw $11 516($8)
+	sw $11 1024($8)
+	
+	addi $8 $8 32
+	
+	sw $11 4($8)
+	sw $11 8($8)
+	sw $11 12($8)
+	sw $11 16($8)
+	sw $11 520($8)
+	sw $11 524($8)
+	
+fundo_1_parte_8_init_tela_8:
+	lui $8 0x1001
+	addi $8 $8 16688
+	li $20 0x045454
+	li $11 0x0c646c
+	li $12 0x9494fc
+	li $9 12
+fundo_1_parte_8_tela_8_1:
+	li $10 32
+fundo_1_parte_8_tela_8_2:
+	sw $20 0($8)
+	
+	addi $8 $8 4
+	addi $10 $10 -1
+	bne $10 $0 fundo_1_parte_8_tela_8_2
+	addi $8 $8 -128
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 fundo_1_parte_8_tela_8_1
