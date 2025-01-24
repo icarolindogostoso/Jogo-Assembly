@@ -5,6 +5,7 @@
 <img src="images/banner.png" alt="Super Wario Banner" style="width: 100%;">
 
 </div>
+
 ## Descrição
 **Super Wario** é um jogo desenvolvido em **Assembly para a arquitetura MIPS**, inspirado no clássico **Super Mario Bros**, da Nintendo. Criado como parte da disciplina de **Arquitetura de Computadores**, ministrada pelo professor **Eduardo Bráulio**, o projeto propõe uma nova perspectiva ao universo do jogo original.
 
@@ -17,7 +18,7 @@ No jogo, os papéis foram invertidos: o protagonista é **Wario**, enquanto os i
 - **Bitmap Display**: Responsável pela renderização dos elementos gráficos do jogo em uma tela de 512x256, utilizando uma unidade gráfica de 4x4 pixels.  
 - **Keyboard and Display MMIO Simulator**: Ferramenta usada para interação com o teclado e exibição de informações em tempo real.
 
----
+
 
 ## Contribuidores
 - [Ícaro Gabriel](https://github.com/icarolindogostoso)  
