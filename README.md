@@ -1,6 +1,6 @@
 # Super Wario
 
-![Super Wario Banner](Jogo-assembly/images/banner.png)
+![Super Wario Banner](images/banner.png)
 
 ## Descrição
 **Super Wario** é um jogo desenvolvido em **Assembly para a arquitetura MIPS**, inspirado no clássico **Super Mario Bros**, da Nintendo. Criado como parte da disciplina de **Arquitetura de Computadores**, ministrada pelo professor **Eduardo Bráulio**, o projeto propõe uma nova perspectiva ao universo do jogo original.
