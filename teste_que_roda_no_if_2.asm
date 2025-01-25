@@ -10,10 +10,10 @@ menu_level_1:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃƒÂ¡ colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem estÃƒÂ¡ grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -209,10 +209,10 @@ iniciar_nivel_2:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃƒÂ¡ colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem estÃƒÂ¡ grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -239,7 +239,7 @@ iniciar_nivel_2:
 	jal desenhar_personagem_direita
 	
 	lui $13 0x1001
-	addi $13 $13 22888
+	addi $13 $13 18916
 	add $4 $13 $0
 	jal desenhar_toad
 	
@@ -352,7 +352,7 @@ continuacao_nivel_2:
 	bne $2 $0 desenhar_tela_de_morte_nivel_2
 	
 	add $4 $22 $0
-	jal coferir_spawn_toad
+	jal coferir_spawn_toad_nivel_2
 	add $13 $2 $0
 	add $14 $3 $0
        	
@@ -361,7 +361,7 @@ continuacao_nivel_2:
        	bne $4 $5 mob_foi_morto_nivel_2
 	add $5 $14 $0
 	add $4 $13 $0
-	jal andar_toad # analisar
+	jal andar_toad_nivel_2 # analisar
 	add $13 $2 $0
 	add $14 $3 $0
 	
@@ -15291,8 +15291,8 @@ bordasv:
 	sw $22, 3600($8)
 	sw $22, 3572($8)
 	
-	sw $22, 5092($8)#braÃƒÂ§o esquerda
-	sw $22, 5660($8) #braÃƒÂ§o direita
+	sw $22, 5092($8)#braço esquerda
+	sw $22, 5660($8) #braço direita
 	sw $22, 6680($8)# pe direito
 	sw $22, 7144($8)# outro pe
 	
@@ -15314,7 +15314,7 @@ detalhes_finais_player:
 	sw $21, 4120($8)
 	sw $21, 4636($8)
 	
-	sw $22, 4128($8)#pescoÃƒÂ§o frente
+	sw $22, 4128($8)#pescoço frente
 	sw $22, 4644($8)
 	
 	sw $22, 5128($8)
@@ -15555,11 +15555,11 @@ bordashgl:
 	sw $10, 3088($8)
 	
 	sw $10, 3568($8) #abaixo do nariz
-	sw $10, 4108($8) #pescoÃƒÂ§o
+	sw $10, 4108($8) #pescoço
 	sw $10, 4112($8)
 	
 	sw $10, 4632($8)#cima luva
-	sw $10, 6156($8)#baixo braÃƒÂ§o
+	sw $10, 6156($8)#baixo braço
 	sw $10, 6676($8)#pe direita
 	sw $10, 7172($8)#pe exquerda
 
@@ -15582,8 +15582,8 @@ bordasvgl:
 	sw $10, 3592($8)#parte da orelha
 	sw $10, 3564($8)# parte do nariz
 	
-	sw $10, 5144($8)#braÃƒÂ§o esquerda
-	sw $10, 5600($8) #braÃƒÂ§o direita
+	sw $10, 5144($8)#braço esquerda
+	sw $10, 5600($8) #braço direita
 	sw $10, 6628($8)# pe direito
 	sw $10, 7188($8)# outro pe
 	
@@ -15608,10 +15608,10 @@ detalhes_finais_playergl:
 	sw $20, 5636($8)#botoes
 	sw $20, 5624($8)
 	
-	sw $10, 4084($8)#pescoÃƒÂ§o frente
+	sw $10, 4084($8)#pescoço frente
 	sw $10, 4592($8)
 	
-	sw $10, 5132($8)#braÃƒÂ§o
+	sw $10, 5132($8)#braço
 	sw $10, 5664($8)
 	
 	sw $10, 6656($8)
@@ -15698,7 +15698,7 @@ amarelosgjr:
 	sw $20, 512($8)
 	sw $20, 524($8)
 	
-	sw $20, 1048($8)#braÃƒÂ§o
+	sw $20, 1048($8)#braço
 	sw $20, 1560($8)
 	sw $20, 2072($8)
 	sw $20, 3604($8)
@@ -15791,7 +15791,7 @@ macacao_e_luvagjr:
 	sw $10 504($8)
 	sw $10 508($8)
 	
-	sw $20 524($8)# alÃƒÂ§a
+	sw $20 524($8)# alça
 	sw $20 540($8)
 	
 	sw $20 1040($8)
@@ -15849,11 +15849,11 @@ bordashgjr:
 	
 	sw $10, 3612($8)#abaixo nariz
 	
-	sw $10, 3068($8)# pescoÃƒÂ§o
+	sw $10, 3068($8)# pescoço
 	sw $10, 4092($8)
 	sw $10, 4096($8)
 	
-	sw $10, 5112($8)#braÃƒÂ§o esquerdo
+	sw $10, 5112($8)#braço esquerdo
 	sw $10, 5108($8)
 	
 	sw $10, 5156($8)#pe direito
@@ -15874,21 +15874,21 @@ bordasvgjr_init:
 bordasvgjr:
 	beqz $9 detalhes_finais_playergjr
 	
-	sw $10, 1012($8)#cabeÃƒÂ§a atras
+	sw $10, 1012($8)#cabeça atras
 	sw $10, 2032($8)
 	
 	sw $10, 548($8)#luva direita
 	sw $10, 1048($8)
 	
-	sw $10, 1568($8) #braÃƒÂ§o direito
+	sw $10, 1568($8) #braço direito
 	sw $10, 2080($8)
 	sw $10, 3100($8)
 	sw $10, 3612($8)
 	sw $10, 3604($8)
 
-	sw $10, 3576($8)#pescoÃƒÂ§o
+	sw $10, 3576($8)#pescoço
 	
-	sw $10, 4592($8)# breaÃƒÂ§o esquerdo
+	sw $10, 4592($8)# breaço esquerdo
 
 	sw $10, 5608($8)#luva esquerda
 	sw $10, 5624($8)
@@ -16150,11 +16150,11 @@ bordashgjr_pulando_esquerda:
 	
 	sw $10, 3580($8)#abaixo nariz
 	
-	sw $10, 3100($8)# pescoÃƒÂ§o
+	sw $10, 3100($8)# pescoço
 	sw $10, 4120($8)
 	sw $10, 4124($8)
 	
-	sw $10, 5152($8)#braÃƒÂ§o esquerdo
+	sw $10, 5152($8)#braço esquerdo
 	sw $10, 5156($8)
 	
 	sw $10, 5108($8)#pe direito
@@ -16174,21 +16174,21 @@ bordasvgjr_init_pulando_esquerda:
 bordasvgjr_pulando_esquerda:
 	beqz $9 detalhes_finais_playergjr_pulando_esquerda
 	
-	sw $10, 1048($8)#cabeÃƒÂ§a atras
+	sw $10, 1048($8)#cabeça atras
 	sw $10, 2076($8)
 	
 	sw $10, 488($8)#luva esquerda
 	sw $10, 1012($8)
 	
-	sw $10, 1516($8) #braÃƒÂ§o esquerdo
+	sw $10, 1516($8) #braço esquerdo
 	sw $10, 2028($8)
 	sw $10, 3056($8)
 	sw $10, 3568($8)
 	sw $10, 3576($8)
 
-	sw $10, 3604($8)#pescoÃƒÂ§o
+	sw $10, 3604($8)#pescoço
 	
-	sw $10, 4636($8)# breaÃƒÂ§o direito
+	sw $10, 4636($8)# breaço direito
 
 	sw $10, 5608($8)#luva direita
 	sw $10, 5652($8)
@@ -19412,10 +19412,10 @@ andar_toad_nivel_2:
        	jal verificar_toad_visivel
        	bne $2 $0 deixar_toad_invisivel_nivel_2
        	
-       	addi $8 $0 102
+       	addi $8 $0 80
        	div $5 $8
        	mfhi $8
-       	addi $9 $0 50
+       	addi $9 $0 39
        	slt $9 $9 $8
        	bne $9 $0 toad_andar_direita_nivel_2
        	
@@ -19505,10 +19505,10 @@ fim_laco_1_andar_toad_direita_nivel_2:
        	jr $31
        	
 deixar_toad_invisivel_nivel_2:
-	addi $8 $0 102
+	addi $8 $0 80
        	div $5 $8
        	mfhi $8
-       	addi $9 $0 50
+       	addi $9 $0 39
        	slt $9 $9 $8
        	bne $9 $0 toad_andar_direita_invisivel_nivel_2
        	
@@ -19619,22 +19619,36 @@ verificar_toad_visivel:
        	addi $29 $29 -4
        	sw $11 0($29)
        	addi $29 $29 -4
+	sw $12 0($29)
+       	addi $29 $29 -4
+	sw $13 0($29)
+       	addi $29 $29 -4
        	
 	addi $8 $4 4096
-	addi $11 $0 0x00c800
-	addi $9 $0 8
-laco_toad_visivel:
-	beq $9 $0 fim_laco_toad_visivel
-	
-	lw $10 0($8)
-	bne $10 $11 toad_invisivel
-	
-	addi $8 $8 4
-	addi $9 $9 -1
-	j laco_toad_visivel
-fim_laco_toad_visivel:
+	addi $9 $0 0x000000
+	addi $10 $0 0x30c92e
+	addi $11 $0 0x4f1808
+	addi $12 $0 0x340d02
+
+	lw $13 0($8)
+	bne $13 $9 toad_invisivel
+	lw $13 512($8)
+	bne $13 $10 conferido_1
+	j toad_visivel
+conferido_1:
+	bne $13 $11 conferido_2
+	j toad_visivel
+conferido_2:
+	bne $13 $12 toad_invisivel
+	j toad_visivel
+toad_visivel:
+
 	add $2 $0 $0
 	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
        	addi $29 $29 4                                                    
@@ -19651,6 +19665,10 @@ fim_laco_toad_visivel:
 toad_invisivel:
 	addi $2 $0 1
 	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
 	addi $29 $29 4                                                    
        	lw $11 0($29)
        	addi $29 $29 4                                                    
@@ -20031,7 +20049,7 @@ coferir_spawn_toad:
 	addi $9 $0 22
 	beq $8 $9 spawnar_outro_toad
 	
-	addi $9 $0 72
+	addi $9 $0 65
 	beq $8 $9 spawnar_outro_toad
 	
 	add $2 $13 $0
@@ -20049,6 +20067,47 @@ coferir_spawn_toad:
 spawnar_outro_toad:
 	lui $2 0x1001
 	addi $2 $2 23040
+	add $3 $0 $0
+       	
+       	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+
+#=============================================
+# - funcao para conferir o spawn do toad exclusivamente para o nivel 2
+
+coferir_spawn_toad_nivel_2:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+	
+	add $8 $4 $0
+	addi $9 $0 50
+	beq $8 $9 spawnar_outro_toad_nivel_2
+	
+	add $2 $13 $0
+	add $3 $14 $0
+	
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+	
+spawnar_outro_toad_nivel_2:
+	lui $2 0x1001
+	addi $2 $2 6608
 	add $3 $0 $0
        	
        	addi $29 $29 4                                                    
