@@ -17940,6 +17940,7 @@ nao_anda_esquerda:
 	jr $31
 	
 trocar_para_personagem_grande_esquerda:
+	add $10 $8 $0
 	andi $8 $8 0x0000ffff
 	addi $9 $0 512
 	div $8 $9
@@ -17947,11 +17948,39 @@ trocar_para_personagem_grande_esquerda:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	add $2 $8 $0
 	addi $4 $8 -16
 	jal retomar_terceira_copia
+	li $9 3
+laco_trocar_para_personagem_grande_esquerda:
 	add $4 $8 $0
-	add $2 $4 $0
 	jal desenhar_personagem_grande_esquerda
+	
+	jal timer_mob
+	
+	li $11 16
+laco_apagar_esquerda_1:
+	li $12 16
+laco_apagar_esquerda_2:
+	
+	lw $3 32768($4)
+	sw $3 0($4)
+	
+	addi $4 $4 4
+	addi $12 $12 -1
+	bnez $12 laco_apagar_esquerda_2
+	addi $4 $4 -64
+	addi $4 $4 512
+	addi $11 $11 -1
+	bnez $11 laco_apagar_esquerda_1
+	
+	add $4 $10 $0
+	jal desenhar_personagem_esquerda
+	
+	jal timer_mob
+	
+	addi $9 $9 -1
+	bnez $9 laco_trocar_para_personagem_grande_esquerda
 	
 	addi $16 $0 1
 	
@@ -18224,6 +18253,7 @@ nao_anda_direita:
 	jr $31
 	
 trocar_para_personagem_grande_direita:
+	add $10 $8 $0
 	andi $8 $8 0x0000ffff
 	addi $9 $0 512
 	div $8 $9
@@ -18231,11 +18261,39 @@ trocar_para_personagem_grande_direita:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	add $2 $8 $0
 	addi $4 $8 -16
 	jal retomar_terceira_copia
+	li $9 3
+laco_trocar_para_personagem_grande_direita:
 	add $4 $8 $0
-	add $2 $4 $0
 	jal desenhar_personagem_grande_direita
+	
+	jal timer_mob
+	
+	li $11 16
+laco_apagar_direita_1:
+	li $12 16
+laco_apagar_direita_2:
+	
+	lw $3 32768($4)
+	sw $3 0($4)
+	
+	addi $4 $4 4
+	addi $12 $12 -1
+	bnez $12 laco_apagar_direita_2
+	addi $4 $4 -64
+	addi $4 $4 512
+	addi $11 $11 -1
+	bnez $11 laco_apagar_direita_1
+	
+	add $4 $10 $0
+	jal desenhar_personagem_direita
+	
+	jal timer_mob
+	
+	addi $9 $9 -1
+	bnez $9 laco_trocar_para_personagem_grande_direita
 	
 	addi $16 $0 1
 	
@@ -18968,6 +19026,7 @@ morreu_baixo:
 	jr $31
 	
 trocar_para_personagem_grande_baixo:
+	add $10 $8 $0
 	andi $8 $8 0x0000ffff
 	addi $9 $0 512
 	div $8 $9
@@ -18975,11 +19034,39 @@ trocar_para_personagem_grande_baixo:
 	lui $8 0x1001
 	addi $8 $8 2048
 	add $8 $8 $9
+	add $2 $8 $0
 	addi $4 $8 -16
 	jal retomar_terceira_copia
+	li $9 3
+laco_trocar_para_personagem_grande_baixo:
 	add $4 $8 $0
-	add $2 $4 $0
 	jal desenhar_personagem_grande_direita
+	
+	jal timer_mob
+	
+	li $11 16
+laco_apagar_baixo_1:
+	li $12 16
+laco_apagar_baixo_2:
+	
+	lw $3 32768($4)
+	sw $3 0($4)
+	
+	addi $4 $4 4
+	addi $12 $12 -1
+	bnez $12 laco_apagar_baixo_2
+	addi $4 $4 -64
+	addi $4 $4 512
+	addi $11 $11 -1
+	bnez $11 laco_apagar_baixo_1
+	
+	add $4 $10 $0
+	jal desenhar_personagem_direita
+	
+	jal timer_mob
+	
+	addi $9 $9 -1
+	bnez $9 laco_trocar_para_personagem_grande_baixo
 	
 	add $3 $0 $0
 	add $18 $0 $0
@@ -20976,7 +21063,15 @@ fim_laco_personagem_matou_1:
        	jr $31
        	
 personagem_diminuir_direita:
-	add $8 $4 $0
+	li $2 3
+	add $3 $4 $0
+laco_personagem_diminuir_direita:
+	add $8 $3 $0
+	add $4 $8 $0
+	jal desenhar_personagem_grande_direita
+	
+	jal timer_mob
+	
 	addi $9 $0 16
 laco_personagem_diminuir_1:
 	beq $9 $0 fim_laco_personagem_diminuir_1
@@ -21003,6 +21098,11 @@ fim_laco_personagem_diminuir_1:
 	add $4 $8 $0
 	jal desenhar_personagem_direita
 	
+	jal timer_mob
+	
+	addi $2 $2 -1
+	bnez $2 laco_personagem_diminuir_direita
+	
 	add $2 $0 $0
 	add $3 $8 $0
 	
@@ -21020,7 +21120,15 @@ fim_laco_personagem_diminuir_1:
        	jr $31
        	
 personagem_diminuir_esquerda:
-       	add $8 $4 $0
+	li $2 3
+	add $3 $4 $0
+laco_personagem_diminuir_esquerda:
+       	add $8 $3 $0
+       	add $4 $8 $0
+       	jal desenhar_personagem_grande_esquerda
+       	
+       	jal timer_mob
+       	
 	addi $9 $0 16
 laco_personagem_diminuir_1_esquerda:
 	beq $9 $0 fim_laco_personagem_diminuir_1_esquerda
@@ -21047,6 +21155,11 @@ fim_laco_personagem_diminuir_1_esquerda:
 	
 	add $4 $8 $0
 	jal desenhar_personagem_direita
+	
+	jal timer_mob
+	
+	addi $2 $2 -1
+	bnez $2 laco_personagem_diminuir_esquerda
 	
 	add $2 $0 $0
 	add $3 $8 $0
