@@ -23,3 +23,5 @@ No jogo, os papéis foram invertidos: o protagonista é **Wario**, enquanto os i
 ## Contribuidores
 - [Ícaro Gabriel](https://github.com/icarolindogostoso)  
 - [Flávio Matias](https://github.com/FlavioMatias)
+## Artes feitas por:
+- [Davi Feron]()
