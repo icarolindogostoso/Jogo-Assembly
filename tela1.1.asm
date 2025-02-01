@@ -3142,3 +3142,1552 @@ mario_braco_1_bloco_77_tela_9:
 	sw $11 516($22)
 	sw $11 520($22)
 	sw $11 524($22)
+	
+mario_braco_1_bloco_78_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 2288
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_78_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_78_tela_9
+	
+mario_braco_1_bloco_79_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 4336
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x255772
+	li $13 0xffffff
+	li $9 4
+mario_braco_1_bloco_79_tela_9:
+	sw $11 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $11 0($22)
+	sw $20 4($22)
+	sw $20 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_79_tela_9
+	
+	addi $8 $8 -2048
+	addi $22 $22 -2048
+	
+	sw $12 0($8)
+	sw $12 4($8)
+	sw $11 8($8)
+	sw $11 12($8)
+	sw $11 516($8)
+	sw $13 1032($8)
+	sw $13 1036($8)
+	sw $13 1544($8)
+	sw $13 1548($8)
+	sw $12 0($22)
+	sw $12 4($22)
+	sw $11 8($22)
+	sw $11 12($22)
+	sw $11 516($22)
+	sw $13 1032($22)
+	sw $13 1036($22)
+	sw $13 1544($22)
+	sw $13 1548($22)
+
+mario_braco_1_bloco_80_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 6384
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0xffffff
+	li $9 4
+mario_braco_1_bloco_80_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $12 8($8)
+	sw $20 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $12 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_80_tela_9
+	
+	addi $8 $8 -2048
+	addi $22 $22 -2048
+	
+	sw $11 1036($8)
+	sw $11 1544($8)
+	sw $11 1548($8)
+	sw $11 1036($22)
+	sw $11 1544($22)
+	sw $11 1548($22)
+	
+mario_braco_1_bloco_81_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 8432
+	addi $22 $8 65536
+	li $20 0x7a1313
+	li $11 0x22200a
+	li $12 0x949d69
+	li $9 4
+mario_braco_1_bloco_81_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_81_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	
+mario_braco_1_bloco_82_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 10480
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x949d69
+	li $12 0x82834c
+	li $13 0x615e2f
+	li $9 4
+mario_braco_1_bloco_82_tela_9:
+	sw $11 0($8)
+	sw $13 512($8)
+	sw $11 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $13 512($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_82_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 524($8)
+	sw $12 1548($8)
+	sw $11 524($22)
+	sw $12 1548($22)
+	
+mario_braco_1_bloco_83_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 12528
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0xfe0000
+	li $13 0x615e2f
+	li $9 4
+mario_braco_1_bloco_83_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $13 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $13 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_83_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $12 0($8)
+	sw $13 524($8)
+	sw $11 1036($8)
+	sw $12 0($22)
+	sw $13 524($22)
+	sw $11 1036($22)
+	
+mario_braco_1_bloco_84_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 14576
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0xfe0000
+	li $13 0x82834c
+	li $9 4
+mario_braco_1_bloco_84_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_84_tela_9
+	
+mario_braco_1_bloco_85_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 16624
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $12 0x82834c
+	li $13 0x922020
+	li $9 4
+mario_braco_1_bloco_85_tela_9:
+	sw $20 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_85_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 0($8)
+	sw $11 4($8)
+	sw $11 1024($8)
+	sw $11 1028($8)
+	sw $13 1536($8)
+	sw $12 1548($8)
+	sw $11 0($22)
+	sw $11 4($22)
+	sw $11 1024($22)
+	sw $11 1028($22)
+	sw $13 1536($22)
+	sw $12 1548($22)
+	
+mario_braco_1_bloco_86_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 18672
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $12 0x82834c
+	li $13 0x922020
+	li $9 4
+mario_braco_1_bloco_86_tela_9:
+	sw $13 0($8)
+	sw $13 512($8)
+	sw $13 1024($8)
+	sw $13 1536($8)
+	sw $13 0($22)
+	sw $13 512($22)
+	sw $13 1024($22)
+	sw $13 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_86_tela_9
+	
+	sw $11 -8($8)
+	sw $11 -4($8)
+	sw $11 -8($22)
+	sw $11 -4($22)
+	
+mario_braco_1_bloco_87_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 20720
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_87_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_87_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $12 0($8)
+	sw $11 512($8)
+	sw $12 0($22)
+	sw $11 512($22)
+	
+mario_braco_1_bloco_88_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 22768
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 8
+mario_braco_1_bloco_88_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $20 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_88_tela_9
+	
+mario_braco_1_bloco_89_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 2304
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_89_tela_9:
+	sw $20 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_89_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $20 512($22)
+	sw $11 1024($22)
+	
+mario_braco_1_bloco_90_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 4352
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0xffffff
+	li $9 4
+mario_braco_1_bloco_90_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_90_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $20 524($8)
+	sw $12 1036($8)
+	sw $12 1544($8)
+	sw $12 1548($8)
+	sw $20 524($22)
+	sw $12 1036($22)
+	sw $12 1544($22)
+	sw $12 1548($22)
+	
+mario_braco_1_bloco_91_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 6400
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0xffffff
+	li $13 0x7a1313
+	li $9 4
+mario_braco_1_bloco_91_tela_9:
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $11 1024($8)
+	sw $13 1536($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $11 1024($22)
+	sw $13 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_91_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+
+	sw $20 4($8)
+	sw $20 520($8)
+	sw $20 4($22)
+	sw $20 520($22)
+	
+mario_braco_1_bloco_92_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 8448
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_92_tela_9:
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $11 1024($8)
+	sw $20 1536($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_92_tela_9
+	
+	sw $11 508($8)
+	sw $20 1020($8)
+	sw $11 508($22)
+	sw $20 1020($22)
+	
+mario_braco_1_bloco_93_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 10496
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x82834c
+	li $9 4
+mario_braco_1_bloco_93_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_93_tela_9
+	
+mario_braco_1_bloco_94_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 12544
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0x82834c
+	li $9 4
+mario_braco_1_bloco_94_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_94_tela_9
+	
+mario_braco_1_bloco_95_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 14592
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0xcece55
+	li $9 4
+mario_braco_1_bloco_95_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_95_tela_9
+	
+	sw $11 1528($8)
+	sw $11 1528($22)
+	
+mario_braco_1_bloco_96_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 16640
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0xcece55
+	li $12 0x949d69
+	li $9 4
+mario_braco_1_bloco_96_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_96_tela_9
+	
+	sw $11 -12($8)
+	sw $11 -8($8)
+	sw $11 -12($22)
+	sw $11 -8($22)
+	
+mario_braco_1_bloco_97_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 18688
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x22200a
+	li $12 0x922020
+	li $9 4
+mario_braco_1_bloco_97_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_97_tela_9
+	
+	sw $20 -12($8)
+	sw $12 508($8)
+	sw $20 -12($22)
+	sw $12 508($22)
+	
+mario_braco_1_bloco_98_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 20736
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $9 4
+mario_braco_1_bloco_98_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_98_tela_9
+	
+mario_braco_1_bloco_99_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 22784
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $9 8
+mario_braco_1_bloco_99_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $20 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_99_tela_9
+	
+mario_braco_1_bloco_100_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 2320
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_100_tela_9:
+	sw $20 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_100_tela_9
+	
+mario_braco_1_bloco_101_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 4368
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $9 4
+mario_braco_1_bloco_101_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_101_tela_9
+	
+mario_braco_1_bloco_102_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 6416
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_102_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_102_tela_9
+	
+mario_braco_1_bloco_103_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 8464
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_103_tela_9:
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $11 1024($8)
+	sw $20 1536($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_103_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $11 512($22)
+	sw $20 1024($22)
+	
+mario_braco_1_bloco_104_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 10512
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x82834c
+	li $9 4
+mario_braco_1_bloco_104_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_104_tela_9
+	
+mario_braco_1_bloco_105_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 12560
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0x82834c
+	li $9 4
+mario_braco_1_bloco_105_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_105_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 1024($8)
+	sw $11 1024($22)
+	
+mario_braco_1_bloco_106_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 14608
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $9 4
+mario_braco_1_bloco_106_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_106_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $20 1536($8)
+	sw $20 1544($8)
+	sw $20 1536($22)
+	sw $20 1544($22)
+	
+mario_braco_1_bloco_107_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 16656
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $12 0x949d69
+	li $13 0x82834c
+	li $9 4
+mario_braco_1_bloco_107_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_107_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $20 0($8)
+	sw $20 8($8)
+	sw $13 1032($8)
+	sw $13 1036($8)
+	sw $13 1544($8)
+	sw $11 1548($8)
+	sw $20 0($22)
+	sw $20 8($22)
+	sw $13 1032($22)
+	sw $13 1036($22)
+	sw $13 1544($22)
+	sw $11 1548($22)
+	
+mario_braco_1_bloco_108_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 18704
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_108_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $11 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_108_tela_9
+	
+	sw $12 1520($8)
+	sw $12 1520($22)
+	
+mario_braco_1_bloco_109_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 20752
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $9 12
+mario_braco_1_bloco_109_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $20 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_109_tela_9
+	
+	addi $8 $8 -6144
+	addi $22 $22 -6144
+	
+	sw $11 0($8)
+	sw $11 0($22)
+	
+mario_braco_1_bloco_110_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 2336
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_110_tela_9:
+	sw $20 0($8)
+	sw $11 512($8)
+	sw $12 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $11 512($22)
+	sw $12 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_110_tela_9
+	
+	sw $20 504($8)
+	sw $20 508($8)
+	sw $11 1016($8)
+	sw $11 1020($8)
+	sw $20 504($22)
+	sw $20 508($22)
+	sw $11 1016($22)
+	sw $11 1020($22)
+	
+mario_braco_1_bloco_111_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 4384
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $9 4
+mario_braco_1_bloco_111_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_111_tela_9
+	
+mario_braco_1_bloco_112_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 6432
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_112_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_112_tela_9
+	
+mario_braco_1_bloco_113_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 8480
+	addi $22 $8 65536
+	li $20 0x949d69
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_113_tela_9:
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $11 1024($8)
+	sw $20 1536($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_113_tela_9
+	
+	li $20 0x82834c
+	sw $20 1532($8)
+	sw $20 1532($22)
+	
+mario_braco_1_bloco_114_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 10528
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x949d69
+	li $12 0x82834c
+	li $13 0x615e2f
+	li $9 4
+mario_braco_1_bloco_114_tela_9:
+	sw $11 0($8)
+	sw $13 512($8)
+	sw $11 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $13 512($22)
+	sw $11 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_114_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $12 12($8)
+	sw $11 512($8)
+	sw $12 1536($8)
+	sw $12 1540($8)
+	sw $12 12($22)
+	sw $11 512($22)
+	sw $12 1536($22)
+	sw $12 1540($22)
+	
+mario_braco_1_bloco_115_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 12576
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x82834c
+	li $13 0x615e2f
+	li $9 4
+mario_braco_1_bloco_115_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $13 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $13 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_115_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $13 516($8)
+	sw $11 1024($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $13 516($22)
+	sw $11 1024($22)
+	
+mario_braco_1_bloco_116_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 14624
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $9 4
+mario_braco_1_bloco_116_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_116_tela_9
+	
+	sw $20 1520($8)
+	sw $20 1520($22)
+	
+mario_braco_1_bloco_117_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 16672
+	addi $22 $8 65536
+	li $20 0xcece55
+	li $11 0x22200a
+	li $12 0x82834c
+	li $13 0x922020
+	li $9 4
+mario_braco_1_bloco_117_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $11 1024($8)
+	sw $11 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $11 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_117_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $12 1024($8)
+	sw $13 1036($8)
+	sw $13 1544($8)
+	sw $13 1548($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $12 1024($22)
+	sw $13 1036($22)
+	sw $13 1544($22)
+	sw $13 1548($22)
+	
+mario_braco_1_bloco_118_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 18720
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $13 0x255772
+	li $9 4
+mario_braco_1_bloco_118_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_118_tela_9
+	
+	sw $12 1016($8)
+	sw $11 1020($8)
+	sw $13 1532($8)
+	sw $12 1016($22)
+	sw $11 1020($22)
+	sw $13 1532($22)
+	
+mario_braco_1_bloco_119_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 20768
+	addi $22 $8 65536
+	li $20 0x255772
+	li $9 12
+mario_braco_1_bloco_119_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $20 8($8)
+	sw $20 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $20 8($22)
+	sw $20 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_119_tela_9
+	
+mario_braco_1_bloco_120_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 2352
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x22200a
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_120_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_120_tela_9
+	
+mario_braco_1_bloco_121_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 4400
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $13 0x255772
+	li $9 4
+mario_braco_1_bloco_121_tela_9:
+	sw $11 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $11 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_121_tela_9
+	
+	sw $13 -4($8)
+	sw $12 504($8)
+	sw $11 508($8)
+	sw $12 1020($8)
+	sw $13 -4($22)
+	sw $12 504($22)
+	sw $11 508($22)
+	sw $12 1020($22)
+	
+mario_braco_1_bloco_122_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 6448
+	addi $22 $8 65536
+	li $20 0x922020
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_122_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $11 1024($8)
+	sw $12 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $11 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_122_tela_9
+	
+mario_braco_1_bloco_123_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 8496
+	addi $22 $8 65536
+	li $20 0x615e2f
+	li $11 0x22200a
+	li $12 0x7a1313
+	li $9 4
+mario_braco_1_bloco_123_tela_9:
+	sw $12 0($8)
+	sw $12 512($8)
+	sw $12 1024($8)
+	sw $11 1536($8)
+	sw $12 0($22)
+	sw $12 512($22)
+	sw $12 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_123_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $11 1024($8)
+	sw $20 1536($8)
+	
+mario_braco_1_bloco_124_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 10544
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x949d69
+	li $12 0x82834c
+	li $13 0x615e2f
+	li $14 0x22200a
+	li $9 4
+mario_braco_1_bloco_124_tela_9:
+	sw $12 0($8)
+	sw $13 512($8)
+	sw $12 1024($8)
+	sw $20 1536($8)
+	sw $12 0($22)
+	sw $13 512($22)
+	sw $12 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_124_tela_9
+	
+	addi $8 $8 -16
+	addi $22 $22 -16
+	
+	sw $13 8($8)
+	sw $14 12($8)
+	sw $12 524($8)
+	sw $11 1024($8)
+	sw $12 1548($8)
+	sw $13 8($22)
+	sw $14 12($22)
+	sw $12 524($22)
+	sw $11 1024($22)
+	sw $12 1548($22)
+	
+mario_braco_1_bloco_125_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 12592
+	addi $22 $8 65536
+	li $20 0x000001
+	li $11 0x949d69
+	li $12 0x82834c
+	li $13 0x615e2f
+	li $14 0x22200a
+	li $9 4
+mario_braco_1_bloco_125_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $13 1024($8)
+	sw $14 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $13 1024($22)
+	sw $14 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_125_tela_9
+	
+	li $20 0xfe0000
+	
+	sw $20 -16($8)
+	sw $13 508($8)
+	sw $12 1020($8)
+	sw $12 1532($8)
+	sw $20 -16($8)
+	sw $13 508($22)
+	sw $12 1020($22)
+	sw $12 1532($22)
+	
+mario_braco_1_bloco_126_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 14640
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $9 4
+mario_braco_1_bloco_126_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_126_tela_9
+	
+mario_braco_1_bloco_127_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 16688
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0x922020
+	li $9 4
+mario_braco_1_bloco_127_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $11 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $11 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_127_tela_9
+	
+	sw $11 1008($8)
+	sw $11 1008($22)
+	
+mario_braco_1_bloco_128_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 18736
+	addi $22 $8 65536
+	li $20 0x22200a
+	li $11 0x922020
+	li $12 0x255772
+	li $9 4
+mario_braco_1_bloco_128_tela_9:
+	sw $11 0($8)
+	sw $11 512($8)
+	sw $20 1024($8)
+	sw $12 1536($8)
+	sw $11 0($22)
+	sw $11 512($22)
+	sw $20 1024($22)
+	sw $12 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_128_tela_9
+	
+mario_braco_1_bloco_129_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 20784
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $12 0x949d69
+	li $9 4
+mario_braco_1_bloco_129_tela_9:
+	sw $20 0($8)
+	sw $20 512($8)
+	sw $20 1024($8)
+	sw $20 1536($8)
+	sw $20 0($22)
+	sw $20 512($22)
+	sw $20 1024($22)
+	sw $20 1536($22)
+	
+	addi $22 $22 4
+	addi $8 $8 4
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_129_tela_9
+	
+	sw $11 508($8)
+	sw $11 1020($8)
+	sw $11 1528($8)
+	sw $12 1532($8)
+	sw $11 508($22)
+	sw $11 1020($22)
+	sw $11 1528($22)
+	sw $12 1532($22)
+	
+mario_braco_1_bloco_130_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 22832
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $12 0x949d69
+	li $9 4
+mario_braco_1_bloco_130_tela_9:
+	sw $20 0($8)
+	sw $20 4($8)
+	sw $11 8($8)
+	sw $12 12($8)
+	sw $20 0($22)
+	sw $20 4($22)
+	sw $11 8($22)
+	sw $12 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_130_tela_9
+	
+	sw $11 -508($8)
+	sw $12 -504($8)
+	sw $11 -508($22)
+	sw $12 -504($22)
+	
+mario_braco_1_bloco_131_init_tela_9:
+	lui $8 0x1001
+	addi $8 $8 24880
+	addi $22 $8 65536
+	li $20 0x255772
+	li $11 0x22200a
+	li $12 0x949d69
+	li $9 4
+mario_braco_1_bloco_131_tela_9:
+	sw $20 0($8)
+	sw $11 4($8)
+	sw $12 8($8)
+	sw $12 12($8)
+	sw $20 0($22)
+	sw $11 4($22)
+	sw $12 8($22)
+	sw $12 12($22)
+	
+	addi $22 $22 512
+	addi $8 $8 512
+	addi $9 $9 -1
+	bne $9 $0 mario_braco_1_bloco_131_tela_9
+	
+	sw $11 -512($8)
+	sw $11 -504($8)
+	sw $11 -500($8)
+	sw $11 -512($22)
+	sw $11 -504($22)
+	sw $11 -500($22)
