@@ -409,7 +409,7 @@ iniciar_nivel_3:
 	jal salvar_terceira_copia
 	
 	lui $8 0x1001
-	addi $8 $8 22528
+	addi $8 $8 22768
 	add $4 $8 $0
 	jal desenhar_personagem_direita
 	
@@ -442,7 +442,7 @@ esta_colidindo_nivel_3:
 	
 esquerda_nivel_3:
 	add $4 $8 $0
-	jal andar_para_esquerda
+	jal andar_para_esquerda_nivel_3
 	add $8 $2 $0
 	
 	j baixo_nivel_3
@@ -456,7 +456,7 @@ direita_nivel_3:
 	
 baixo_nivel_3:
 	add $4 $8 $0
-	jal andar_para_baixo
+	jal andar_para_baixo_nivel_3
 	add $8 $2 $0
 	addi $2 $0 1
 	beq $2 $3 desenhar_tela_de_morte_nivel_3
@@ -481,7 +481,7 @@ laco_andar_cima_nivel_3:
 
 continuacao_cima_nivel_3: 
 	add $4 $8 $0
-	jal andar_para_cima
+	jal andar_para_cima_nivel_3
 	add $8 $2 $0
 	addi $15 $15 -1
 	j laco_andar_cima_nivel_3
@@ -493,7 +493,7 @@ fim_laco_andar_cima_nivel_3:
 	
 esquerda_cima_nivel_3:
 	add $4 $8 $0
-	jal andar_para_esquerda
+	jal andar_para_esquerda_nivel_3
 	add $8 $2 $0
 	
 	j continuacao_cima_nivel_3
@@ -25280,6 +25280,92 @@ laco_apagar_esquerda_2:
 	jr $31
 	
 #===================================================
+# - funcao para andar para a esquerda especificamente no nivel 3
+
+andar_para_esquerda_nivel_3:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $9 $0 8
+       	
+	addi $8 $4 -16
+	
+	jal verificar_saiu_da_tela_esquerda_nivel_3
+	bne $2 $0 nao_anda_esquerda_nivel_3
+	
+	addi $9 $4 16
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	jal desenhar_personagem_esquerda
+	
+	addi $10 $0 8
+	
+laco_1_andar_esquerda_nivel_3:
+	beq $10 $0 fim_laco_1_andar_esquerda_nivel_3
+	
+	addi $11 $0 4
+laco_2_andar_esquerda_nivel_3:
+	beq $11 $0 fim_laco_2_andar_esquerda_nivel_3
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_esquerda_nivel_3
+fim_laco_2_andar_esquerda_nivel_3:
+	addi $9 $9 -16
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_esquerda_nivel_3
+fim_laco_1_andar_esquerda_nivel_3:
+	jal timer
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+nao_anda_esquerda_nivel_3:
+	add $2 $4 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+	
+#===================================================
 # - funcao para andar para a direita
 # - registradores de entrada: $4 (onde o personagem ta), $5 (quantos mapas foram desenhados), $6 (quantas vezes o mapa andou)
 # - registradores de saida: $2
@@ -26014,73 +26100,10 @@ andar_para_direita_nivel_3:
        	addi $29 $29 -4
        	
        	addi $9 $0 8
-       	add $8 $0 $0
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xed6408
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0x000000
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xfbbe2e
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0x00c800
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xc89858
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0x786818
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xae4c0f
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xae4c0f
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0xd28a5c
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	addi $24 $0 -4
-       	addi $23 $0 0x5e3217
-       	jal conferir_colisao
-       	
-       	add $8 $8 $2
-       	
-       	bne $8 $0 nao_anda_direita_nivel_3
        	
 	addi $8 $4 16
 	
-	jal verificar_saiu_da_tela
+	jal verificar_saiu_da_tela_direita_nivel_3 # mudar
 	bne $2 $0 nao_anda_direita_nivel_3
 	
 	add $9 $4 $0
@@ -26561,6 +26584,148 @@ fim_morreu_baixo_grande_1:
 	jr $31
 	
 #===================================================
+# - funcao para andar para baixo especificamente para o nivel 3
+
+andar_para_baixo_nivel_3:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	sw $13 0($29)
+       	addi $29 $29 -4
+       	
+       	addi $9 $0 8
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0x000000
+       	jal conferir_colisao
+       	
+       	add $8 $0 $2
+       	
+       	bne $8 $0 nao_anda_baixo_nivel_3
+       	
+	addi $8 $4 2048
+	
+	add $9 $4 $0
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	add $13 $10 $0
+	beq $13 $19 personagem_andando_esquerda_baixo_nivel_3
+	jal desenhar_personagem_pulando_direita
+	j continuacao_para_laco_baixo_nivel_3
+personagem_andando_esquerda_baixo_nivel_3:
+	jal desenhar_personagem_pulando_esquerda
+continuacao_para_laco_baixo_nivel_3:
+	addi $10 $0 4
+	
+laco_1_andar_baixo_nivel_3:
+	beq $10 $0 fim_laco_1_andar_baixo_nivel_3
+	
+	addi $11 $0 8
+laco_2_andar_baixo_nivel_3:
+	beq $11 $0 fim_laco_2_andar_baixo_nivel_3
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_baixo_nivel_3
+fim_laco_2_andar_baixo_nivel_3:
+	addi $9 $9 -32
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_baixo_nivel_3
+fim_laco_1_andar_baixo_nivel_3:
+	
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
+	add $3 $0 $0
+	add $18 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+nao_anda_baixo_nivel_3:
+	add $13 $10 $0
+	beq $13 $19 personagem_nao_andando_esquerda_baixo_nivel_3
+	jal desenhar_personagem_direita
+	j continuacao_para_laco_baixo_nao_anda_nivel_3
+personagem_nao_andando_esquerda_baixo_nivel_3:
+	jal desenhar_personagem_esquerda
+	j continuacao_para_laco_baixo_nao_anda_nivel_3
+	
+continuacao_para_laco_baixo_nao_anda_nivel_3:
+	addi $18 $0 1
+	add $2 $4 $0
+	
+	addi $3 $0 'w'
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+morreu_baixo_nivel_3:
+	
+	jal personagem_morrendo
+	
+	add $2 $4 $0
+	add $3 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $13 0($29)
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+#===================================================
 # - funcao para andar para cima
 # - registradores de entrada: $4
 # - registradores de saida: $2
@@ -26772,6 +26937,78 @@ nao_anda_cima:
 
 cogumelo_ja_nasceu:
 	add $2 $4 $0
+	add $18 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+      	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	jr $31
+	
+#=============================================
+# - funcao para andar para cima especificamente no nivel 3
+
+andar_para_cima_nivel_3:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+	addi $8 $4 -2048
+	
+	add $9 $4 2048
+	add $2 $8 $0
+	
+	add $4 $8 $0
+	beq $10 $19 personagem_andando_esquerda_cima_nivel_3
+	jal desenhar_personagem_pulando_direita
+	j continuacao_para_laco_cima_nivel_3
+personagem_andando_esquerda_cima_nivel_3:
+	jal desenhar_personagem_pulando_esquerda
+continuacao_para_laco_cima_nivel_3:
+	
+	addi $10 $0 4
+	
+laco_1_andar_cima_nivel_3:
+	beq $10 $0 fim_laco_1_andar_cima_nivel_3
+	
+	addi $11 $0 8
+laco_2_andar_cima_nivel_3:
+	beq $11 $0 fim_laco_2_andar_cima_nivel_3
+	
+	lw $12 65536($9)
+	sw $12 0($9)
+	addi $9 $9 4
+	addi $11 $11 -1
+	j laco_2_andar_cima_nivel_3
+fim_laco_2_andar_cima_nivel_3:
+	addi $9 $9 -32
+	addi $9 $9 512
+	addi $10 $10 -1
+	j laco_1_andar_cima_nivel_3
+fim_laco_1_andar_cima_nivel_3:
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	jal timer
+	
 	add $18 $0 $0
 	
 	addi $29 $29 4                                                    
@@ -27388,6 +27625,114 @@ fim_laco_verificar_saiu_da_tela_2:
 	
 	jr $31
 saiu_da_tela:
+	addi $2 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#=============================================
+# - funcao para verificar se saiu da tela pela esquerda espeicficamente para o nivel 3
+
+verificar_saiu_da_tela_esquerda_nivel_3:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	lui $10 0x1001
+	addi $10 $10 496
+	addi $9 $0 64
+laco_verificar_saiu_da_tela_1_esquerda_nivel_3:
+	beq $9 $0 fim_laco_verificar_saiu_da_tela_1_esquerda_nivel_3
+	
+	beq $8 $10 saiu_da_tela_esquerda_nivel_3
+
+	addi $10 $10 512
+	
+	addi $9 $9 -1
+	j laco_verificar_saiu_da_tela_1_esquerda_nivel_3
+fim_laco_verificar_saiu_da_tela_1_esquerda_nivel_3:
+	
+	add $2 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+saiu_da_tela_esquerda_nivel_3:
+	addi $2 $0 1
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#=============================================
+# - funcao para verificar se saiu da tela pela direita espeicficamente para o nivel 3
+
+verificar_saiu_da_tela_direita_nivel_3:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	lui $10 0x1001
+	addi $10 $10 -16
+	addi $9 $0 64
+laco_verificar_saiu_da_tela_1_direita_nivel_3:
+	beq $9 $0 fim_laco_verificar_saiu_da_tela_1_direita_nivel_3
+	
+	beq $8 $10 saiu_da_tela_direita_nivel_3
+
+	addi $10 $10 512
+	
+	addi $9 $9 -1
+	j laco_verificar_saiu_da_tela_1_direita_nivel_3
+fim_laco_verificar_saiu_da_tela_1_direita_nivel_3:
+	
+	add $2 $0 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+saiu_da_tela_direita_nivel_3:
 	addi $2 $0 1
 	
 	addi $29 $29 4                                                    
