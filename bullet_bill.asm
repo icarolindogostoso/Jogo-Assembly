@@ -260,7 +260,7 @@ fim_laco_corpo_8_bullet_bill_1:
 	addi $10 $0 3
 laco_braco_bullet_bill_1:
 	beq $10 $0 fim_laco_braco_bullet_bill_1
-	addi $11 $0 6
+	addi $11 $0 5
 laco_braco_bullet_bill_2:
 	beq $11 $0 fim_laco_braco_bullet_bill_2
 	
@@ -272,8 +272,8 @@ laco_braco_bullet_bill_2:
 	addi $11 $11 -1
 	j laco_braco_bullet_bill_2
 fim_laco_braco_bullet_bill_2:
-	addi $8 $8 -24
-	addi $22 $22 -24
+	addi $8 $8 -20
+	addi $22 $22 -20
 	addi $8 $8 512
 	addi $22 $22 512
 	addi $10 $10 -1
@@ -302,21 +302,21 @@ fim_laco_braco_bullet_bill_1:
 	addi $8 $8 -488
 	addi $22 $22 -488
 	
-	sw $9 0($8)
-	sw $9 512($8)
-	sw $9 0($22)
-	sw $9 512($22)
+	sw $9 -4($8)
+	sw $9 508($8)
+	sw $9 -4($22)
+	sw $9 508($22)
 	
 	addi $8 $8 -520
 	addi $22 $22 -520
 	
+	sw $9 -4($8)
 	sw $9 0($8)
 	sw $9 4($8)
-	sw $9 8($8)
+	sw $9 -516($8)
 	sw $9 -512($8)
-	sw $9 -508($8)
+	sw $9 -4($22)
 	sw $9 0($22)
 	sw $9 4($22)
-	sw $9 8($22)
+	sw $9 -516($22)
 	sw $9 -512($22)
-	sw $9 -508($22)
