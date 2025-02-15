@@ -1,6 +1,6 @@
 .text
 menu_level_1:
-	j iniciar_nivel_3
+	#j iniciar_nivel_3
 	add $25 $0 $0 # registrador de retorno (pode usar)
 	add $24 $0 $0 # registrador de retorno (pode usar)
 	add $23 $0 $0 # registrador de retorno (pode usar)
@@ -468,8 +468,6 @@ baixo_nivel_3:
 	add $4 $8 $0
 	jal andar_para_baixo_nivel_3
 	add $8 $2 $0
-	addi $2 $0 1
-	beq $2 $3 desenhar_tela_de_morte_nivel_3
 	add $12 $3 $0
 	
 	j continuacao_nivel_3
@@ -528,6 +526,12 @@ direita_cima_nivel_3:
 	j continuacao_cima_nivel_3
 	
 continuacao_nivel_3:
+
+	add $4 $8 $0
+	jal verificar_situacao_bullet_bill
+	add $8 $3 $0
+	bne $2 $0 desenhar_tela_de_morte_nivel_3
+	
 	add $4 $20 $0
 	add $5 $8 $0
 	jal mover_boss
@@ -15187,17 +15191,52 @@ desenhar_mapa_9:
 tela_9:
 	lui $8 0x1001
 	addi $22 $8 65536
-	li $9 8192
+	li $9 52
 	li $20 0x000001
-ceu_tela_9:
+ceu_tela_9_1:
+	li $10 35
+ceu_tela_9_2:
 	
 	sw $20 0($8)
+	sw $20 396($8)
 	sw $20 0($22)
+	sw $20 396($22)
 	
 	addi $8 $8 4
 	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_9_2
+	addi $8 $8 -140
+	addi $22 $22 -140
+	addi $8 $8 512
+	addi $22 $22 512
 	addi $9 $9 -1
-	bnez $9 ceu_tela_9
+	bnez $9 ceu_tela_9_1
+	
+	lui $8 0x1001
+	addi $8 $8 140
+	addi $22 $8 65536
+	li $9 6
+	li $20 0x000001
+ceu_tela_9_3:
+	li $10 64
+ceu_tela_9_4:
+	
+	sw $20 0($8)
+	sw $20 396($8)
+	sw $20 0($22)
+	sw $20 396($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_9_4
+	addi $8 $8 -256
+	addi $22 $22 -256
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $9 $9 -1
+	bnez $9 ceu_tela_9_3
 	
 bloco_chao_1_init_tela_9:
 	lui $8 0x1001
@@ -22341,19 +22380,54 @@ desenhar_mapa_10:
        	addi $29, $29, -4
        	
 tela_10:
-    lui $8 0x1001
-    addi $22 $8 65536
-    li $9 8192
-    li $20 0x000001
-ceu_tela_10:
-    
-    sw $20 0($8)
-    sw $20 0($22)
-    
-    addi $8 $8 4
-    addi $22 $22 4
-    addi $9 $9 -1
-    bnez $9 ceu_tela_10
+    	lui $8 0x1001
+	addi $22 $8 65536
+	li $9 52
+	li $20 0x000001
+ceu_tela_10_1:
+	li $10 35
+ceu_tela_10_2:
+	
+	sw $20 0($8)
+	sw $20 396($8)
+	sw $20 0($22)
+	sw $20 396($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_10_2
+	addi $8 $8 -140
+	addi $22 $22 -140
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $9 $9 -1
+	bnez $9 ceu_tela_10_1
+	
+	lui $8 0x1001
+	addi $8 $8 140
+	addi $22 $8 65536
+	li $9 6
+	li $20 0x000001
+ceu_tela_10_3:
+	li $10 64
+ceu_tela_10_4:
+	
+	sw $20 0($8)
+	sw $20 396($8)
+	sw $20 0($22)
+	sw $20 396($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_10_4
+	addi $8 $8 -256
+	addi $22 $22 -256
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $9 $9 -1
+	bnez $9 ceu_tela_10_3
     
 bloco_chao_1_init_tela_10:
     lui $8 0x1001
@@ -34159,8 +34233,6 @@ andar_para_direita_nivel_3:
        	sw $12 0($29)
        	addi $29 $29 -4
        	
-       	addi $9 $0 8
-       	
 	addi $8 $4 16
 	
 	jal verificar_saiu_da_tela_direita_nivel_3 # mudar
@@ -37093,11 +37165,11 @@ mover_boss:
        	sw $9 0($29)
        	addi $29 $29 -4
 
-	addi $8 $0 52
+	addi $8 $0 34
 	div $4 $8
 	mfhi $9
 	beq $9 $0 mover_boss_1
-	addi $8 $0 26
+	addi $8 $0 17
 	beq $9 $8 mover_boss_2
 	addi $2 $4 1
 	
@@ -37346,6 +37418,80 @@ laco_andar_bullet_bill_direita_1:
        	lw $31 0($29)
        	
        	jr $31
+       	
+#=============================================
+# - funcao para saber se o bullet bill matou o personagem
+
+verificar_situacao_bullet_bill:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	addi $9 $0 8
+       	
+       	addi $24 $0 4
+       	addi $23 $0 0x000002
+       	jal conferir_colisao
+       	add $8 $0 $2
+       	
+       	addi $24 $0 -4
+       	addi $23 $0 0x000002
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	
+       	addi $24 $0 512
+       	addi $23 $0 0x000002
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	
+       	addi $24 $0 -512
+       	addi $23 $0 0x000002
+       	jal conferir_colisao
+       	add $8 $8 $2
+       	
+       	bne $8 $0 personagem_morreu_nivel_3
+       	
+       	add $2 $0 $0
+       	add $3 $4 $0
+       	
+       	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+personagem_morreu_nivel_3:
+	
+	jal personagem_morrendo
+	addi $2 $0 1 
+	add $3 $4 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+       	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
        	
 #=============================================
 # funcao timer
