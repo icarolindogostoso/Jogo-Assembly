@@ -1,6 +1,6 @@
 .text
 menu_level_1:
-	#j iniciar_nivel_3
+	j iniciar_nivel_3
 	add $25 $0 $0 # registrador de retorno (pode usar)
 	add $24 $0 $0 # registrador de retorno (pode usar)
 	add $23 $0 $0 # registrador de retorno (pode usar)
@@ -405,8 +405,10 @@ iniciar_nivel_3:
 	
 	add $8 $0 $0 # registrador que vai guardar a posicao atual do personagem
 	
+	jal desenhar_chao_mapa_9_e_10
 	jal desenhar_mapa_10
 	jal salvar_terceira_copia
+	jal barra_de_vida
 	
 	lui $8 0x1001
 	addi $8 $8 22768
@@ -427,6 +429,7 @@ iniciar_nivel_3:
 	addi $10 $0 'a'
 	addi $11 $0 'd'
 	add $12 $0 $0
+	addi $16 $0 ' '
 	
 loop_principal_nivel_3:
 	lw $21 0($9)
@@ -437,6 +440,7 @@ loop_principal_nivel_3:
 	beq $21 $10 esquerda_nivel_3
 	beq $21 $11 direita_nivel_3
 	beq $21 $12 cima_nivel_3
+	beq $21 $16 personagem_batendo
 	
 	j continuacao_nivel_3
 	
@@ -447,6 +451,7 @@ esta_colidindo_nivel_3:
 	beq $21 $10 esquerda_nivel_3
 	beq $21 $11 direita_nivel_3
 	beq $21 $12 cima_nivel_3
+	beq $21 $16 personagem_batendo
 	
 	j continuacao_nivel_3
 	
@@ -472,6 +477,13 @@ baixo_nivel_3:
 	
 	j continuacao_nivel_3
 	
+personagem_batendo:
+	addi $4 $17 1
+	jal descer_vida_boss
+	add $17 $2 $0
+	
+	j continuacao_nivel_3
+	
 desenhar_tela_de_morte_nivel_3:
 	j menu_morte
 	
@@ -486,6 +498,7 @@ laco_andar_cima_nivel_3:
 	add $19 $21 $0
 	beq $21 $10 esquerda_cima_nivel_3
 	beq $21 $11 direita_cima_nivel_3
+	beq $21 $16 personagem_batendo_cima
 
 continuacao_cima_nivel_3: 
 	add $4 $20 $0
@@ -505,6 +518,7 @@ continuacao_cima_nivel_3:
 	jal andar_para_cima_nivel_3
 	add $8 $2 $0
 	addi $15 $15 -1
+	
 	j laco_andar_cima_nivel_3
 fim_laco_andar_cima_nivel_3:
 
@@ -522,6 +536,13 @@ direita_cima_nivel_3:
 	add $4 $8 $0
 	jal andar_para_direita_nivel_3
 	add $8 $2 $0
+	
+	j continuacao_cima_nivel_3
+	
+personagem_batendo_cima:
+	addi $4 $17 1
+	jal descer_vida_boss
+	add $17 $2 $0
 	
 	j continuacao_cima_nivel_3
 	
@@ -15162,9 +15183,8 @@ fim_mapa_8:
 	jr $31
 	
 #================================================
-# - funcao para desenhar o mapa 9 (boss frame 1)
-
-desenhar_mapa_9:
+# - funcao apra desenhar o chao do mapa 9 e 10
+desenhar_chao_mapa_9_e_10:
 	sw $31, 0($29)
        	addi $29, $29, -4
        	sw $8, 0($29)
@@ -15187,57 +15207,7 @@ desenhar_mapa_9:
        	addi $29, $29, -4
        	sw $22, 0($29)
        	addi $29, $29, -4
-
-tela_9:
-	lui $8 0x1001
-	addi $22 $8 65536
-	li $9 52
-	li $20 0x000001
-ceu_tela_9_1:
-	li $10 35
-ceu_tela_9_2:
-	
-	sw $20 0($8)
-	sw $20 396($8)
-	sw $20 0($22)
-	sw $20 396($22)
-	
-	addi $8 $8 4
-	addi $22 $22 4
-	addi $10 $10 -1
-	bnez $10 ceu_tela_9_2
-	addi $8 $8 -140
-	addi $22 $22 -140
-	addi $8 $8 512
-	addi $22 $22 512
-	addi $9 $9 -1
-	bnez $9 ceu_tela_9_1
-	
-	lui $8 0x1001
-	addi $8 $8 140
-	addi $22 $8 65536
-	li $9 6
-	li $20 0x000001
-ceu_tela_9_3:
-	li $10 64
-ceu_tela_9_4:
-	
-	sw $20 0($8)
-	sw $20 396($8)
-	sw $20 0($22)
-	sw $20 396($22)
-	
-	addi $8 $8 4
-	addi $22 $22 4
-	addi $10 $10 -1
-	bnez $10 ceu_tela_9_4
-	addi $8 $8 -256
-	addi $22 $22 -256
-	addi $8 $8 512
-	addi $22 $22 512
-	addi $9 $9 -1
-	bnez $9 ceu_tela_9_3
-	
+       	
 bloco_chao_1_init_tela_9:
 	lui $8 0x1001
 	addi $8 $8 26624
@@ -15366,6 +15336,107 @@ final_bloco_chao_3_tela_9:
 	addi $22 $22 16
 	addi $10 $10 -1
 	bne $10 $0 laco_bloco_chao_3_tela_9
+	
+	addi $29, $29, 4                                                    
+       	lw $22, 0($29)
+	addi $29, $29, 4                                                    
+       	lw $20, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $15, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $14, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $13, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $12, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $11, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $10, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $9, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $8, 0($29)
+       	addi $29, $29, 4                                                    
+       	lw $31, 0($29)
+	jr $31
+	
+#================================================
+# - funcao para desenhar o mapa 9 (boss frame 1)
+
+desenhar_mapa_9:
+	sw $31, 0($29)
+       	addi $29, $29, -4
+       	sw $8, 0($29)
+       	addi $29, $29, -4
+       	sw $9, 0($29)
+       	addi $29, $29, -4
+       	sw $10, 0($29)
+       	addi $29, $29, -4
+       	sw $11, 0($29)
+       	addi $29, $29, -4
+       	sw $12, 0($29)
+       	addi $29, $29, -4
+       	sw $13, 0($29)
+       	addi $29, $29, -4
+       	sw $14, 0($29)
+       	addi $29, $29, -4
+       	sw $15, 0($29)
+       	addi $29, $29, -4
+       	sw $20, 0($29)
+       	addi $29, $29, -4
+       	sw $22, 0($29)
+       	addi $29, $29, -4
+
+tela_9:
+	lui $8 0x1001
+	addi $22 $8 65536
+	li $9 52
+	li $20 0x000001
+ceu_tela_9_1:
+	li $10 35
+ceu_tela_9_2:
+	
+	sw $20 0($8)
+	sw $20 396($8)
+	sw $20 0($22)
+	sw $20 396($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_9_2
+	addi $8 $8 -140
+	addi $22 $22 -140
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $9 $9 -1
+	bnez $9 ceu_tela_9_1
+	
+	lui $8 0x1001
+	addi $8 $8 140
+	addi $22 $8 65536
+	li $9 6
+	li $20 0x000001
+ceu_tela_9_3:
+	li $10 64
+ceu_tela_9_4:
+	
+	sw $20 0($8)
+	sw $20 396($8)
+	sw $20 0($22)
+	sw $20 396($22)
+	
+	addi $8 $8 4
+	addi $22 $22 4
+	addi $10 $10 -1
+	bnez $10 ceu_tela_9_4
+	addi $8 $8 -256
+	addi $22 $22 -256
+	addi $8 $8 512
+	addi $22 $22 512
+	addi $9 $9 -1
+	bnez $9 ceu_tela_9_3
 	
 mario_braco_1_bloco_1_init_tela_9:
 	lui $8 0x1001
@@ -22428,134 +22499,6 @@ ceu_tela_10_4:
 	addi $22 $22 512
 	addi $9 $9 -1
 	bnez $9 ceu_tela_10_3
-    
-bloco_chao_1_init_tela_10:
-    lui $8 0x1001
-    addi $8 $8 26624
-    addi $22 $8 65536
-    li $10 32
-    li $20 0x000000 #detalhe
-    li $11 0xb2c92e
-    li $12 0xb0841b
-laco_bloco_chao_1_tela_10:
-    li $9 4
-bloco_chao_1_tela_10:
-    beq $9 $0 final_bloco_chao_1_tela_10
-    
-    sw $20 0($8)
-    sw $11 512($8)
-    sw $11 1024($8)
-    sw $20 0($22)
-    sw $11 512($22)
-    sw $11 1024($22)
-    
-    addi $8 $8 4
-    addi $22 $22 4
-    addi $9 $9 -1
-    j bloco_chao_1_tela_10
-final_bloco_chao_1_tela_10:
-    addi $8 $8 1520
-    addi $22 $22 1520
-    
-    sw $12 0($8)
-    sw $11 4($8)
-    sw $11 8($8)
-    sw $12 12($8)
-    sw $12 0($22)
-    sw $11 4($22)
-    sw $11 8($22)
-    sw $12 12($22)
-    
-    addi $8 $8 -1520
-    addi $22 $22 -1520
-    addi $10 $10 -1
-    bne $10 $0 laco_bloco_chao_1_tela_10
-bloco_chao_2_init_tela_10:
-    lui $8 0x1001
-    addi $8 $8 28672
-    addi $22 $8 65536
-    li $10 32
-    li $20 0x000000 #detalhe
-    li $11 0xb0841b
-    li $12 0x817235
-laco_bloco_chao_2_tela_10:
-    li $9 4
-bloco_chao_2_tela_10:
-    beq $9 $0 final_bloco_chao_2_tela_10
-    
-    sw $11 0($8)
-    sw $12 512($8)
-    sw $12 1024($8)
-    sw $12 1536($8)
-    sw $11 0($22)
-    sw $12 512($22)
-    sw $12 1024($22)
-    sw $12 1536($22)
-    
-    addi $8 $8 4
-    addi $22 $22 4
-    addi $9 $9 -1
-    j bloco_chao_2_tela_10
-final_bloco_chao_2_tela_10:
-    addi $8 $8 -16
-    addi $22 $22 -16
-    
-    sw $20 0($8)
-    sw $20 12($8)
-    sw $20 516($8)
-    sw $20 520($8)
-    sw $20 0($22)
-    sw $20 12($22)
-    sw $20 516($22)
-    sw $20 520($22)
-    
-    addi $8 $8 16
-    addi $22 $22 16
-    addi $10 $10 -1
-    bne $10 $0 laco_bloco_chao_2_tela_10
-    
-bloco_chao_3_init_tela_10:
-    lui $8 0x1001
-    addi $8 $8 30720
-    addi $22 $8 65536
-    li $10 32
-    li $11 0x817235
-    li $12 0x6b5727
-laco_bloco_chao_3_tela_10:
-    li $9 4
-bloco_chao_3_tela_10:
-    beq $9 $0 final_bloco_chao_3_tela_10
-    
-    sw $11 0($8)
-    sw $11 512($8)
-    sw $11 1024($8)
-    sw $12 1536($8)
-    sw $11 0($22)
-    sw $11 512($22)
-    sw $11 1024($22)
-    sw $12 1536($22)
-    
-    addi $8 $8 4
-    addi $22 $22 4
-    addi $9 $9 -1
-    j bloco_chao_3_tela_10
-final_bloco_chao_3_tela_10:
-    addi $8 $8 -16
-    addi $22 $22 -16
-    
-    sw $12 1024($8)
-    sw $12 1036($8)
-    sw $12 516($8)
-    sw $12 520($8)
-    sw $12 1024($22)
-    sw $12 1036($22)
-    sw $12 516($22)
-    sw $12 520($22)
-    
-    addi $8 $8 16
-    addi $22 $22 16
-    addi $10 $10 -1
-    bne $10 $0 laco_bloco_chao_3_tela_10
     
 mario_bracol_bloco_1_tela10:
 	lui $8 0x1001
@@ -37165,11 +37108,11 @@ mover_boss:
        	sw $9 0($29)
        	addi $29 $29 -4
 
-	addi $8 $0 34
+	addi $8 $0 30
 	div $4 $8
 	mfhi $9
 	beq $9 $0 mover_boss_1
-	addi $8 $0 17
+	addi $8 $0 15
 	beq $9 $8 mover_boss_2
 	addi $2 $4 1
 	
@@ -37185,7 +37128,15 @@ mover_boss:
 mover_boss_1:
 	jal desenhar_mapa_9
 	jal salvar_terceira_copia
-	addi $2 $4 1
+	jal barra_de_vida
+	
+	add $8 $4 1
+	
+	add $4 $17 $0
+	jal descer_vida_boss
+	add $17 $2 $0
+	
+	add $2 $8 $0
 	
 	beq $10 $19 personagem_andando_esquerda_cima_mover_boss_1
 	add $4 $5 $0
@@ -37208,7 +37159,15 @@ continuacao_para_laco_cima_mover_boss_1:
 mover_boss_2:
 	jal desenhar_mapa_10
 	jal salvar_terceira_copia
-	addi $2 $4 1
+	jal barra_de_vida
+	
+	add $8 $4 1
+	
+	add $4 $17 $0
+	jal descer_vida_boss
+	add $17 $2 $0
+	
+	add $2 $8 $0
 	
 	beq $10 $19 personagem_andando_esquerda_cima_mover_boss_2
 	add $4 $5 $0
@@ -37231,7 +37190,15 @@ continuacao_para_laco_cima_mover_boss_2:
 mover_boss_1_personagem_pulando:
 	jal desenhar_mapa_9
 	jal salvar_terceira_copia
-	addi $2 $4 1
+	jal barra_de_vida
+	
+	add $8 $4 1
+	
+	add $4 $17 $0
+	jal descer_vida_boss
+	add $17 $2 $0
+	
+	add $2 $8 $0
 	
 	beq $10 $19 personagem_andando_esquerda_cima_mover_boss_1_personagem_pulando
 	add $4 $5 $0
@@ -37254,7 +37221,15 @@ continuacao_para_laco_cima_mover_boss_1_personagem_pulando:
 mover_boss_personagem_pulando_2:
 	jal desenhar_mapa_10
 	jal salvar_terceira_copia
-	addi $2 $4 1
+	jal barra_de_vida
+	
+	add $8 $4 1
+	
+	add $4 $17 $0
+	jal descer_vida_boss
+	add $17 $2 $0
+	
+	add $2 $8 $0
 	
 	beq $10 $19 personagem_andando_esquerda_cima_mover_boss_2_personagem_pulando
 	add $4 $5 $0
@@ -37492,6 +37467,124 @@ personagem_morreu_nivel_3:
        	lw $31 0($29)
 	
 	jr $31
+	
+#=============================================
+# - funcao para spawnar a barra de vida do boss
+
+barra_de_vida:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $12 0($29)
+       	addi $29 $29 -4
+       	
+	lui $8 0x1001
+	addi $8 $8 29164
+	
+	addi $11 $0 0xff0000
+	
+	li $9 4
+laco_barra_de_vida_1:
+	li $10 120
+laco_barra_de_vida_2:
+	
+	sw $11 0($8)
+	
+	addi $8 $8 -4
+	addi $10 $10 -1
+	bnez $10 laco_barra_de_vida_2
+	
+	add $8 $8 480
+	addi $8 $8 512
+	
+	addi $9 $9 -1
+	bnez $9 laco_barra_de_vida_1
+	
+	addi $29 $29 4                                                    
+       	lw $12 0($29)
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+	
+	jr $31
+	
+#=============================================
+# - funcao para o wario dar hit
+# - entrada: $4
+
+descer_vida_boss:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+       	beq $4 $0 continuacao_descer_vida_boss
+
+	lui $8 0x1001
+	addi $8 $8 29164
+	li $9 4
+laco_descer_vida_boss_1:
+	add $10 $4 $0
+laco_descer_vida_boss_2:
+
+	lw $11 65536($8)
+	sw $11 0($8)
+	
+	addi $8 $8 -4
+	addi $10 $10 -1
+	bnez $10 laco_descer_vida_boss_2
+	
+	li $11 4
+	mul $11 $11 $4
+	add $8 $8 $11
+	addi $8 $8 512
+	
+	addi $9 $9 -1
+	bnez $9 laco_descer_vida_boss_1
+	
+continuacao_descer_vida_boss:
+
+	li $8 120
+       	beq $4 $8 vitoria
+	
+	add $2 $4 $0
+	
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                  
+       	lw $31 0($29)
+	
+	jr $31
+	
+vitoria:
+	addi $2 $0 10
+	syscall
        	
 #=============================================
 # funcao timer
