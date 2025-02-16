@@ -1,4 +1,4 @@
-soco_init:
+soco_esquerda_init:
     lui $8, 0x1001
     addi $8, $8, 6192
     li $9, 3
