@@ -436,7 +436,9 @@ loop_principal_nivel_3:
 	bne $18 $0 esta_colidindo_nivel_3
 	beq $21 $0 baixo_nivel_3
 	lw $21 4($9)
+	beq $21 $16 pula_pro_proximo
 	add $19 $21 $0
+pula_pro_proximo:
 	beq $21 $10 esquerda_nivel_3
 	beq $21 $11 direita_nivel_3
 	beq $21 $12 cima_nivel_3
@@ -447,7 +449,9 @@ loop_principal_nivel_3:
 esta_colidindo_nivel_3:
 	beq $21 $0 continuacao_nivel_3
 	lw $21 4($9)
+	beq $21 $16 pula_pro_proximo_2
 	add $19 $21 $0
+pula_pro_proximo_2:
 	beq $21 $10 esquerda_nivel_3
 	beq $21 $11 direita_nivel_3
 	beq $21 $12 cima_nivel_3
@@ -478,6 +482,20 @@ baixo_nivel_3:
 	j continuacao_nivel_3
 	
 personagem_batendo:
+	
+	beq $10 $19 personagem_batendo_esquerda
+	add $4 $8 $0
+	jal desenhar_personagem_soco_direita
+	#addi $4 $8 32
+	#jal apagar_carinha
+	j continuacao_para_bater
+personagem_batendo_esquerda:
+	add $4 $8 $0
+	jal desenhar_personagem_soco_esquerda
+	#addi $4 $8 -4
+	#jal apagar_carinha
+continuacao_para_bater:
+	
 	addi $4 $17 1
 	jal descer_vida_boss
 	add $17 $2 $0
@@ -540,6 +558,19 @@ direita_cima_nivel_3:
 	j continuacao_cima_nivel_3
 	
 personagem_batendo_cima:
+	beq $10 $19 personagem_batendo_esquerda_cima
+	add $4 $8 $0
+	jal desenhar_personagem_soco_direita
+	#addi $4 $8 32
+	#jal apagar_carinha
+	j continuacao_para_bater_cima
+personagem_batendo_esquerda_cima:
+	add $4 $8 $0
+	jal desenhar_personagem_soco_esquerda
+	#addi $4 $8 -4
+	#jal apagar_carinha
+continuacao_para_bater_cima:
+
 	addi $4 $17 1
 	jal descer_vida_boss
 	add $17 $2 $0
@@ -31910,6 +31941,299 @@ fim_personagem_grande_pulando_esquerda:
 	jr $31
 	
 #===================================================
+# - funcao para desenhar o personagem dando soco para a direita
+
+desenhar_personagem_soco_direita:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	
+       	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 8
+laco_personagem_soco_direita_1:
+	beq $10 $0 fim_laco_personagem_soco_direita_1
+	addi $11 $0 8
+laco_personagem_soco_direita_2:
+	beq $11 $0 fim_laco_personagem_soco_direita_2
+
+	sw $9 0($8)
+
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_soco_direita_2
+fim_laco_personagem_soco_direita_2:
+	addi $8 $8 -32
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_soco_direita_1
+fim_laco_personagem_soco_direita_1:
+
+	add $8 $4 -4
+	#addi $8, $8, 6192
+	li $9, 3
+	li $20, 0xfdff0e # amarelo
+	li $10, 0x9A3894 # roxo claro
+	li $11, 0x592559 # roxo escuro
+	
+roupa_soco:
+	beqz $9, detalhe_roupa_soco
+	
+	sw $20, 12($8)
+	sw $20, 524($8)
+	sw $20, 532($8)
+	sw $20, 2568($8)
+	sw $10, 2572($8)
+	sw $10, 3080($8)
+	sw $10, 3088($8)
+	
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j roupa_soco
+	
+detalhe_roupa_soco:
+	subi $8, $8, 12
+	li $9, 0xfcfcfc
+	li $20, 0xffffff
+	li $10, 0x247C39
+	li $21, 0xfdff0e
+	
+	sw $20, 24($8)
+	sw $20, 3076($8)
+	sw $20, 2592($8)
+	sw $21, 2588($8)
+	
+	li $21, 0x9a3894
+	sw $21, 2576($8)
+	sw $9, 2572($8)
+	sw $9, 2584($8)
+	sw $10, 3592($8)
+	sw $10, 3608($8)
+	
+cabeça_init_soco:
+	addi $8, $8, 1024
+	li $9, 4
+	li $10, 2
+	li $20, 0xffd7a4
+	
+cabeça_soco:
+	beqz $9, plc_player_soco
+	
+	sw $20, 12($8)
+	addi $8, $8, 4
+	subi $9, $9, 1
+	j cabeça_soco
+
+plc_player_soco:
+	beqz $10, detalhe_cabeça_soco
+	subi $10, $10, 1
+	addi $8, $8, 496
+	li $9, 4
+	j cabeça_soco
+
+detalhe_cabeça_soco:
+	subi $8, $8, 1044
+	li $9, 0x784936
+	li $10, 0x000001
+	li $20, 0xf474a6
+	
+	sw $9, 12($8)
+	sw $9, 524($8)
+	sw $9, 1040($8)
+	sw $9, 536($8)
+	sw $9, 540($8)
+	sw $9, 20($8)
+	sw $10, 24($8)
+	sw $20, 544($8)
+
+fim_personagem_soco_direita:
+	addi $5 $0 8
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
+# - funcao para desenhar o personagem dando soco para a direita
+
+desenhar_personagem_soco_esquerda:
+	sw $31 0($29)
+       	addi $29 $29 -4
+       	sw $5 0($29)
+       	addi $29 $29 -4
+       	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	sw $20 0($29)
+       	addi $29 $29 -4
+       	
+       	add $8 $4 $0
+	addi $9 $0 0x0ec7db
+	
+	addi $10 $0 8
+laco_personagem_soco_esquerda_1:
+	beq $10 $0 fim_laco_personagem_soco_esquerda_1
+	addi $11 $0 8
+laco_personagem_soco_esquerda_2:
+	beq $11 $0 fim_laco_personagem_soco_esquerda_2
+
+	sw $9 0($8)
+
+	addi $8 $8 4
+	addi $11 $11 -1
+	j laco_personagem_soco_esquerda_2
+fim_laco_personagem_soco_esquerda_2:
+	addi $8 $8 -32
+	addi $8 $8 512
+	addi $10 $10 -1
+	j laco_personagem_soco_esquerda_1
+fim_laco_personagem_soco_esquerda_1:
+
+	add $8 $4 4
+	#addi $8, $8, 6192
+    li $9, 3
+    li $20, 0xfdff0e   # amarelo
+    li $10, 0x9A3894   # roxo claro
+    li $11, 0x592559   # roxo escuro
+
+# Desenha a roupa do personagem (esquerda)
+roupa_personagem_esquerda_soco:
+    beq $9, $0, detalhe_roupa_personagem_esquerda_soco
+
+    sw $20, 8($8)
+    sw $20, 512($8)
+    sw $20, 520($8)
+    sw $20, 2572($8)
+
+    sw $10, 2564($8)
+    sw $10, 3076($8)
+    sw $10, 3084($8)
+
+    addi $8, $8, 4
+    subi $9, $9, 1
+    j roupa_personagem_esquerda_soco
+
+# Detalhes adicionais da roupa
+
+detalhe_roupa_personagem_esquerda_soco:
+    subi $8, $8, 12
+    li $9, 0xfcfcfc
+    li $20, 0xffffff
+    li $10, 0x247C39
+    
+    sw $20, 4($8)
+    sw $20, 3096($8)
+    sw $20, 2556($8)
+    
+    li $20, 0xfdff0e
+    sw $20, 2560($8)
+    
+    # Botões
+    sw $9, 2564($8)
+    sw $9, 2576($8)
+
+    sw $10, 3588($8)
+    sw $10, 3604($8)
+
+# Inicialização da cabeça do personagem
+
+cabeça_init_personagem_esquerda_soco:
+    addi $8, $8, 1024
+    li $9, 4
+    li $10, 2
+    li $20, 0xffd7a4
+
+# Desenha a cabeça do personagem
+
+cabeça_personagem_esquerda_soco:
+    beq $9, $0, plc_player_personagem_esquerda_soco
+    sw $20, 4($8)
+    addi $8, $8, 4
+    subi $9, $9, 1
+    j cabeça_personagem_esquerda_soco
+
+plc_player_personagem_esquerda_soco:
+    beq $10, $0, detalhe_cabeça_personagem_esquerda_soco
+    subi $10, $10, 1
+    addi $8, $8, 496
+    li $9, 4
+    j cabeça_personagem_esquerda_soco
+
+# Detalhes da cabeça (cabelo, bigodes, olhos e nariz)
+
+detalhe_cabeça_personagem_esquerda_soco:
+    subi $8, $8, 1044
+    li $9, 0x784936  # Cabelo e bigodes
+    li $10, 0x000001  # Olho
+    li $20, 0xf474a6  # Nariz
+
+    # Cabelo
+    sw $9, 24($8)
+    sw $9, 536($8)
+    sw $9, 1044($8)
+    sw $9, 16($8)
+    
+    # Bigodes
+    sw $9, 520($8)
+    sw $9, 524($8)
+
+    # Olho e nariz
+    sw $10, 12($8)
+    sw $20, 516($8)
+
+fim_personagem_soco_esquerda:
+	addi $5 $0 8
+	jal apagar_fundo
+	
+	addi $29 $29 4  
+	lw $20 0($29)
+	addi $29 $29 4  
+	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $5 0($29)
+	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+	jr $31
+	
+#===================================================
 # funcao para desenhar o cogumelo
 
 desenhar_cogumelo:
@@ -37585,6 +37909,37 @@ continuacao_descer_vida_boss:
 vitoria:
 	addi $2 $0 10
 	syscall
+	
+#=============================================
+# - funcao para apagar eu sei la o que
+
+apagar_carinha:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $8 0($29)
+       	addi $29 $29 -4
+       	sw $9 0($29)
+       	addi $29 $29 -4
+	
+	addi $8 $0 8
+laco_apagar_carinha:
+	
+	lw $9 131072($4)
+	sw $9 65536($4)
+	sw $9 0($4)
+	
+	addi $4 $4 512
+	addi $8 $8 -1
+	bnez $8 laco_apagar_carinha
+	
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+	addi $29 $29 4                                                    
+       	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
        	
 #=============================================
 # funcao timer
