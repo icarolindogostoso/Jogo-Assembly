@@ -37907,6 +37907,18 @@ continuacao_descer_vida_boss:
 	jr $31
 	
 vitoria:
+	addi $29 $29 4                                                    
+       	lw $11 0($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
+       	addi $29 $29 4                                                    
+       	lw $8 0($29)
+	addi $29 $29 4                                                  
+       	lw $31 0($29)
+       	
+	jal boss_morrendo
 	addi $2 $0 10
 	syscall
 	
@@ -37936,6 +37948,52 @@ laco_apagar_carinha:
        	lw $9 0($29)
 	addi $29 $29 4                                                    
        	lw $8 0($29)
+       	addi $29 $29 4                                                    
+       	lw $31 0($29)
+       	
+       	jr $31
+       	
+#=============================================
+# - funcao para fazer a animacao do boss apagando
+
+boss_morrendo:
+	sw $31 0($29)
+       	addi $29 $29 -4
+	sw $9 0($29)
+       	addi $29 $29 -4
+       	sw $10 0($29)
+       	addi $29 $29 -4
+       	sw $11 0($29)
+       	addi $29 $29 -4
+       	
+	lui $11 0x1001
+	li $9 13
+laco_boss_morrendo_1:
+	li $10 512
+laco_boss_morrendo_2:
+	sw $0 131072($11)
+	sw $0 65536($11)
+	sw $0 0($11)
+	
+	addi $11 $11 4
+	addi $10 $10 -1
+	bnez $10 laco_boss_morrendo_2
+
+	add $4 $8 $0
+	jal desenhar_personagem_direita
+	
+	jal timer_mob
+	jal timer_mob
+	jal timer_mob
+	addi $9 $9 -1
+	bnez $9 laco_boss_morrendo_1
+	
+	addi $29 $29 4                                                    
+       	lw $11 ($29)
+	addi $29 $29 4                                                    
+       	lw $10 0($29)
+	addi $29 $29 4                                                    
+       	lw $9 0($29)
        	addi $29 $29 4                                                    
        	lw $31 0($29)
        	
