@@ -5,7 +5,7 @@ tela_2:
 	li $9 8192
 	li $20 0x20d8ff
 ceu_tela_2:
-	beq $9 $0 nuvem_init
+	beq $9 $0 nuvem_init_tela_2
 	
 	sw $20 0($8)
 	
@@ -13,14 +13,14 @@ ceu_tela_2:
 	addi $9 $9 -1
 	j ceu_tela_2
 	
-nuvem_init:
+nuvem_init_tela_2:
 	lui $8 0x1001
 	addi $8 $8 32768
 	li $9 10
 	li $10 3
 	li $20 0xa8f0fe
-nuvem:
-	beqz $9 proxLN
+nuvem_tela_2:
+	beqz $9 proxLN_tela_2
 	
 	sw $20 0($8)
 	sw $20 40($8)
@@ -82,14 +82,14 @@ nuvem:
 	
 	addi $8 $8 4
 	addi $9 $9 -1
-	j nuvem
+	j nuvem_tela_2
 
-proxLN:
+proxLN_tela_2:
 	addi $10 $10 -1
 	addi $8 $8 472
 	li $9 10
 	
-	bnez $10 nuvem
+	bnez $10 nuvem_tela_2
 	
 montanha_init_tela_2:
 	lui $8 0x1001
@@ -99,8 +99,8 @@ montanha_init_tela_2:
 	li $10 11
 	li $20 0x38a0e6
 
-montanha:
-	beqz $9 proxLM
+montanha_tela_2:
+	beqz $9 proxLM_tela_2
 	
 	
 	sw $20 0($8)
@@ -149,24 +149,24 @@ montanha:
 
 	addi $8 $8 4
 	addi $9 $9 -1
-	j montanha
+	j montanha_tela_2
 
-proxLM:
+proxLM_tela_2:
 	addi $10 $10 -1
 	addi $8 $8 472
 	li $9 10
 	
-	bnez $10 montanha
+	bnez $10 montanha_tela_2
 	
-moita_init:
+moita_init_tela_2:
 	lui $8 0x1001
 	addi $8 $8 23424
 	addi $8 $8 32768
 	li $9 4
 	li $10 4
 	li $20 0x57d73c
-moita:
-	beqz $9 prox_LMO
+moita_tela_2:
+	beqz $9 prox_LMO_tela_2
 	
 	sw $20 0($8)
 	sw $20 -4($8)
@@ -197,14 +197,14 @@ moita:
 	
 	addi $8 $8 4
 	addi $9 $9 -1
-	j moita
+	j moita_tela_2
 	
-prox_LMO:
+prox_LMO_tela_2:
 	addi $10 $10 -1
 	addi $8 $8 496
 	li $9 4
 	
-	bnez $10 moita
+	bnez $10 moita_tela_2
 bloco_chao_1_init_tela_2:
 	lui $8 0x1001
 	addi $8 $8 32768
