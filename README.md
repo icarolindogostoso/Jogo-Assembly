@@ -5,7 +5,7 @@
 <img src="images/banner.png" alt="Super Wario Banner" style="width: 100%;">
 
 </div>
-
+ 
 ## Descrição
 **Super Wario** é um jogo desenvolvido em **Assembly para a arquitetura MIPS**, inspirado no clássico **Super Mario Bros**, da Nintendo. Criado como parte da disciplina de **Arquitetura de Computadores**, ministrada pelo professor **Eduardo Bráulio**, o projeto propõe uma nova perspectiva ao universo do jogo original.
 
