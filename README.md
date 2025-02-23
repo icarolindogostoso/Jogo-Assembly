@@ -55,5 +55,5 @@ No jogo, os papéis foram invertidos: o protagonista é **Wario**, enquanto os i
 ## Agradecimentos
 - [Ana Maria](https://github.com/namariaa)
 - [Prof. Eduardo Braulio]()
-- [gp da russia]()
-- [Jesus cristo](https://img.freepik.com/fotos-premium/jesus-cristo-como-programador-da-vida-ilustracao-legal-estilo-comico_67778-154.jpg?semt=ais_hybrid)
+- [GP da Russia]()
+- [Jesus Cristo](https://img.freepik.com/fotos-premium/jesus-cristo-como-programador-da-vida-ilustracao-legal-estilo-comico_67778-154.jpg?semt=ais_hybrid)
