@@ -50,6 +50,7 @@ No jogo, os papéis foram invertidos: o protagonista é **Wario**, enquanto os i
   
 ## Artes feitas por:
 - [Davi Feron]()
+- [Guilherme Fagundes]()
 
 ## Agradecimentos
 - [Ana Maria](https://github.com/namariaa)
