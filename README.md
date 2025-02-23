@@ -31,5 +31,5 @@ No jogo, os papéis foram invertidos: o protagonista é **Wario**, enquanto os i
 ## Agradecimentos
 - [Ana Maria]()
 - [Prof. Eduardo Braulio]()
-- [gp da russia]()
+- [GP da Russia]()
 - [Jesus Cristo]()
