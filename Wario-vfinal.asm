@@ -10,10 +10,10 @@ menu_level_1:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃ¡ colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem estÃ¡ grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -209,10 +209,10 @@ iniciar_nivel_2:
 	add $20 $0 $0 # registrador que vai guardar quantos cenarios ja foram desenhados
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃ¡ colidindo com algo
 	
 	add $17 $0 $0 # registrador que vai guardar se o cogumelo ja nasceu
-	add $16 $0 $0 # registrador que vai guardar se o personagem está grande ou pequeno
+	add $16 $0 $0 # registrador que vai guardar se o personagem estÃ¡ grande ou pequeno
 	
 	add $15 $0 $0 # nada
 	add $14 $0 $0 # nada
@@ -388,7 +388,7 @@ iniciar_nivel_3:
 	add $20 $0 $0 # nada
 	
 	add $19 $0 $0 # registrador que vai guardar a copia do botao que vai apertado no teclado
-	add $18 $0 $0 # registrador que vai guardar se o personsagem está colidindo com algo
+	add $18 $0 $0 # registrador que vai guardar se o personsagem estÃ¡ colidindo com algo
 	
 	add $17 $0 $0 # nada
 	add $16 $0 $0 # nada
@@ -33494,8 +33494,8 @@ bordasv:
 	sw $22, 3600($8)
 	sw $22, 3572($8)
 	
-	sw $22, 5092($8)#braço esquerda
-	sw $22, 5660($8) #braço direita
+	sw $22, 5092($8)#braÃ§o esquerda
+	sw $22, 5660($8) #braÃ§o direita
 	sw $22, 6680($8)# pe direito
 	sw $22, 7144($8)# outro pe
 	
@@ -33517,7 +33517,7 @@ detalhes_finais_player:
 	sw $21, 4120($8)
 	sw $21, 4636($8)
 	
-	sw $22, 4128($8)#pescoço frente
+	sw $22, 4128($8)#pescoÃ§o frente
 	sw $22, 4644($8)
 	
 	sw $22, 5128($8)
@@ -33758,11 +33758,11 @@ bordashgl:
 	sw $10, 3088($8)
 	
 	sw $10, 3568($8) #abaixo do nariz
-	sw $10, 4108($8) #pescoço
+	sw $10, 4108($8) #pescoÃ§o
 	sw $10, 4112($8)
 	
 	sw $10, 4632($8)#cima luva
-	sw $10, 6156($8)#baixo braço
+	sw $10, 6156($8)#baixo braÃ§o
 	sw $10, 6676($8)#pe direita
 	sw $10, 7172($8)#pe exquerda
 
@@ -33785,8 +33785,8 @@ bordasvgl:
 	sw $10, 3592($8)#parte da orelha
 	sw $10, 3564($8)# parte do nariz
 	
-	sw $10, 5144($8)#braço esquerda
-	sw $10, 5600($8) #braço direita
+	sw $10, 5144($8)#braÃ§o esquerda
+	sw $10, 5600($8) #braÃ§o direita
 	sw $10, 6628($8)# pe direito
 	sw $10, 7188($8)# outro pe
 	
@@ -33811,10 +33811,10 @@ detalhes_finais_playergl:
 	sw $20, 5636($8)#botoes
 	sw $20, 5624($8)
 	
-	sw $10, 4084($8)#pescoço frente
+	sw $10, 4084($8)#pescoÃ§o frente
 	sw $10, 4592($8)
 	
-	sw $10, 5132($8)#braço
+	sw $10, 5132($8)#braÃ§o
 	sw $10, 5664($8)
 	
 	sw $10, 6656($8)
@@ -33901,7 +33901,7 @@ amarelosgjr:
 	sw $20, 512($8)
 	sw $20, 524($8)
 	
-	sw $20, 1048($8)#braço
+	sw $20, 1048($8)#braÃ§o
 	sw $20, 1560($8)
 	sw $20, 2072($8)
 	sw $20, 3604($8)
@@ -33994,7 +33994,7 @@ macacao_e_luvagjr:
 	sw $10 504($8)
 	sw $10 508($8)
 	
-	sw $20 524($8)# alça
+	sw $20 524($8)# alÃ§a
 	sw $20 540($8)
 	
 	sw $20 1040($8)
@@ -34052,11 +34052,11 @@ bordashgjr:
 	
 	sw $10, 3612($8)#abaixo nariz
 	
-	sw $10, 3068($8)# pescoço
+	sw $10, 3068($8)# pescoÃ§o
 	sw $10, 4092($8)
 	sw $10, 4096($8)
 	
-	sw $10, 5112($8)#braço esquerdo
+	sw $10, 5112($8)#braÃ§o esquerdo
 	sw $10, 5108($8)
 	
 	sw $10, 5156($8)#pe direito
@@ -34077,21 +34077,21 @@ bordasvgjr_init:
 bordasvgjr:
 	beqz $9 detalhes_finais_playergjr
 	
-	sw $10, 1012($8)#cabeça atras
+	sw $10, 1012($8)#cabeca atras
 	sw $10, 2032($8)
 	
 	sw $10, 548($8)#luva direita
 	sw $10, 1048($8)
 	
-	sw $10, 1568($8) #braço direito
+	sw $10, 1568($8) #braÃ§o direito
 	sw $10, 2080($8)
 	sw $10, 3100($8)
 	sw $10, 3612($8)
 	sw $10, 3604($8)
 
-	sw $10, 3576($8)#pescoço
+	sw $10, 3576($8)#pescoÃ§o
 	
-	sw $10, 4592($8)# breaço esquerdo
+	sw $10, 4592($8)# breaÃ§o esquerdo
 
 	sw $10, 5608($8)#luva esquerda
 	sw $10, 5624($8)
@@ -34353,11 +34353,11 @@ bordashgjr_pulando_esquerda:
 	
 	sw $10, 3580($8)#abaixo nariz
 	
-	sw $10, 3100($8)# pescoço
+	sw $10, 3100($8)# pescoÃ§o
 	sw $10, 4120($8)
 	sw $10, 4124($8)
 	
-	sw $10, 5152($8)#braço esquerdo
+	sw $10, 5152($8)#braÃ§o esquerdo
 	sw $10, 5156($8)
 	
 	sw $10, 5108($8)#pe direito
@@ -34377,21 +34377,21 @@ bordasvgjr_init_pulando_esquerda:
 bordasvgjr_pulando_esquerda:
 	beqz $9 detalhes_finais_playergjr_pulando_esquerda
 	
-	sw $10, 1048($8)#cabeça atras
+	sw $10, 1048($8)#cabeca atras
 	sw $10, 2076($8)
 	
 	sw $10, 488($8)#luva esquerda
 	sw $10, 1012($8)
 	
-	sw $10, 1516($8) #braço esquerdo
+	sw $10, 1516($8) #braÃ§o esquerdo
 	sw $10, 2028($8)
 	sw $10, 3056($8)
 	sw $10, 3568($8)
 	sw $10, 3576($8)
 
-	sw $10, 3604($8)#pescoço
+	sw $10, 3604($8)#pescoÃ§o
 	
-	sw $10, 4636($8)# breaço direito
+	sw $10, 4636($8)# breaÃ§o direito
 
 	sw $10, 5608($8)#luva direita
 	sw $10, 5652($8)
@@ -34532,28 +34532,28 @@ detalhe_roupa_soco:
 	sw $10, 3592($8)
 	sw $10, 3608($8)
 	
-cabeça_init_soco:
+cabeca_init_soco:
 	addi $8, $8, 1024
 	li $9, 4
 	li $10, 2
 	li $20, 0xffd7a4
 	
-cabeça_soco:
+cabeca_soco:
 	beqz $9, plc_player_soco
 	
 	sw $20, 12($8)
 	addi $8, $8, 4
 	subi $9, $9, 1
-	j cabeça_soco
+	j cabeca_soco
 
 plc_player_soco:
-	beqz $10, detalhe_cabeça_soco
+	beqz $10, detalhe_cabeca_soco
 	subi $10, $10, 1
 	addi $8, $8, 496
 	li $9, 4
-	j cabeça_soco
+	j cabeca_soco
 
-detalhe_cabeça_soco:
+detalhe_cabeca_soco:
 	subi $8, $8, 1044
 	li $9, 0x784936
 	li $10, 0x000001
@@ -34669,40 +34669,40 @@ detalhe_roupa_personagem_esquerda_soco:
     li $20, 0xfdff0e
     sw $20, 2560($8)
     
-    # Botões
+    # BotÃµes
     sw $9, 2564($8)
     sw $9, 2576($8)
 
     sw $10, 3588($8)
     sw $10, 3604($8)
 
-# Inicialização da cabeça do personagem
+# InicializaÃ§Ã£o da cabeca do personagem
 
-cabeça_init_personagem_esquerda_soco:
+cabeca_init_personagem_esquerda_soco:
     addi $8, $8, 1024
     li $9, 4
     li $10, 2
     li $20, 0xffd7a4
 
-# Desenha a cabeça do personagem
+# Desenha a cabeca do personagem
 
-cabeça_personagem_esquerda_soco:
+cabeca_personagem_esquerda_soco:
     beq $9, $0, plc_player_personagem_esquerda_soco
     sw $20, 4($8)
     addi $8, $8, 4
     subi $9, $9, 1
-    j cabeça_personagem_esquerda_soco
+    j cabeca_personagem_esquerda_soco
 
 plc_player_personagem_esquerda_soco:
-    beq $10, $0, detalhe_cabeça_personagem_esquerda_soco
+    beq $10, $0, detalhe_cabeca_personagem_esquerda_soco
     subi $10, $10, 1
     addi $8, $8, 496
     li $9, 4
-    j cabeça_personagem_esquerda_soco
+    j cabeca_personagem_esquerda_soco
 
-# Detalhes da cabeça (cabelo, bigodes, olhos e nariz)
+# Detalhes da cabeca (cabelo, bigodes, olhos e nariz)
 
-detalhe_cabeça_personagem_esquerda_soco:
+detalhe_cabeca_personagem_esquerda_soco:
     subi $8, $8, 1044
     li $9, 0x784936  # Cabelo e bigodes
     li $10, 0x000001  # Olho
